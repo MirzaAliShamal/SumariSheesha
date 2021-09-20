@@ -1,0 +1,10 @@
+@media(max-width:767px) {
+    .bg-half {
+        padding: 169px 0 50px;
+    }
+
+    .bg-half-170, .bg-half-260 {
+        padding: 150px 0;
+        height: auto;
+    }
+}

@@ -1,0 +1,372 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+a:hover {
+    color: #ffffff;
+}
+
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'Reggae One', cursive;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+h1 {
+    font-size: 5rem;
+}
+
+h2 {
+    font-size: 4rem;
+}
+
+.button {
+    display: inline-block;
+    position: relative;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.button::after, .button::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 95%;
+    height: 60%;
+    border: 2px solid;
+    transition: all 0.2s ease;
+    border-radius: 1px;
+    -webkit-transform: skew(-15deg);
+    transform: skew(-15deg);
+}
+
+.button::after {
+    bottom: 0;
+    left: 0;
+    border-top-color: transparent;
+    border-left-color: #ffffff;
+    border-bottom-color: #ffffff;
+    border-right-color: transparent;
+}
+
+.button::before {
+    top: 0;
+    right: 0;
+    border-bottom-color: transparent;
+    border-right-color: #ffffff;
+    border-top-color: #ffffff;
+    border-left-color: transparent;
+}
+
+.button:hover:after, .button:hover:before {
+    width: 100%;
+    height: 100%;
+}
+
+.button:hover {
+    color: #ffffff;
+}
+
+.button-sm {
+    padding: 0.2em 1.5em 0.3em 1.5em;
+    font-size: 13px;
+}
+
+.button-md {
+    padding: 0.5em 2em 0.5em 2em;
+    font-size: 14px;
+}
+
+.bg-dark {
+    background-color: #000000 !important;
+}
+
+.section {
+    padding: 3rem 0;
+}
+
+.topnav {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    padding-top: 1.5rem;
+    background-color: transparent;
+    border: 0;
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+.topnav .logo img {
+    width: 80px;
+}
+
+.navigation ul {
+    display: inline-block;
+    padding: 0px;
+    margin: 0px;
+}
+
+.navigation ul li {
+    display: inline-block;
+    list-style: none;
+}
+
+.navigation ul li a {
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.navigation ul li {
+    margin-right: 1rem;
+}
+
+.navigation .cart {
+    color: #ffffff;
+    font-size: 20px;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.bg-home {
+    height: 100vh;
+    background: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    transition: all 500ms ease-in 0s;
+    -ms-flex-item-align: center;
+    -ms-grid-row-align: center;
+    align-self: center;
+    position: relative;
+    background-position: center center;
+}
+
+.bg-half {
+    padding: 184px 0 90px;
+    background-size: cover;
+    -ms-flex-item-align: center;
+    -ms-grid-row-align: center;
+    align-self: center;
+    position: relative;
+    background-position: center center;
+}
+
+.bg-half-260 {
+    padding: 260px 0;
+    background-size: cover;
+    -ms-flex-item-align: center;
+    -ms-grid-row-align: center;
+    align-self: center;
+    position: relative;
+    background-position: center center;
+}
+
+.bg-half-170 {
+    padding: 170px 0;
+    background-size: cover;
+    -ms-flex-item-align: center;
+    -ms-grid-row-align: center;
+    align-self: center;
+    position: relative;
+    background-position: center center;
+}
+
+.bg-home p {
+    font-size: 20px;
+    margin-bottom: 0px;
+}
+
+.bg-gallery {
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    transition: all 500ms ease-in 0s;
+    -ms-flex-item-align: center;
+    -ms-grid-row-align: center;
+    align-self: center;
+    position: relative;
+    background-position: center center;
+}
+
+.bg-gallery p {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 0px;
+}
+
+.bg-deals {
+    height: 100vh;
+    background: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    transition: all 500ms ease-in 0s;
+    -ms-flex-item-align: center;
+    -ms-grid-row-align: center;
+    align-self: center;
+    position: relative;
+    background-position: center center;
+}
+
+.bg-deals p {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 0px;
+}
+
+.bg-products {
+    /* height: 100vh; */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    transition: all 500ms ease-in 0s;
+    -ms-flex-item-align: center;
+    -ms-grid-row-align: center;
+    align-self: center;
+    position: relative;
+    background-position: center center;
+}
+
+.bg-products p {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 0px;
+}
+
+.bg-about {
+    height: 100vh;
+    background: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    transition: all 500ms ease-in 0s;
+    -ms-flex-item-align: center;
+    -ms-grid-row-align: center;
+    align-self: center;
+    position: relative;
+    background-position: center center;
+}
+
+.bg-about p {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 0px;
+}
+
+.deals-card .card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.deals-card .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.deals-card .card-body {
+    background-color: #000000;
+    padding: 0.7rem 0.6rem;
+    text-align: center;
+    color: #ffffff;
+}
+
+.deals-card .card-body .card-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.deals-card .card-body .card-text {
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.social-icons a {
+    display: inline-block;
+    background-color: #ffffff;
+    color: #000000;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    border-radius: 100%;
+    text-align: center;
+    margin-right: 5px;
+}
+
+.footer {
+    background-color: #000000;
+    padding: 70px 0;
+}
+
+.footer .footer-logo img {
+    width: 80px;
+}
+
+.footer .about {
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 1rem;
+    width: 70%;
+    text-align: justify;
+}
+
+.footer .menu-title {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.footer .menu-vertical {
+    padding: 0px;
+    margin: 0px;
+}
+
+.footer .menu-vertical li {
+    list-style: none;
+}
+
+.footer .menu-vertical li a {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 400;
+}
+
+.footer .menu-horizontal {
+    padding: 0px;
+    margin: 0px;
+    display: inline-block;
+}
+
+.footer .menu-horizontal li {
+    list-style: none;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.footer .menu-horizontal li a {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 400;
+}
+
+.footer hr {
+    height: 2px;
+    margin-top: 3rem;
+}
