@@ -16,3 +16,15 @@ use Illuminate\Support\Facades\Route;
 require __DIR__.'/auth.php';
 
 Route::get('/', 'HomeController@home')->name('home');
+
+Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function() {
+    Route::get('dashboard', 'DashboardController@dashboard')->name('dashboard');
+
+    Route::prefix('flavour')->name('flavour.')->group(function() {
+        Route::get('/list', 'FlavourController@list')->name('list');
+        Route::get('/add', 'FlavourController@add')->name('add');
+        Route::get('/status/{id?}', 'FlavourController@status')->name('status');
+        Route::post('/save/{id?}', 'FlavourController@save')->name('save');
+    });
+});
+
