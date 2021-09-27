@@ -1,41 +1,41 @@
 @extends("layouts.admin")
 
-@section("title", "Flavour")
+@section("title", "Color")
 
-@section("nav-title", "Flavour")
+@section("nav-title", "Color")
 
 @section("content")
 
 
 <ul class="breadcrumb breadcrumb-style ">
     <li class="breadcrumb-item">
-        <h4 class="page-title m-b-0">Flavour</h4>
+        <h4 class="page-title m-b-0">Color</h4>
     </li>
     <li class="breadcrumb-item">
         <a href="{{ route('admin.dashboard') }}">
             <i class="fas fa-home"></i></a>
     </li>
     <li class="breadcrumb-item">
-        <a href="{{ route('admin.flavour.list') }}">Flavour</a>
+        <a href="{{ route('admin.color.list') }}">Color</a>
     </li>
-    <li class="breadcrumb-item active">Add</li>
+    <li class="breadcrumb-item active">Edit</li>
 </ul>
 
 <div class="col-12">
     <div class="card mt-5">
         <div class="card-header">
-            <h4>ADD Flavours</h4>
+            <h4>EDIT Color</h4>
         </div>
-        <form action="{{ route('admin.flavour.save') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.color.save', $list->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
                 <div class="form-group">
                     <label> Name</label>
-                    <input type="text" class="form-control" name="name" id="name" required="">
+                    <input type="text" class="form-control" name="name" value="{{ $list->name }}" id="name" required="">
                 </div>
                 <div class="form-group">
                     <label> Description</label>
-                    <input type="text" class="form-control" name="description" id="description" >
+                    <input type="text" class="form-control" name="description" value="{{ $list->description }}" id="description">
                 </div>
             </div>
             <div class="card-footer text-right">
