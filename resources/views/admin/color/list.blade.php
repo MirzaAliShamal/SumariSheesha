@@ -1,29 +1,29 @@
 @extends("layouts.admin")
 
-@section("title", "Flavour")
+@section("title", "Color")
 
-@section("nav-title", "Flavour")
+@section("nav-title", "Color")
 
 @section("content")
 
 
 <ul class="breadcrumb breadcrumb-style ">
     <li class="breadcrumb-item">
-        <h4 class="page-title m-b-0">Flavour</h4>
+        <h4 class="page-title m-b-0">Color</h4>
     </li>
     <li class="breadcrumb-item">
         <a href="{{ route('admin.dashboard') }}">
             <i class="fas fa-home"></i></a>
     </li>
-    <li class="breadcrumb-item active">Flavour</li>
+    <li class="breadcrumb-item active">Color</li>
 </ul>
 <div class="container mb-2 text-right">
-    <a href="{{ route('admin.flavour.add') }}" class="btn btn-primary">Add Flavour</a>
+    <a href="{{ route('admin.color.add') }}" class="btn btn-primary">Add Color</a>
 </div>
 <div class="col-12">
     <div class="card">
         <div class="card-header">
-            <h4>Flavours</h4>
+            <h4>Colors</h4>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -59,18 +59,18 @@
                             </td>
                             @endif
                             <td class="text-right">
-                                <button onclick="deleteAlert('{{ route('admin.flavour.delete',$item->id) }}')" class="btn btn-danger " title="delete">
+                                <button onclick="deleteAlert('{{ route('admin.color.delete',$item->id) }}')" class="btn btn-danger " title="delete">
                                     <i class="fas fa-trash"></i>
                                 </button>
-                                <a href="{{ route('admin.flavour.edit',$item->id) }}" class="btn btn-success " title="edit">
+                                <a href="{{ route('admin.color.edit',$item->id) }}" class="btn btn-success " title="edit">
                                     <i class="far fa-edit"></i>
                                 </a>
                                 @if($item->status)
-                                    <button onclick="alertMessage('{{ route('admin.flavour.status',$item->id) }}')" class="btn btn-info" title="Change Status">
+                                    <button onclick="alertMessage('{{ route('admin.color.status',$item->id) }}')" class="btn btn-info" title="Change Status">
                                         <i class="far fa-check-circle"></i>
                                     </button>
                                 @else
-                                    <button onclick="alertMessage('{{ route('admin.flavour.status',$item->id) }}')" class="btn btn-warning" title="Change Status">
+                                    <button onclick="alertMessage('{{ route('admin.color.status',$item->id) }}')" class="btn btn-warning" title="Change Status">
                                         <i class="fas fa-times"></i>
                                     </button>
                                 @endif

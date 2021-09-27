@@ -18,24 +18,24 @@
     <li class="breadcrumb-item">
         <a href="{{ route('admin.flavour.list') }}">Flavour</a>
     </li>
-    <li class="breadcrumb-item active">Add</li>
+    <li class="breadcrumb-item active">Edit</li>
 </ul>
 
 <div class="col-12">
     <div class="card mt-5">
         <div class="card-header">
-            <h4>ADD Flavours</h4>
+            <h4>Edit Flavour</h4>
         </div>
-        <form action="{{ route('admin.flavour.save') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.flavour.save', $flavour->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
                 <div class="form-group">
                     <label> Name</label>
-                    <input type="text" class="form-control" name="name" id="name" required="">
+                    <input type="text" class="form-control" name="name" value="{{ $flavour->name }}" id="name" required="">
                 </div>
                 <div class="form-group">
                     <label> Description</label>
-                    <input type="text" class="form-control" name="description" id="description" >
+                    <input type="text" class="form-control" name="description" value="{{ $flavour->description }}" id="description">
                 </div>
             </div>
             <div class="card-footer text-right">

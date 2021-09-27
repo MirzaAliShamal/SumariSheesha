@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Flavour;
+use Str;
+
 
 class FlavourController extends Controller
 {
@@ -34,7 +36,8 @@ class FlavourController extends Controller
             $msg = 'Flavour updated successfully !';
         }
         $flavour->name = $req->name;
-        $flavour->description = $req->description;
+        $flavour->slug = Str::slug($req->name);
+        $flavour->description = $req->description ?? 'none';
         $flavour->status = 1;
         $flavour->save();
         return redirect()->route('admin.flavour.list')->with('success', $msg);
@@ -52,5 +55,18 @@ class FlavourController extends Controller
         }
         $flavour->save();
         return redirect()->back()->with('success','Status changed succesfully');
+    }
+
+    public function delete($id = null)
+    {
+        $flavour = Flavour::find($id);
+        $flavour->delete();
+        return redirect()->back()->with('success', 'Flavour deleted successfully');
+    }
+
+    public function edit($id = null)
+    {
+        $flavour = Flavour::find($id);
+        return view('admin.flavour.edit',get_defined_vars());
     }
 }

@@ -1,50 +1,66 @@
 @extends("layouts.admin")
 
-@section("title", "Flavour")
+@section("title", "Product")
 
-@section("nav-title", "Flavour")
+@section("nav-title", "Product")
 
 @section("content")
 
 
 <ul class="breadcrumb breadcrumb-style ">
     <li class="breadcrumb-item">
-        <h4 class="page-title m-b-0">Flavour</h4>
+        <h4 class="page-title m-b-0">Product</h4>
     </li>
     <li class="breadcrumb-item">
         <a href="{{ route('admin.dashboard') }}">
             <i class="fas fa-home"></i></a>
     </li>
-    <li class="breadcrumb-item active">Flavour</li>
+    <li class="breadcrumb-item active">Product</li>
 </ul>
 <div class="container mb-2 text-right">
-    <a href="{{ route('admin.flavour.add') }}" class="btn btn-primary">Add Flavour</a>
+    <a href="{{ route('admin.product.add') }}" class="btn btn-primary">Add Product</a>
 </div>
 <div class="col-12">
     <div class="card">
         <div class="card-header">
-            <h4>Flavours</h4>
+            <h4>Product</h4>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="datatables table table-bordered">
                     <thead>
                         <tr>
-                            <th class="text-center" width="20px">
-                                #
-                            </th>
+                            <th>Product code</th>
+                            <th>Image</th>
                             <th>Name</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th class="text-right">Actions</th>
+                            <th>Category</th>
+                            <th>Flavour</th>
+                            <th>Color</th>
+                            <th>Quantity</th>
+                            <th>Price(GBP)</th>
+                            <th >Status</th>
+                            <th class="text-right" width="20%">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($list as $item )
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td><b>#SSP{{ $item->uuid }}</b></td>
+                            <td>
+                                <div style="height: 50px; width:50px">
+                                    @if($item->image)
+                                        <img src="{{ asset($item->image) }}" style="width: 100%; height:100%; object-fit:cover" alt="">
+                                    @else
+                                        <img src="{{ asset('uploads/products/empty.png') }}" class="rounded mr-75" alt="product image"  style="height:100%; width:100%; object-fit: cover">
+                                    @endif
+                                </div>
+                            </td>
                             <td>{{ $item->name }}</td>
-                            <td>{{ $item->description }}</td>
+                            <td>{{ $item->category->name }}</td>
+                            <td>{{ $item->flavour ? $item->flavour->name : 'N/A'}} </td>
+                            <td>{{ $item->color ? $item->color->name : 'N/A'}}</td>
+                            <td>{{ $item->quantity }}</td>
+                            <td>{{ $item->price }}</td>
                             @if($item->status)
                                 <td>
                                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
@@ -59,18 +75,18 @@
                             </td>
                             @endif
                             <td class="text-right">
-                                <button onclick="deleteAlert('{{ route('admin.flavour.delete',$item->id) }}')" class="btn btn-danger " title="delete">
+                                <button onclick="deleteAlert('{{ route('admin.product.delete',$item->id) }}')" class="btn btn-danger btn-sm" title="delete">
                                     <i class="fas fa-trash"></i>
                                 </button>
-                                <a href="{{ route('admin.flavour.edit',$item->id) }}" class="btn btn-success " title="edit">
+                                <a href="{{ route('admin.product.edit',$item->id) }}" class="btn btn-success btn-sm" title="edit">
                                     <i class="far fa-edit"></i>
                                 </a>
                                 @if($item->status)
-                                    <button onclick="alertMessage('{{ route('admin.flavour.status',$item->id) }}')" class="btn btn-info" title="Change Status">
+                                    <button onclick="alertMessage('{{ route('admin.product.status',$item->id) }}')" class="btn btn-info btn-sm" title="Change Status">
                                         <i class="far fa-check-circle"></i>
                                     </button>
                                 @else
-                                    <button onclick="alertMessage('{{ route('admin.flavour.status',$item->id) }}')" class="btn btn-warning" title="Change Status">
+                                    <button onclick="alertMessage('{{ route('admin.product.status',$item->id) }}')" class="btn btn-warning btn-sm" title="Change Status">
                                         <i class="fas fa-times"></i>
                                     </button>
                                 @endif
