@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 require __DIR__.'/auth.php';
 
 Route::get('/', 'HomeController@home')->name('home');
+Route::get('/products', 'HomeController@products')->name('products');
 
 Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function() {
     Route::get('dashboard', 'DashboardController@dashboard')->name('dashboard');

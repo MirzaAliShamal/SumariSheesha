@@ -26,8 +26,12 @@
         display: inline-block;
     }
 
+    .bg-page {
+        min-height: 40vh;
+    }
+
     .bg-half {
-        padding: 169px 0 50px;
+        padding: 140px 0 50px;
     }
 
     .bg-half-170, .bg-half-260 {

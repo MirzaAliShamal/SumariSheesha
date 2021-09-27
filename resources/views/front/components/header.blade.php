@@ -7,7 +7,7 @@
             <div class="navigation ms-auto">
                 <ul>
                     <li><a href="{{ route('home') }}">Home</a></li>
-                    <li><a href="">Products</a></li>
+                    <li><a href="{{ route('products') }}">Products</a></li>
                     <li><a href="">About</a></li>
                     <li><a href="">Booking for delivery</a></li>
                 </ul>
@@ -30,7 +30,7 @@
         <div class="offcanvas-navigation">
             <ul>
                 <li><a href="{{ route('home') }}">Home</a></li>
-                <li><a href="">Products</a></li>
+                <li><a href="{{ route('products') }}">Products</a></li>
                 <li><a href="">About</a></li>
                 <li><a href="">Booking for delivery</a></li>
             </ul>

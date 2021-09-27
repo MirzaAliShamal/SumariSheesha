@@ -202,8 +202,22 @@ h2 {
     background-position: center center;
 }
 
+.bg-page {
+    min-height: 50vh;
+    background: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    transition: all 500ms ease-in 0s;
+    -ms-flex-item-align: center;
+    -ms-grid-row-align: center;
+    align-self: center;
+    position: relative;
+    background-position: center center;
+}
+
 .bg-half {
-    padding: 184px 0 90px;
+    padding: 160px 0 90px;
     background-size: cover;
     -ms-flex-item-align: center;
     -ms-grid-row-align: center;
@@ -446,4 +460,20 @@ h2 {
 .footer hr {
     height: 2px;
     margin-top: 3rem;
+}
+
+.products .card-image {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+
+.products .card-image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.products .card-body {
+    background-color: #161716;
 }

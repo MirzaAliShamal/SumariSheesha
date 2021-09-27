@@ -10,4 +10,9 @@ class HomeController extends Controller
     {
         return view('front.home', get_defined_vars());
     }
+
+    public function products()
+    {
+        return view('front.products', get_defined_vars());
+    }
 }
