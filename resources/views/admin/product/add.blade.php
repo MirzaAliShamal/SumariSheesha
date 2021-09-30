@@ -30,27 +30,21 @@
             @csrf
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12 mb-3" style="margin-left: -12px">
-
+                    <div class="col-sm-12 mb-3" style="margin-left: -12px">
                         <div class="media-body mt-75">
                             <div class="col-12 mt-2">
                                 <input type="file" id="account-upload" name="file" class="dropify">
-                                {{-- <button class="btn btn-sm btn-outline-warning ml-50 waves-effect waves-light">Reset</button> --}}
                             </div>
-                            {{-- <p class="text-muted ml-3  mt-50"><small>Allowed JPG, GIF or PNG. Max
-                                    size of
-                                    800kB</small>
-                            </p> --}}
                         </div>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-sm-4 col-12">
                         <div class="form-group">
                             <label> Name</label>
                             <input type="text" class="form-control" name="name" id="name" placeholder="Product name" >
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-sm-4 col-12">
                         <div class="form-group">
                             <label> Category</label>
                             <select name="category" id="category" class="form-control">
@@ -61,7 +55,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-sm-4 col-12">
                         <div class="form-group">
                             <div class="custom-control custom-radio mt-4">
                                 <input type="radio" id="customRadio3" name="proSelect" checked value="1" class="custom-control-input radflav">
@@ -71,10 +65,9 @@
                                 <input type="radio" id="customRadio2" name="proSelect" value="1" class="custom-control-input radcol">
                                 <label class="custom-control-label" for="customRadio2">Color</label>
                             </div>
-
                         </div>
                     </div>
-                    <div class="col-4" id="flavourDiv" >
+                    <div class="col-sm-4 col-12" id="flavourDiv" >
                         <div class="form-group">
                             <label> Flavour</label>
                             <select name="flavour" id="flavour" class="form-control">
@@ -85,7 +78,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-4" id="colorDiv" style="display: none">
+                    <div class="col-sm-4 col-12" id="colorDiv" style="display: none">
                         <div class="form-group">
                             <label> Color</label>
                             <select name="color" id="color" class="form-control" >
@@ -96,22 +89,39 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-sm-4 col-12">
                         <div class="form-group">
                             <label> Price (GBP)</label>
                             <input type="number" class="form-control" placeholder="Product price" name="price" id="price" >
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-sm-4 col-12">
                         <div class="form-group">
                             <label> Quantity</label>
                             <input type="number" class="form-control" name="quantity" placeholder="Product quantity" id="quantity">
                         </div>
                     </div>
-                    <div class="col-12">
+                    <div class="col-sm-12">
                         <div class="form-group">
                             <label for="description"> Description</label><br>
-                            <textarea name="description" id="description" class="summernote" style="width: 100%; height:150px"></textarea>
+                            <textarea name="description" id="description" class="form-control" style="height: 300px !important;"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="card-header">
+                        <h4>SEO</h4>
+                    </div>
+
+                    <div class="col-sm-12 col-12">
+                        <div class="form-group">
+                            <label> Meta Title</label>
+                            <input type="text" class="form-control" name="meta_title" id="meta_title" placeholder="Meta Title" >
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-12">
+                        <div class="form-group">
+                            <label> Meta Description</label>
+                            <textarea name="meta_description" id="meta_description" class="form-control" placeholder="Meta Description"></textarea>
                         </div>
                     </div>
                 </div>
@@ -135,6 +145,11 @@
             $('#flavourDiv').show();
             $('#colorDiv').hide();
             $('#color').val('Nothing Selected');
+        });
+
+        $(document).on('keyup', '#name', function(e) {
+            let val = $(this).val();
+            $("#meta_title").val(val);
         });
 
         $(document).on('submit', '.productform', function () {
@@ -192,6 +207,31 @@
                 iziToast.error({
                     title: 'Alert!',
                     message: 'Quantity field is required!',
+                    position: 'topRight'
+                });
+                return false;
+            }
+            if( $('#meta_title').val() == '' ){
+                iziToast.error({
+                    title: 'Alert!',
+                    message: 'Meta Title is required!',
+                    position: 'topRight'
+                });
+                return false;
+            }
+            if( $('#meta_description').val() == '' ){
+                iziToast.error({
+                    title: 'Alert!',
+                    message: 'Meta Description is required!',
+                    position: 'topRight'
+                });
+                return false;
+            }
+
+            if( $('#meta_description').val().length > 160 ){
+                iziToast.error({
+                    title: 'Alert!',
+                    message: 'Meta Description must be of maximum 160 chracters',
                     position: 'topRight'
                 });
                 return false;

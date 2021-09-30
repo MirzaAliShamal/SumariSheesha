@@ -16,20 +16,22 @@
 <section class="section bg-dark">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-sm-auto mb-4">
-                <div class="products">
-                    <div class="card-image">
-                        <img src="{{ asset('theme/images/product-1.png') }}" class="img-fluid" alt="Product">
+            @foreach ($products as $item)
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-sm-auto mb-4">
+                    <div class="products">
+                        <div class="card-image">
+                            <img src="{{ asset($item->image) }}" class="img-fluid" alt="Product">
+                        </div>
+                        <div class="card-body">
+                            <a href="{{ route('products', $item->slug) }}"><h4>{{ Str::limit($item->name, 11, '...') }}</h4></a>
+                            <p>{{ Str::limit($item->meta_description, 45, '...') }}</p>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <a href=""><h4>Shisha</h4></a>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                    <div class="text-center">
+                        <a href="" class="button button-md mt-4">Add To Cart</a>
                     </div>
                 </div>
-                <div class="text-center">
-                    <a href="" class="button button-md mt-4">Add To Cart</a>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>

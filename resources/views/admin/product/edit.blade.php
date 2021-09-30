@@ -30,7 +30,7 @@
             @csrf
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 mb-3">
                         <div class="media mb--3">
 
                             {{-- <div style="height: 100px; width:100px">
@@ -44,25 +44,19 @@
                             </div> --}}
                             <div class="media-body mt-75">
                                 <div class="col-12 mt-2">
-                                    {{-- <label class="btn btn-sm btn-primary ml-50 mb-50 mb-sm-0 cursor-pointer waves-effect waves-light" for="account-upload">Upload new photo</label> --}}
                                     <input type="file" id="account-upload" name="file" data-default-file="{{ $list->image ? asset($list->image): asset('uploads/products/empty.png') }}" class="dropify">
-                                    {{-- <button class="btn btn-sm btn-outline-warning ml-50 waves-effect waves-light">Reset</button> --}}
                                 </div>
-                                {{-- <p class="text-muted ml-3  mt-50"><small>Allowed JPG, GIF or PNG. Max
-                                        size of
-                                        800kB</small>
-                                </p> --}}
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-4">
+                    <div class="col-sm-4 col-12">
                         <div class="form-group">
                             <label> Name</label>
                             <input type="text" class="form-control" value="{{ $list->name }}" name="name" id="name" placeholder="Product name" >
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-sm-4 col-12">
                         <div class="form-group">
                             <label> Category</label>
                             <select name="category" id="category" class="form-control">
@@ -73,64 +67,73 @@
                             </select>
                         </div>
                     </div>
-                    {{-- <div class="col-4">
+                    <div class="col-sm-4 col-12">
                         <div class="form-group">
-                            @if($list->flavour_id)
-                                <div class="custom-control custom-radio mt-4">
-                                    <input type="radio" id="customRadio3" {{ $list->flavour_id ? 'checked' : '' }} name="proSelect" value="1" class="custom-control-input radflav">
-                                    <label class="custom-control-label" for="customRadio3">Flavour</label>
-                                </div>
-                            @endif
-                            @if($list->color_id)
-                                <div class="custom-control custom-radio mt-4">
-                                    <input type="radio" id="customRadio2" name="proSelect" value="1" {{ $list->color_id ? 'checked' : '' }} class="custom-control-input radcol">
-                                    <label class="custom-control-label" for="customRadio2">Color</label>
-                                </div>
-                            @endif
-                        </div>
-                    </div> --}}
-                    @if($list->flavour_id)
-                        <div class="col-4" id="flavourDiv" >
-                            <div class="form-group">
-                                <label> Flavour</label>
-                                <select name="flavour" id="flavour" class="form-control">
-                                    <option selected disabled> Nothing Selected</option>
-                                    @foreach ($flavour as $flav )
-                                        <option value="{{ $flav->id }}" {{ $flav->id == $list->flavour_id ? 'selected': '' }}>{{ $flav->name }}</option>
-                                    @endforeach
-                                </select>
+                            <div class="custom-control custom-radio mt-4">
+                                <input type="radio" id="customRadio3" name="proSelect" {{ !is_null($list->flavour_id) ? 'checked' : '' }} value="1" class="custom-control-input radflav">
+                                <label class="custom-control-label" for="customRadio3">Flavour</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="customRadio2" name="proSelect" {{ !is_null($list->color_id) ? 'checked' : '' }} value="1" class="custom-control-input radcol">
+                                <label class="custom-control-label" for="customRadio2">Color</label>
                             </div>
                         </div>
-                    @endif
-                    @if($list->color_id)
-                        <div class="col-4" id="colorDiv" >
-                            <div class="form-group">
-                                <label> Color</label>
-                                <select name="color" id="color" class="form-control" >
-                                    <option selected disabled> Nothing Selected</option>
-                                    @foreach ($color as $colr )
-                                        <option value="{{ $colr->id }}" {{ $colr->id == $list->color_id ? 'selected': '' }}>{{ $colr->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                    </div>
+                    <div class="col-sm-4 col-12" id="flavourDiv" style="{{ !is_null($list->flavour_id) ? '' : 'display:none;' }}">
+                        <div class="form-group">
+                            <label> Flavour</label>
+                            <select name="flavour" id="flavour" class="form-control">
+                                <option selected disabled> Nothing Selected</option>
+                                @foreach ($flavour as $flav )
+                                    <option value="{{ $flav->id }}" {{ $flav->id == $list->flavour_id ? 'selected': '' }}>{{ $flav->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                    @endif
-                    <div class="col-4">
+                    </div>
+                    <div class="col-sm-4 col-12" id="colorDiv" style="{{ !is_null($list->color_id) ? '' : 'display:none;' }}">
+                        <div class="form-group">
+                            <label> Color</label>
+                            <select name="color" id="color" class="form-control" >
+                                <option selected disabled> Nothing Selected</option>
+                                @foreach ($color as $colr )
+                                    <option value="{{ $colr->id }}" {{ $colr->id == $list->color_id ? 'selected': '' }}>{{ $colr->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-12">
                         <div class="form-group">
                             <label> Price (GBP)</label>
                             <input type="number" class="form-control" placeholder="Product price" value="{{ $list->price }}" name="price" id="price">
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-sm-4 col-12">
                         <div class="form-group">
                             <label> Quantity</label>
                             <input type="number" class="form-control" name="quantity" value="{{ $list->quantity }}" placeholder="Product quantity" id="quantity">
                         </div>
                     </div>
-                    <div class="col-12">
+                    <div class="col-sm-12">
                         <div class="form-group">
                             <label for="description"> Description</label><br>
-                            <textarea name="description" id="description" class="summernote" style="width: 100%; height:150px">{!! $list->description !!}</textarea>
+                            <textarea name="description" id="description" class="form-control" style="height: 300px !important;">{{ $list->description }}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="card-header">
+                        <h4>SEO</h4>
+                    </div>
+
+                    <div class="col-sm-12 col-12">
+                        <div class="form-group">
+                            <label> Meta Title</label>
+                            <input type="text" class="form-control" name="meta_title" id="meta_title" value="{{ $list->meta_title }}" placeholder="Meta Title" >
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-12">
+                        <div class="form-group">
+                            <label> Meta Description</label>
+                            <textarea name="meta_description" id="meta_description" class="form-control" placeholder="Meta Description">{{ $list->meta_description }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -153,6 +156,11 @@
         //     $('#flavourDiv').show();
         //     $('#colorDiv').hide();
         // });
+
+        $(document).on('keyup', '#name', function(e) {
+            let val = $(this).val();
+            $("#meta_title").val(val);
+        });
 
         $(document).on('submit', '.productform', function () {
 
@@ -213,7 +221,31 @@
                 });
                 return false;
             }
+            if( $('#meta_title').val() == '' ){
+                iziToast.error({
+                    title: 'Alert!',
+                    message: 'Meta Title is required!',
+                    position: 'topRight'
+                });
+                return false;
+            }
+            if( $('#meta_description').val() == '' ){
+                iziToast.error({
+                    title: 'Alert!',
+                    message: 'Meta Description is required!',
+                    position: 'topRight'
+                });
+                return false;
+            }
 
+            if( $('#meta_description').val().length > 160 ){
+                iziToast.error({
+                    title: 'Alert!',
+                    message: 'Meta Description must be of maximum 160 chracters',
+                    position: 'topRight'
+                });
+                return false;
+            }
         });
     </script>
 @endsection

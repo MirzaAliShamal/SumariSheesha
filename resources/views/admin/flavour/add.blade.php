@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group">
                     <label> Description</label>
-                    <input type="text" class="form-control" name="description" id="description" >
+                    <textarea name="description" id="description" class="form-control"></textarea>
                 </div>
             </div>
             <div class="card-footer text-right">
@@ -43,6 +43,5 @@
             </div>
         </form>
     </div>
-
 </div>
 @endsection

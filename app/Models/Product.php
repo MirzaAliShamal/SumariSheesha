@@ -13,9 +13,11 @@ class Product extends Model
     public function category() {
         return $this->belongsTo('App\Models\Category');
     }
+
     public function flavour() {
         return $this->belongsTo('App\Models\Flavour');
     }
+
     public function color() {
         return $this->belongsTo('App\Models\Color');
     }

@@ -32,7 +32,7 @@ class FlavourController extends Controller
             $msg = 'Flavour saved successfully !';
         }
         else{
-            $flavour =Flavour::find($id);
+            $flavour = Flavour::find($id);
             $msg = 'Flavour updated successfully !';
         }
         $flavour->name = $req->name;

@@ -55,7 +55,7 @@
                                     @endif
                                 </div>
                             </td>
-                            <td>{{ $item->name }}</td>
+                            <td title="{{ $item->name }}">{{ Str::limit($item->name, 15, '...') }}</td>
                             <td>{{ $item->category->name }}</td>
                             <td>{{ $item->flavour ? $item->flavour->name : 'N/A'}} </td>
                             <td>{{ $item->color ? $item->color->name : 'N/A'}}</td>

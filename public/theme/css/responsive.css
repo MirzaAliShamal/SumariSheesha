@@ -18,7 +18,7 @@
         font-size: 2rem;
     }
 
-    .navigation ul {
+    .navigation .nav {
         display: none;
     }
 
@@ -48,6 +48,10 @@
     .footer .about {
         text-align: center !important;
         width: 100%;
+    }
+
+    .cart-table table {
+        width: 800px;
     }
 }
 

@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group">
                     <label> Description</label>
-                    <input type="text" class="form-control" name="description" value="{{ $list->description }}" id="description">
+                    <textarea name="description" id="description" class="form-control">{{ $list->description }}</textarea>
                 </div>
             </div>
             <div class="card-footer text-right">

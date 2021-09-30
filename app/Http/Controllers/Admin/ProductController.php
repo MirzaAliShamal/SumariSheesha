@@ -57,6 +57,8 @@ class ProductController extends Controller
         $list->price = $req->price;
         $list->quantity = $req->quantity;
         $list->description = $req->description ?? 'none';
+        $list->meta_title = $req->meta_title;
+        $list->meta_description = $req->meta_description;
         $list->status = 1;
         $list->save();
         return redirect()->route('admin.product.list')->with('success', $msg);

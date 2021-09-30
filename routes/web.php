@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 require __DIR__.'/auth.php';
 
 Route::get('/', 'HomeController@home')->name('home');
-Route::get('/products', 'HomeController@products')->name('products');
+Route::get('/products/{slug?}', 'HomeController@products')->name('products');
+
+Route::get('/cart', 'HomeController@cart')->name('cart');
+Route::get('/checkout', 'HomeController@checkout')->name('checkout');
 
 Route::middleware('auth')->group(function() {
     Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function() {
@@ -71,5 +74,4 @@ Route::middleware('auth')->group(function() {
             Route::get('/edit/{id?}', 'BrandProductController@edit')->name('edit');
         });
     });
-
 });
