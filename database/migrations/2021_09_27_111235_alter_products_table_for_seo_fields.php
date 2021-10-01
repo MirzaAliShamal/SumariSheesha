@@ -14,8 +14,9 @@ class AlterProductsTableForSeoFields extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->string('meta_title')->after('description');
-            $table->text('meta_description')->after('meta_title');
+            $table->string('meta_title')->nullable()->after('description');
+            $table->text('meta_description')->nullable()->after('meta_title');
+            $table->boolean('availablity')->default(1)->after('status');
         });
     }
 
