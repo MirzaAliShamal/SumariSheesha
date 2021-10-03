@@ -25,12 +25,13 @@ Route::get('/booking-for-delivery', 'HomeController@bookingForDelivery')->name('
 Route::prefix('user')->name('user.')->namespace('User')->group(function() {
     route::get('add-cart/{qty?}', 'CartController@addCart')->name('add.cart');
     route::get('remove-cart', 'CartController@removeCart')->name('remove.cart');
+    route::get('update-cart', 'CartController@updateCart')->name('update.cart');
     route::get('checkout-cart', 'CartController@checkoutCart')->name('checkout.cart')->middleware('auth');
 });
 
 Route::prefix('paypal')->name('paypal.')->group(function(){
     Route::get('paypalStatus', 'PaypalController@getPayPalStatus')->name('status') ;
-    Route::get('details', 'PaypalController@price')->name('details');
+    Route::post('details', 'PaypalController@price')->name('details');
 });
 
 // AJAX ROUTES

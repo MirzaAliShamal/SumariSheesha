@@ -54,10 +54,19 @@
     <script>
         $(document).on('click','.addToCart',function () {
             var id = $(this).data('id');
-            $(this).text('Added');
-            $(this).removeClass('addToCart');
+            if($(this).data('url') == '1'){
+                var url = "{{ route('user.add.cart') }}"
+            }
+            else if($(this).data('url') == '2'){
+                var qty= $('#qty').val()
+                var url = "{{ route('user.add.cart') }}/"+qty ;
+            }
+            if( $(this).data('check') != '1' ){
+                $(this).text('Added');
+                $(this).removeClass('addToCart');
+            }
             // console.log(id);
-            $.get('{{route('user.add.cart')}}',
+            $.get(url,
                 {
                     _token: "{{csrf_token()}}",
                     id:id,
@@ -65,7 +74,7 @@
                 function(response){
                     console.log(response);
                     if (response.status) {
-
+                        $('.shopping-cart-footer').html('');
                         $('.shopping-cart').addClass('active');
                         $('.total').text(response.total);
                         $('.shopping-cart-items').html(response.html);
@@ -83,6 +92,9 @@
         $(document).on('click','.remove-cart',function () {
             var id = $(this).data('id');
             $(this).closest('li').remove();
+            $(this).closest('tr').remove();
+            // $(this).text('Add to Cart');
+            // $(this).addClass('addToCart');
             // console.log(id);
             $.get('{{route('user.remove.cart')}}',
                 {
@@ -92,11 +104,36 @@
                 function(response){
                     console.log(response);
                     if (response.status) {
+                        $('.shopping-cart-footer').html('');
                         $('.total').text(response.total);
                         $('.shopping-cart-items').html(response.html);
                         iziToast.success({
                             title:'Alert!',
                             message:'Item successfully removed from cart!',
+                            position:'topRight'
+                        });
+                    }
+                }
+            )
+        });
+        $(document).on('click','.update-cart',function () {
+            var id = $(this).data('id');
+
+            $.get('{{route('user.update.cart')}}',
+                {
+                    _token: "{{csrf_token()}}",
+                    id:id,
+                },
+                function(response){
+                    console.log(response);
+                    if (response.status) {
+                        $('.shopping-cart-footer').html('');
+                        $('.total').text(response.total);
+                        $('.shopping-cart-items').html(response.html);
+                        $('.shopping-cart').addClass('active');
+                        iziToast.success({
+                            title:'Alert!',
+                            message:'Quantity updated Successfully!',
                             position:'topRight'
                         });
                     }

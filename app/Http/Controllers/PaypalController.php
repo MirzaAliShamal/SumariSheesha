@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use Illuminate\Http\Request;
 // use App\Models\PaypalTransaction;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\User;
 // Paypal includes
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Api\PaymentExecution;
@@ -140,6 +142,7 @@ class PaypalController extends Controller
                 $order = new Order;
                 $order->user_id = auth()->user()->id;
                 $order->total = $total;
+                $order->note = $data['additional_note'];
                 $order->save();
                 if($order){
                     foreach($content as $list){
@@ -155,18 +158,23 @@ class PaypalController extends Controller
                 if($item){
                     Cart::destroy();
                 }
-                // PaypalTransaction::Create([
-                //     'paypal_id' => $result->id,
-                //     'payer_id' => $info->payer_id,
-                //     'first_name' => $info->first_name,
-                //     'last_name' => $info->last_name,
-                //     'email' => $info->email,
-                //     'font_name' => $data['fonts'],
-                //     'color' => $data['color'],
-                //     'size' => $data['size'],
-                //     'qty' => $data['qty'],
-                //     'text_typed' => $data['text'],
-                // ]);
+                $user = User::find(auth()->user()->id);
+                if(!$user->phone){
+                    $user->phone = $data['phone'];
+                    $user->name = $data['name'];
+                    $user->save();
+                }
+                if($user){
+                    $address = new Address();
+                }else{
+                    $address = $user->address;
+                }
+                $address->address = $data['address'];
+                $address->user_id = $user->id;
+                $address->city = $data['city'];
+                $address->state = $data['state'];
+                $address->zip_code = $data['zipcode'];
+                $address->save();
 
             return redirect()->route('cart')->with('success','purchase successfull');
         } else {

@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrderItem extends Model
+class Address extends Model
 {
     use HasFactory;
     protected $guarded = [];
 
-    public function order()
+    public function user()
     {
-        return $this->belongsTo('App\Models\Order');
+       return $this->belongsTo('App\Models\User');
     }
-
 }

@@ -21,7 +21,11 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-sm-auto mb-4">
                 <div class="products">
                     <div class="card-image">
-                        <img src="{{ asset($item->image) }}" class="img-fluid" alt="Product">
+                        @if($item->image)
+                            <img src="{{ asset($item->image) }}" class="img-fluid" alt="Product">
+                        @else
+                            <img src="{{ asset('empty.jpg') }}" class="img-fluid" alt="Product">
+                        @endif
                     </div>
                     <div class="card-body">
                         <a href="{{ route('products', $item->slug) }}">
@@ -31,7 +35,7 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <button type="button" data-id="{{ $item->id }}" class="button button-md mt-4 addToCart">Add To
+                    <button type="button" data-id="{{ $item->id }}" data-url="1" class="button button-md mt-4 addToCart">Add To
                         Cart</button>
                 </div>
             </div>

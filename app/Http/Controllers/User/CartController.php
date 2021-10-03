@@ -23,6 +23,7 @@ class CartController extends Controller
             else{
                 $cart = Cart::add($list->id, $list->name, $qty, $list->price,['image'=>$list->image],0);
             }
+            // dd($cart);
         // }
         // dd($cart->qty);
         // if($cart){
@@ -65,6 +66,26 @@ class CartController extends Controller
             'html' => view('ajax.cart', get_defined_vars())->render(),
         ]);
 
+
+    }
+
+    public function updateCart(Request $req)
+    {
+        $list = Cart::get($req->id);
+        $qty = $list->qty - 1;
+        // dd($qty);
+        if($list->qty > 1){
+            $cart = Cart::update($req->id,$qty);
+            $total = Cart::total();
+            $content = Cart::content();
+
+            return response()->json([
+                'status' => true,
+                'total' => $total,
+                'content' =>$content,
+                'html' => view('ajax.cart', get_defined_vars())->render(),
+            ]);
+        }
 
     }
 
