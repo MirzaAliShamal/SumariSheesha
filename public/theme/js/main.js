@@ -13,4 +13,19 @@ $(document).ready(function () {
         e.stopPropagation();
         $(".shopping-cart").toggleClass("active");
     });
+
+    $('.datepicker').datepicker({
+        format: 'mm/dd/yyyy',
+        startDate: new Date(),
+        enableOnReadonly: true,
+    });
+
+    $('#timepicker').mdtimepicker({
+        timeFormat: 'hh:mm:ss.000',
+        format:'hh:mm tt',
+        readOnly:true,
+        theme:'dark',
+        okLabel:'Confrim',
+        cancelLabel:'Cancel',
+    });
 });

@@ -145,11 +145,16 @@ label {
 .form-check-input:focus-within,
 .form-check-input:visited,
 .form-check-input:active,
-.form-check-input:checked {
+.form-check-input:checked,
+.form-control:read-only {
     background-color: transparent;
     outline: none;
     box-shadow: none;
     border-color: #ffffff;
+}
+
+.form-control option {
+    color: #000000;
 }
 
 .topnav {
@@ -768,4 +773,37 @@ label {
 
 .cart-card hr {
     border-color: #ffffff !important;
+}
+
+#infowindow {
+    width: 100%;
+    max-height: 250px;
+    background-color: #ffffff;
+}
+
+#infowindow .image img {
+    width: 100px;
+    object-fit: cover;
+}
+
+#infowindow .details p {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000000;
+}
+
+#infowindow .details small {
+    font-size: 12px;
+    color: #000000;
+}
+
+#infowindow .details a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
 }

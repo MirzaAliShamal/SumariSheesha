@@ -132,12 +132,6 @@
                             <input type="number" class="form-control" placeholder="Product price" value="{{ $list->price }}" name="price" id="price" required="">
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label> Quantity</label>
-                            <input type="number" class="form-control" name="quantity" value="{{ $list->quantity }}" placeholder="Product quantity" id="quantity" required="">
-                        </div>
-                    </div>
                     <div class="col-12">
                         <div class="form-group">
                             <label for="description"> Description</label><br>

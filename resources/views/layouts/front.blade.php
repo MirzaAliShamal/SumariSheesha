@@ -10,14 +10,16 @@
 
     {{-- External Libraries --}}
     <link rel="stylesheet" href="{{ asset('theme/css/bootstrap.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('theme/css/bootstrap-datepicker.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('theme/css/mdtimepicker.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('theme/css/slick.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('theme/css/slick-theme.css') }}" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
 
     {{-- Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reggae+One&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&display=swap">
     <link rel="stylesheet" href="{{ asset('theme/fonts/css/all.min.css') }}" type="text/css">
@@ -26,9 +28,6 @@
     {{-- Stylesheet --}}
     <link rel="stylesheet" href="{{ asset('theme/css/main.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('theme/css/responsive.css') }}" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css"
-        integrity="sha512-O03ntXoVqaGUTAeAmvQ2YSzkCvclZEcPQu1eqloPaHfJ5RuNGiS4l+3duaidD801P50J28EHyonCV06CUlTSag=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
     @yield('css')
@@ -44,11 +43,11 @@
 
     <script src="{{ asset('theme/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('theme/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('theme/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/gh/dmuy/MDTimePicker@v1.0.2-rc2/mdtimepicker.min.js"></script>
     <script src="{{ asset('theme/js/slick.min.js') }}"></script>
     <script src="{{ asset('theme/js/main.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"
-        integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 
     @yield('js')
 

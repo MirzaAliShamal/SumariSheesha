@@ -10,7 +10,7 @@
                     <li><a href="{{ route('home') }}">Home</a></li>
                     <li><a href="{{ route('products') }}">Products</a></li>
                     <li><a href="">About</a></li>
-                    <li><a href="">Booking for delivery</a></li>
+                    <li><a href="{{ route('booking.for.delivery') }}">Booking for delivery</a></li>
                 </ul>
                 <a href="{{ route('login') }}" class="button button-sm">Login</a>
                 <span class="cart"><i class="fal fa-shopping-cart"></i></span>
@@ -84,7 +84,7 @@
                 <li><a href="{{ route('home') }}">Home</a></li>
                 <li><a href="{{ route('products') }}">Products</a></li>
                 <li><a href="">About</a></li>
-                <li><a href="">Booking for delivery</a></li>
+                <li><a href="{{ route('booking.for.delivery') }}">Booking for delivery</a></li>
             </ul>
         </div>
     </div>

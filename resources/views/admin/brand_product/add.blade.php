@@ -80,12 +80,6 @@
                     </div>
                     <div class="col-4">
                         <div class="form-group">
-                            <label> Quantity</label>
-                            <input type="number" class="form-control" name="quantity" placeholder="Product quantity" id="quantity">
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group">
                             <div class="custom-control custom-radio mt-4">
                                 <input type="radio" id="customRadio3" name="proSelect" checked value="1" class="custom-control-input radflav">
                                 <label class="custom-control-label" for="customRadio3">Flavour</label>
@@ -97,7 +91,7 @@
 
                         </div>
                     </div>
-                    <div class="col-12" id="flavourDiv" >
+                    <div class="col-4" id="flavourDiv" >
                         <div class="form-group">
                             <label> Flavour</label>
                             <select name="flavour" id="flavour" class="form-control">
@@ -108,7 +102,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-12" id="colorDiv" style="display: none">
+                    <div class="col-4" id="colorDiv" style="display: none;">
                         <div class="form-group">
                             <label> Color</label>
                             <select name="color" id="color" class="form-control" >
@@ -122,7 +116,7 @@
                     <div class="col-12">
                         <div class="form-group">
                             <label for="description"> Description</label><br>
-                            <textarea name="description" id="description" class="summernote" style="width: 100%; height:150px"></textarea>
+                            <textarea name="description" id="description" class="form-control" style="height: 300px !important;"></textarea>
                         </div>
                     </div>
                 </div>

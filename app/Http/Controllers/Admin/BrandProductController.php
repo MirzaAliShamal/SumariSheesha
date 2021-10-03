@@ -58,7 +58,6 @@ class BrandProductController extends Controller
         $list->flavour_id = $req->flavour ;
         $list->category_id = $req->category;
         $list->price = $req->price;
-        $list->quantity = $req->quantity;
         $list->description = $req->description ?? 'none';
         $list->status = 1;
         $list->save();

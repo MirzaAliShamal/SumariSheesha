@@ -5,13 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Brand extends Model
+class Country extends Model
 {
     use HasFactory;
-
     protected $guarded = [];
-
-    public function brand_products() {
-        return $this->hasMany('App\Models\BrandProduct');
-    }
 }

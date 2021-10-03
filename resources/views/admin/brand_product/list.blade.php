@@ -37,7 +37,6 @@
                             <th>Brand</th>
                             <th>Flavour</th>
                             <th>Color</th>
-                            <th>Quantity</th>
                             <th>Price(GBP)</th>
                             <th style="width: 2%">Status</th>
                             <th class="text-right" style="width: 20%">Actions</th>
@@ -61,7 +60,6 @@
                             <td>{{ $item->brand->name }}</td>
                             <td>{{ $item->flavour ? $item->flavour->name : 'N/A'}} </td>
                             <td>{{ $item->color ? $item->color->name : 'N/A'}}</td>
-                            <td>{{ $item->quantity }}</td>
                             <td>{{ $item->price }}</td>
                             @if($item->status)
                                 <td>

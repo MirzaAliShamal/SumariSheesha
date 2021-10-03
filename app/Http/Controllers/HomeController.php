@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Brand;
+use DB;
 
 class HomeController extends Controller
 {
@@ -31,5 +33,23 @@ class HomeController extends Controller
     public function checkout()
     {
         return view('front.checkout', get_defined_vars());
+    }
+
+    public function bookingForDelivery()
+    {
+        return view('front.booking', get_defined_vars());
+    }
+
+    // AJAX FUNCTIONS
+    public function getBrands(Request $req)
+    {
+        $lat = $req->lat;
+        $lng = $req->lng;
+        $rad = 5;
+
+        $brands = Brand::selectRaw("id, name, CAST(location_lat AS double) as lat, CAST(location_long AS double) as lng, ( 3956 * acos( cos( radians(?) ) * cos( radians( location_lat ) ) * cos( radians( location_long ) - radians(?) ) + sin( radians(?) ) * sin( radians( location_lat ) ) ) ) AS distance", [$lat, $lng, $lat])
+            ->having("distance", "<=", $rad)->with('brand_products')->get()->toArray();
+
+        return response()->json($brands, 200);
     }
 }
