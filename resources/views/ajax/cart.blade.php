@@ -2,7 +2,11 @@
     @foreach ($content as $item)
     <li class="cart-item d-flex w-100">
         <div class="cart-image">
-            <img src="{{ asset($item->options->image) }}" class="img-fluid" alt="">
+            @if($item->options->image)
+                <img src="{{ asset($item->options->image) }}" class="img-fluid" alt="">
+            @else
+                <img src="{{ asset('empty.jpg') }}" class="img-fluid" alt="">
+            @endif
         </div>
         <div class="cart-detail ms-2 m-auto">
             <p>{{ $item->name }}</p>
@@ -21,7 +25,7 @@
     @if(Cart::content()->count() > 0)
         <a href="{{ route('cart') }}" class="button button-md text-center">View Cart</a>
         @if(auth()->user())
-            <a href="{{ route('paypal.details') }}" class="button button-md text-center checkout-cart">Checkout</a>
+            <a href="{{ route('checkout') }}" class="button button-md text-center checkout-cart">Checkout</a>
         @else
             <a href="{{ route('login') }}" class="button button-md text-center checkout-cart">Checkout</a>
         @endif

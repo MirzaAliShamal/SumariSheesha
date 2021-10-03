@@ -18,7 +18,11 @@
         <div class="row justify-content-center">
             <div class="col-lg-4 col-md-4 col-12 mb-2">
                 <div class="product-image">
-                    <img src="{{ asset($product->image) }}" class="img-fluid" alt="">
+                    @if($product->image)
+                        <img src="{{ asset($product->image) }}" class="img-fluid" alt="">
+                    @else
+                        <img src="{{ asset('empty.jpg') }}" class="img-fluid" alt="">
+                    @endif
                 </div>
             </div>
             <div class="col-lg-8 col-md-8 col-12 mb-2">
@@ -38,11 +42,11 @@
                     <p class="mb-0"><strong>Quantity:</strong></p>
                     <div class="input-group quantity-field mb-3">
                         <span class="input-group-text" onclick="quantityField('minus')">-</span>
-                        <input type="text" class="form-control" value="1" name="qty" id="qty" readonly>
+                        <input type="text" class="form-control qty-pro" value="1" name="qty" id="qty" readonly>
                         <span class="input-group-text" onclick="quantityField('plus')">+</span>
                     </div>
 
-                    <button type="button" class="button button-md mt-4">Add To Cart</button>
+                    <button type="button" data-id="{{ $product->id }}" data-url="2" class="button button-md mt-4 addToCart">Add To Cart</button>
                 </div>
             </div>
         </div>
