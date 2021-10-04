@@ -26,7 +26,13 @@ Route::prefix('user')->name('user.')->namespace('User')->group(function() {
     route::get('add-cart/{qty?}', 'CartController@addCart')->name('add.cart');
     route::get('remove-cart', 'CartController@removeCart')->name('remove.cart');
     route::get('update-cart', 'CartController@updateCart')->name('update.cart');
-    route::get('checkout-cart', 'CartController@checkoutCart')->name('checkout.cart')->middleware('auth');
+    // route::get('checkout-cart', 'CartController@checkoutCart')->name('checkout.cart')->middleware('auth');
+    Route::prefix('booking')->name('booking.')->group(function() {
+        route::get('add', 'BookingController@addBooking')->name('add');
+        route::get('remove', 'BookingController@remove')->name('remove');
+        route::get('checkout', 'BookingController@checkout')->name('checkout');
+
+    });
 });
 
 Route::prefix('paypal')->name('paypal.')->group(function(){

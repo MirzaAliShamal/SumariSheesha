@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Product;
+use App\Models\BrandProduct;
 
 function uploadFile($file, $path){
     $name = time().'-'.str_replace(' ', '-', $file->getClientOriginalName());
@@ -19,5 +20,9 @@ function countries() {
 
 function getProductDetails($id){
     $product = Product::find($id);
+    return $product;
+}
+function getBrandPrdDetails($id){
+    $product = BrandProduct::find($id);
     return $product;
 }

@@ -18,7 +18,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-9 col-md-9 col-sm-9 col-12 mb-4">
                 <div class="table-scrollable cart-table">
-                    @if(Cart::content()->count() > 0)
+                    @if(Cart::instance('product')->content()->count() > 0)
                         <table class="m-auto table table-responsive">
                             <thead>
                                 <tr>
@@ -29,7 +29,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (Cart::content() as $list)
+                                @foreach (Cart::instance('product')->content() as $list)
                                     <tr>
                                         <td width="50%">
                                             <div class="d-flex">
@@ -94,7 +94,7 @@
                         <tbody>
                             <tr>
                                 <td>Price:</td>
-                                <td class="text-end price total">£ {{ Cart::total() }}</td>
+                                <td class="text-end price total">£ {{ Cart::instance('product')->total() }}</td>
                             </tr>
                             <tr>
                                 <td>Discount:</td>
@@ -102,7 +102,7 @@
                             </tr>
                             <tr>
                                 <td>Total:</td>
-                                <th class="text-end total">£ {{ Cart::total() }}</th>
+                                <th class="text-end total">£ {{ Cart::instance('product')->total() }}</th>
                             </tr>
                         </tbody>
                     </table>

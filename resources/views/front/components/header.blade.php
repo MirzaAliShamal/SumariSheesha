@@ -19,13 +19,13 @@
                         <i class="far fa-cart-plus"></i>
                         <div class="shopping-cart-total ms-auto">
                             <small>Total:</small>
-                            £ <span class="main-color-text total font-weight-bold cart-price">{{ Cart::total() }}</span>
+                            £ <span class="main-color-text total font-weight-bold cart-price">{{ Cart::instance('product')->total() }}</span>
                         </div>
                     </div>
 
                     <ul class="shopping-cart-items w-100">
                         @php
-                            $content = Cart::content()
+                            $content = Cart::instance('product')->content()
                         @endphp
                         @if($content->count() > 0)
                             @foreach ($content as $item)
@@ -54,7 +54,7 @@
                     </ul>
 
                     <div class="shopping-cart-footer">
-                        @if(Cart::content()->count() > 0)
+                        @if(Cart::instance('product')->content()->count() > 0)
                             <a href="{{ route('cart') }}" class="button button-md text-center">View Cart</a>
                             @if(auth()->user())
                                 <a href="{{ route('checkout') }}" class="button button-md text-center checkout-cart">Checkout</a>

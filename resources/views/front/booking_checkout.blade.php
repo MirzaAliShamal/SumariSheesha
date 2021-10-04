@@ -29,7 +29,7 @@
                                 <input type="text" class="form-control" value="{{ $user->name }}" required name="name" id="name"  autocomplete="off">
                             </div>
                         </div>
-
+                        <input type="hidden" value="booking" name="booking">
                         <div class="col-lg-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="address">Address</label>
@@ -108,7 +108,7 @@
                         <tbody>
                             <tr>
                                 <td>Price:</td>
-                                <td class="text-end">£ {{ Cart::instance('product')->total() }}</td>
+                                <td class="text-end">£ {{ Cart::instance('booking')->total() }}</td>
                             </tr>
                             <tr>
                                 <td>Discount:</td>
@@ -123,7 +123,7 @@
                     <hr>
                     <div class="d-flex">
                         <h5><strong>Total</strong></h5>
-                        <h5 class="ms-auto"><strong>£ {{ Cart::instance('product')->total() }}</strong></h5>
+                        <h5 class="ms-auto"><strong>£ {{ Cart::instance('booking')->total() }}</strong></h5>
                     </div>
                 </div>
             </div>

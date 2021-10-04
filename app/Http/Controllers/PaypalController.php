@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\User;
+use App\Models\Booking;
 // Paypal includes
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Api\PaymentExecution;
@@ -47,7 +48,11 @@ class PaypalController extends Controller
 
     public function price(Request $req)
     {
-        $total = strval(Cart::total());
+        if($req->booking == 'booking'){
+            $total = strval(Cart::instance('booking')->total());
+        }else{
+            $total = strval(Cart::instance('product')->total());
+        }
         $total = str_replace(',','',$total);
         $total = intval($total);
         $this->buildpaypal();
@@ -135,35 +140,55 @@ class PaypalController extends Controller
         $result = $payment->execute($execution, $this->_api_context);
         if ($result->getState() == 'approved') {
                 $info = $result->payer->payer_info;
-                $content = Cart::content();
-                $total = strval(Cart::total());
-                $total = str_replace(',','',$total);
-                    // dd($total);
-                $order = new Order;
-                $order->user_id = auth()->user()->id;
-                $order->total = $total;
-                $order->note = $data['additional_note'];
-                $order->save();
-                if($order){
+                if($data['booking']){
+                    $content = Cart::instance('booking')->content();
+                    $total = strval(Cart::instance('booking')->total());
+                    $total = str_replace(',','',$total);
                     foreach($content as $list){
-                        $item = new OrderItem();
-                        $item->order_id = $order->id;
-                        $item->product_id = $list->id;
-                        $item->quantity = $list->qty;
-                        $item->price = $list->price;
-                        $item->total = $list->price * $list->qty;
-                        $item->save();
+                        $booking = new Booking();
+                        $booking->user_id = auth()->user()->id;
+                        $booking->brand_product_id = $list->id;
+                        $booking->amount = $list->price;
+                        $booking->note = $data['additional_note'];
+                        $booking->save();
+                        if($booking){
+                            Cart::instance('booking')->destroy();
+                        }
+                    }
+
+
+                }else{
+                    $content = Cart::instance('product')->content();
+                    $total = strval(Cart::instance('product')->total());
+                    $total = str_replace(',','',$total);
+                        // dd($total);
+                    $order = new Order;
+                    $order->user_id = auth()->user()->id;
+                    $order->total = $total;
+                    $order->note = $data['additional_note'];
+                    $order->save();
+                    if($order){
+                        foreach($content as $list){
+                            $item = new OrderItem();
+                            $item->order_id = $order->id;
+                            $item->product_id = $list->id;
+                            $item->quantity = $list->qty;
+                            $item->price = $list->price;
+                            $item->total = $list->price * $list->qty;
+                            $item->save();
+                        }
+                    }
+                    if($item){
+                        Cart::instance('product')->destroy();
                     }
                 }
-                if($item){
-                    Cart::destroy();
-                }
+
                 $user = User::find(auth()->user()->id);
                 if(!$user->phone){
                     $user->phone = $data['phone'];
-                    $user->name = $data['name'];
-                    $user->save();
                 }
+                $user->name = $data['name'];
+                $user->save();
                 if($user){
                     $address = new Address();
                 }else{
@@ -176,9 +201,9 @@ class PaypalController extends Controller
                 $address->zip_code = $data['zipcode'];
                 $address->save();
 
-            return redirect()->route('cart')->with('success','purchase successfull');
+            return redirect()->route('home')->with('success','purchase successfull');
         } else {
-            return redirect()->route('cart')->with('error','Payment didn\'t go through, Try Again! ');
+            return redirect()->route('home')->with('error','Payment didn\'t go through, Try Again! ');
         }
     }
 }
