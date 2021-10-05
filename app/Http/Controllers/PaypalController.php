@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\User;
 use App\Models\Booking;
+use App\Models\Earning;
 // Paypal includes
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Api\PaymentExecution;
@@ -140,7 +141,7 @@ class PaypalController extends Controller
         $result = $payment->execute($execution, $this->_api_context);
         if ($result->getState() == 'approved') {
                 $info = $result->payer->payer_info;
-                if($data['booking']){
+                if( in_array('booking',$data) ){
                     $content = Cart::instance('booking')->content();
                     $total = strval(Cart::instance('booking')->total());
                     $total = str_replace(',','',$total);
@@ -152,10 +153,19 @@ class PaypalController extends Controller
                         $booking->note = $data['additional_note'];
                         $booking->save();
                         if($booking){
-                            Cart::instance('booking')->destroy();
+                            $earning = new Earning();
+                            $earning->logable_type = 'App\Models\Booking';
+                            $earning->logable_id = $booking->id;
+                            $earning->payer_id = $result->id;
+                            $earning->amount = $booking->amount;
+                            $earning->payment_method = 'Paypal';
+                            $earning->save();
                         }
-                    }
 
+                    }
+                    if($booking){
+                        Cart::instance('booking')->destroy();
+                    }
 
                 }else{
                     $content = Cart::instance('product')->content();
@@ -177,7 +187,15 @@ class PaypalController extends Controller
                             $item->total = $list->price * $list->qty;
                             $item->save();
                         }
+                        $earning = new Earning();
+                        $earning->logable_type = 'App\Models\Order';
+                        $earning->logable_id = $order->id;
+                        $earning->payer_id = $result->id;
+                        $earning->amount = $order->total;
+                        $earning->payment_method = 'Paypal';
+                        $earning->save();
                     }
+
                     if($item){
                         Cart::instance('product')->destroy();
                     }

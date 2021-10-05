@@ -20,4 +20,8 @@ class Booking extends Model
         return  $this->belongsTo('App\Models\BrandProduct');
 
     }
+    public function logable()
+    {
+        return $this->morphMany('App\Models\Earning', 'logable');
+    }
 }

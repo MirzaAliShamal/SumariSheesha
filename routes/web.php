@@ -87,6 +87,20 @@ Route::middleware('auth')->group(function() {
             Route::get('/delete/{id?}', 'BrandController@delete')->name('delete');
             Route::get('/edit/{id?}', 'BrandController@edit')->name('edit');
         });
+        Route::prefix('order')->name('order.')->group(function() {
+            Route::get('/list', 'OrderController@list')->name('list');
+            Route::get('/status/{id?}', 'OrderController@status')->name('status');
+            Route::get('/view/{id?}', 'OrderController@view')->name('view');
+        });
+        Route::prefix('booking')->name('booking.')->group(function() {
+            Route::get('/list', 'BookingController@list')->name('list');
+            Route::get('/status/{id?}', 'BookingController@status')->name('status');
+            Route::get('/view/{id?}', 'BookingController@view')->name('view');
+        });
+        Route::prefix('earning')->name('earning.')->group(function() {
+            Route::get('/list', 'EarningController@list')->name('list');
+            Route::get('/view/{id?}/{type?}', 'EarningController@view')->name('view');
+        });
         Route::prefix('brand-product')->name('brand_product.')->group(function() {
             Route::get('/list', 'BrandProductController@list')->name('list');
             Route::get('/add', 'BrandProductController@add')->name('add');

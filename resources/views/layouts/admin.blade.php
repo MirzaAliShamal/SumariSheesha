@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Zivi - Admin Dashboard Template</title>
+    <title>@yield('title') - Samurai Shisha</title>
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{asset('admin/css/app.min.css')}}">
     <!-- Template CSS -->
