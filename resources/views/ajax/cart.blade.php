@@ -22,7 +22,7 @@
     <p class="mt-3 mb--3 text-center">Cart is empty</p>
 @endif
 <div class="shopping-cart-footer">
-    @if(Cart::content()->count() > 0)
+    @if(Cart::instance('product')->content()->count() > 0)
         <a href="{{ route('cart') }}" class="button button-md text-center">View Cart</a>
         @if(auth()->user())
             <a href="{{ route('checkout') }}" class="button button-md text-center checkout-cart">Checkout</a>

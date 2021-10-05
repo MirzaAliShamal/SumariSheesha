@@ -11,6 +11,7 @@ class HomeController extends Controller
 {
     public function home()
     {
+
         return view('front.home', get_defined_vars());
     }
 

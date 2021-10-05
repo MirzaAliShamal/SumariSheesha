@@ -26,7 +26,13 @@ Route::prefix('user')->name('user.')->namespace('User')->group(function() {
     route::get('add-cart/{qty?}', 'CartController@addCart')->name('add.cart');
     route::get('remove-cart', 'CartController@removeCart')->name('remove.cart');
     route::get('update-cart', 'CartController@updateCart')->name('update.cart');
-    route::get('checkout-cart', 'CartController@checkoutCart')->name('checkout.cart')->middleware('auth');
+    // route::get('checkout-cart', 'CartController@checkoutCart')->name('checkout.cart')->middleware('auth');
+    Route::prefix('booking')->name('booking.')->group(function() {
+        route::get('add', 'BookingController@addBooking')->name('add');
+        route::get('remove', 'BookingController@remove')->name('remove');
+        route::get('checkout', 'BookingController@checkout')->name('checkout');
+
+    });
 });
 
 Route::prefix('paypal')->name('paypal.')->group(function(){
@@ -80,6 +86,20 @@ Route::middleware('auth')->group(function() {
             Route::post('/save/{id?}', 'BrandController@save')->name('save');
             Route::get('/delete/{id?}', 'BrandController@delete')->name('delete');
             Route::get('/edit/{id?}', 'BrandController@edit')->name('edit');
+        });
+        Route::prefix('order')->name('order.')->group(function() {
+            Route::get('/list', 'OrderController@list')->name('list');
+            Route::get('/status/{id?}', 'OrderController@status')->name('status');
+            Route::get('/view/{id?}', 'OrderController@view')->name('view');
+        });
+        Route::prefix('booking')->name('booking.')->group(function() {
+            Route::get('/list', 'BookingController@list')->name('list');
+            Route::get('/status/{id?}', 'BookingController@status')->name('status');
+            Route::get('/view/{id?}', 'BookingController@view')->name('view');
+        });
+        Route::prefix('earning')->name('earning.')->group(function() {
+            Route::get('/list', 'EarningController@list')->name('list');
+            Route::get('/view/{id?}/{type?}', 'EarningController@view')->name('view');
         });
         Route::prefix('brand-product')->name('brand_product.')->group(function() {
             Route::get('/list', 'BrandProductController@list')->name('list');

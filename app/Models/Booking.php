@@ -5,18 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class Booking extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $guarded =[];
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return  $this->belongsTo('App\Models\user');
+
     }
-    public function orderItem()
+    public function brandProduct()
     {
-        return $this->hasMany('App\Models\OrderItem');
+        return  $this->belongsTo('App\Models\BrandProduct');
+
     }
     public function logable()
     {
