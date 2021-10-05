@@ -38,17 +38,17 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active" data-bs-interval="2000">
                             <video class="img-fluid" autoplay loop muted>
-                                <source src="https://mdbootstrap.com/img/video/forest.mp4" type="video/mp4" />
+                                <source src="{{ asset('theme/videos/gallery-1.mp4') }}" type="video/mp4" />
                             </video>
                         </div>
                         <div class="carousel-item" data-bs-interval="2000">
                             <video class="img-fluid" autoplay loop muted>
-                                <source src="https://mdbootstrap.com/img/video/Agua-natural.mp4" type="video/mp4" />
+                                <source src="{{ asset('theme/videos/gallery-1.mp4') }}" type="video/mp4" />
                             </video>
                         </div>
                         <div class="carousel-item" data-bs-interval="2000">
                             <video class="img-fluid" autoplay loop muted>
-                                <source src="https://mdbootstrap.com/img/video/Tropical.mp4" type="video/mp4" />
+                                <source src="{{ asset('theme/videos/gallery-1.mp4') }}" type="video/mp4" />
                             </video>
                         </div>
                     </div>
