@@ -29,6 +29,7 @@ function getBrandPrdDetails($id){
     $product = BrandProduct::find($id);
     return $product;
 }
+
 function orders(){
     $last_30_days = Carbon::now()->subDays(30);
     $last_60_days =  Carbon::now()->subDays(60);
@@ -53,13 +54,21 @@ function orders(){
         }
 
     }else{
-        $percentage = $count_60_days - $count_30_days;
-        $percentage = $percentage /$count_60_days*100;
-        $percentage = round($percentage,2);
-        $result =array(
-            'arrow'=>'down',
-            'percentage'=>$percentage,
-        );
+        if($count_60_days > 0){
+            $percentage = $count_60_days - $count_30_days;
+            $percentage = $percentage /$count_60_days*100;
+            $percentage = round($percentage,2);
+            $result =array(
+                'arrow'=>'down',
+                'percentage'=>$percentage,
+            );
+        }
+        else{
+            $result =array(
+                'arrow'=>'down',
+                'percentage'=>100,
+            );
+        }
     }
     return $result;
 }
@@ -88,13 +97,21 @@ function earnings(){
         }
 
     }else{
-        $percentage = $count_60_days - $count_30_days;
-        $percentage = $percentage /$count_60_days*100;
-        $percentage = round($percentage,2);
-        $result =array(
-            'arrow'=>'down',
-            'percentage'=>$percentage,
-        );
+        if($count_60_days > 0){
+            $percentage = $count_60_days - $count_30_days;
+            $percentage = $percentage /$count_60_days*100;
+            $percentage = round($percentage,2);
+            $result =array(
+                'arrow'=>'down',
+                'percentage'=>$percentage,
+            );
+        }
+        else{
+            $result =array(
+                'arrow'=>'down',
+                'percentage'=>100,
+            );
+        }
     }
     return $result;
 }

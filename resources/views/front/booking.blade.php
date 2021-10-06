@@ -31,6 +31,7 @@
     .shop__header {
         box-sizing: border-box;
         position: fixed;
+        bottom: 0px;
         background: rgba(255, 255, 255, 0.9);
         width: 100%;
         padding: 15px;
@@ -290,8 +291,8 @@
 <section class="shop">
     <div class="shop__header bg-transparent">
         <p class="shop__text">
-            <a class="button js-toggle" href="#" title="View cart">
-                View cart
+            <a class="button js-toggle" href="#" title="View Bookings">
+                Bookings
             </a>
         </p>
     </div>

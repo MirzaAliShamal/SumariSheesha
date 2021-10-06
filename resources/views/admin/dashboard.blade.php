@@ -50,7 +50,7 @@
         <div class="card">
             <div class="card-statistic-4">
                 <div class="info-box7-block">
-                    <h6 class="m-b-20 text-right">Completed Orders</h6>
+                    <h6 class="m-b-20 text-right"> Orders</h6>
                     <h4 class="text-right"><i
                             class="fas fa-ticket-alt pull-left bg-deep-orange c-icon"></i><span>{{ $order }}</span>
                     </h4>
@@ -73,7 +73,7 @@
         <div class="card">
             <div class="card-statistic-4">
                 <div class="info-box7-block">
-                    <h6 class="m-b-20 text-right">Total Earning</h6>
+                    <h6 class="m-b-20 text-right">Total Earning(GBP)</h6>
                     <h4 class="text-right"><i
                             class="fas fa-dollar-sign pull-left bg-green c-icon"></i><span>{{ $earning }}</span>
                     </h4>
@@ -116,7 +116,7 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Date</th>
+                                <th>#</th>
                                 <th>Customer Name</th>
                                 <th>Amount(GBP)</th>
                                 <th>Status</th>
@@ -125,7 +125,11 @@
                         </thead>
                         @foreach ($ordersList as $list)
                             <tr>
-                                <td>{{ $list->created_at->format('d-m-y') }}</td>
+                                <td>
+                                    <b>PO{{ $list->uuid }}</b>
+                                    <p class="mb-0 font-12">{{ $list->created_at->format('d-m-y') }}</p>
+
+                                </td>
                                 <td class="text-center">
                                     <h6 class="mb-0 font-13">{{ $list->user->name }}</h6>
                                 </td>
@@ -174,20 +178,22 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                {{-- <th class="width:20%">Date</th> --}}
+                                <th class="width:20%">#</th>
                                 <th width="20%">Customer Name</th>
                                 <th width="20%">Product Name</th>
                                 <th width="5%">Amount(GBP)</th>
                                 <th width="10%">Status</th>
-                                <th width="10%">Action</th>
+                                <th width="5%">Action</th>
                             </tr>
                         </thead>
                         @foreach ($booking as $list)
                         <tr>
-                            {{-- <td>{{ $list->created_at->format('d-m-y') }}</td> --}}
+                            <td>
+                                <b>BO{{ $list->uuid }}</b>
+                                <p class="mb-0 font-12">{{ $list->created_at->format('d-m-y') }}</p>
+                            </td>
                             <td>
                                 <h6 class="mb-0 font-13">{{ $list->user->name }}</h6>
-                                <p class="mb-0 font-12">{{ $list->created_at->format('d-m-y') }}</p>
                             </td>
                             <td>
                                 <h6 class="mb-0 font-13">{{ $list->brandProduct->name }}</h6>

@@ -105,6 +105,10 @@ h2 {
     background-color: #000000 !important;
 }
 
+.bg-light-dark {
+    background-color: #161716 !important;
+}
+
 .section {
     padding: 3rem 0;
 }

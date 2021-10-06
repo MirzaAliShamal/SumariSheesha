@@ -42,7 +42,7 @@
                     <tbody>
                         @foreach ($list as $item )
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td><b>PO{{ $item->uuid }}</b></td>
                             <td>{{ $item->created_at->format('d/m/y') }}</td>
                             <td>{{ $item->user->name }}</td>
                             <td>{{ $item->total }}</td>
