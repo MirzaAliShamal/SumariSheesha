@@ -146,7 +146,14 @@ class PaypalController extends Controller
                     $total = strval(Cart::instance('booking')->total());
                     $total = str_replace(',','',$total);
                     foreach($content as $list){
+                        $book = Booking::orderBy('id', 'DESC')->first();
                         $booking = new Booking();
+                        if( is_null($book) ){
+                            $booking->uuid = 1001;
+                        }
+                        else{
+                            $booking->uuid = $book->uuid + 1;
+                        }
                         $booking->user_id = auth()->user()->id;
                         $booking->brand_product_id = $list->id;
                         $booking->amount = $list->price;
@@ -172,7 +179,14 @@ class PaypalController extends Controller
                     $total = strval(Cart::instance('product')->total());
                     $total = str_replace(',','',$total);
                         // dd($total);
+                    $ordList =Order::orderBy('id','DESC')->first();
                     $order = new Order;
+                    if( is_null($ordList) ){
+                        $order->uuid = 1001;
+                    }
+                    else{
+                        $order->uuid = $ordList->uuid + 1;
+                    }
                     $order->user_id = auth()->user()->id;
                     $order->total = $total;
                     $order->note = $data['additional_note'];

@@ -12,7 +12,15 @@
                     <li><a href="">About</a></li>
                     <li><a href="{{ route('booking.for.delivery') }}">Booking for delivery</a></li>
                 </ul>
-                <a href="{{ route('login') }}" class="button button-sm">Login</a>
+                @if(auth()->user())
+                    @if(auth()->user()->role == '2')
+                        <a href="{{ route('admin.dashboard') }}" class="button button-sm">My Account</a>
+                    @elseif (auth()->user()->role =='1')
+                        <a href="" class="button button-sm">My Account</a>
+                    @endif
+                @else
+                    <a href="{{ route('login') }}" class="button button-sm">Login</a>
+                @endif
                 <span class="cart"><i class="fal fa-shopping-cart"></i></span>
                 <div class="shopping-cart">
                     <div class="shopping-cart-header d-flex">

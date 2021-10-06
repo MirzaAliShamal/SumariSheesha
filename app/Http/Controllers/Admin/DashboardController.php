@@ -16,7 +16,7 @@ class DashboardController extends Controller
         $earning = Earning::sum('amount');
         $product = Product::whereStatus(true)->count();
         $pro_out_stock = Product::whereStatus(false)->count();
-        $order = Order::whereStatus(false)->count();
+        $order = Order::count();
         $ordersList = Order::orderBy('id',"DESC")->take(10)->get();
         $booking = Booking::orderBy('id',"DESC")->take(10)->get();
         //dd($product);

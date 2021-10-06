@@ -23,7 +23,7 @@ class ProductController extends Controller
         $flavour = Flavour::where('status',1)->get();
         $color = Color::where('status',1)->get();
         $category = Category::where('status',1)->get();
-        return view('admin.Product.add', get_defined_vars());
+        return view('admin.product.add', get_defined_vars());
     }
 
     public function save(Request $req, $id = null)
