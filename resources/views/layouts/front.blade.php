@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="{{ asset('theme/images/favicon.png') }}" type="image/x-icon">
 
     <title>@yield('title') - Sumari Sheesha</title>
 
@@ -33,12 +34,30 @@
     @yield('css')
 </head>
 
-<body>
+<body class="position-relative">
     @include('front.components.header')
 
     @yield('content')
 
     @include('front.components.footer')
+
+    <div class="age-modal-wrapper">
+        <div class="age-modal" style="background-image: url('{{ asset('theme/images/modal-bg.png') }}');">
+            <div class="age-modal-inner">
+                <h2>Confirm your age</h2>
+                <p>We requires user to be 18 years old, <br> please confirm your age</p>
+
+                <div class="form-check d-inline-block">
+                    <input class="form-check-input" type="checkbox" value="1" id="age-restrict">
+                    <label class="form-check-label" for="age-restrict">
+                        I confirm that I'm 18 years old or younger
+                    </label>
+                </div>
+                <br>
+                <button class="button button-md mt-5">Submit</button>
+            </div>
+        </div>
+    </div>
 
 
     <script src="{{ asset('theme/js/jquery-3.6.0.min.js') }}"></script>

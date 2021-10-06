@@ -811,3 +811,48 @@ label {
     text-decoration: underline;
     cursor: pointer;
 }
+
+
+.age-modal-open {
+    overflow: hidden;
+}
+
+.age-modal-wrapper[style*='block'] {
+    display: flex !important;
+}
+
+.age-modal-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.9);
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 999999;
+    display: none;
+    align-items: center;
+}
+
+.age-modal {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    height: 80vh;
+    width: 80%;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.age-modal-inner {
+    display: block;
+}
+
+.age-modal p,
+.age-modal label {
+    font-size: 18px;
+}
+
