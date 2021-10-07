@@ -264,17 +264,17 @@
     <div class="carts__footer">
         <p class="carts__text booking-cart-footer">
             @if(Cart::instance('booking')->content()->count() > 0)
-                @if(auth()->user())
+                {{-- @if(auth()->user()) --}}
                     <a class="button" href="{{ route('user.booking.checkout') }}" title="Checkout ">
                         Checkout
                     </a>
-                @else
+                {{-- @else
                     <a class="button" href="{{ route('login') }}" title="Checkout">
                         Checkout
                     </a>
-                @endif
+                @endif --}}
             @else
-                <a class="button" href="" title="Checkout">
+                <a class="button book-checkout" href="" title="Checkout">
                     Checkout
                 </a>
             @endif
@@ -332,20 +332,20 @@
                         <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="date">Date</label>
-                                <input type="text" class="form-control datepicker" id="date" name="date"
+                                <input type="text" class="form-control book-date datepicker" id="date" name="date"
                                     placeholder="Date" autocomplete="off" value="{{ now()->format('m/d/Y') }}" readonly>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label for="time">Time</label>
-                                <input type="text" class="form-control timepicker" id="timepicker" name="time"
+                                <input type="text" class="form-control book-time timepicker" id="timepicker" name="time"
                                     placeholder="Time" autocomplete="off" value="{{ now()->format('HH:MM') }}" readonly>
                             </div>
                         </div>
                         <div class="col-12 text-center mt-5">
                             <div class="form-group">
-                                <button class="button button-md search-shisha" type="button">Search for Shisha</button>
+                                <button class="button button-md book-checkout search-shisha" type="button">Search for Shisha</button>
                             </div>
                         </div>
                     </div>
@@ -457,12 +457,16 @@
 
         $(document).on('click','.add-booking',function () {
             var id = $(this).data('id');
+            var date = $('.book-date').val();
+            var time = $('.book-time').val();
             $(this).text('Booked');
             // console.log(id);
             $.get('{{route('user.booking.add')}}',
                 {
                     _token: "{{csrf_token()}}",
                     id:id,
+                    date:date,
+                    time:time
                 },
                 function(response){
                     console.log(response);

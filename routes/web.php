@@ -19,10 +19,11 @@ require __DIR__.'/auth.php';
 Route::get('/', 'HomeController@home')->name('home');
 Route::get('/products/{slug?}', 'HomeController@products')->name('products');
 Route::get('/cart', 'HomeController@cart')->name('cart');
-Route::get('/checkout', 'HomeController@checkout')->name('checkout');
+Route::get('/checkout', 'HomeController@checkout')->name('checkout')->middleware('auth');
 Route::get('/booking-for-delivery', 'HomeController@bookingForDelivery')->name('booking.for.delivery');
 
 Route::prefix('user')->name('user.')->namespace('User')->group(function() {
+    route::get('dashboard' ,'DashboardController@dashboard')->name('dashboard');
     route::get('add-cart/{qty?}', 'CartController@addCart')->name('add.cart');
     route::get('remove-cart', 'CartController@removeCart')->name('remove.cart');
     route::get('update-cart', 'CartController@updateCart')->name('update.cart');
@@ -30,7 +31,7 @@ Route::prefix('user')->name('user.')->namespace('User')->group(function() {
     Route::prefix('booking')->name('booking.')->group(function() {
         route::get('add', 'BookingController@addBooking')->name('add');
         route::get('remove', 'BookingController@remove')->name('remove');
-        route::get('checkout', 'BookingController@checkout')->name('checkout');
+        route::get('checkout', 'BookingController@checkout')->name('checkout')->middleware('auth');
 
     });
 });

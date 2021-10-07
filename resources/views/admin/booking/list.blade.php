@@ -33,12 +33,13 @@
                                 #
                             </th>
                             <th>Date</th>
+                            <th>Delivery Date</th>
                             <th>Customer Name</th>
                             <th>Product Name</th>
                             <th width="5%">Total Amount(GBP)</th>
                             <th>Status</th>
                             <th>Payment Status</th>
-                            <th class="text-right"width="20%">Actions</th>
+                            <th class="text-right"width="10%">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,6 +47,7 @@
                         <tr>
                             <td><b>BO{{ $item->uuid }}</b></td>
                             <td>{{ $item->created_at->format('d/m/y') }}</td>
+                            <td>{{ $item->delivery_date.'|'.$item->delivery_time }}</td>
                             <td>{{ $item->user->name }}</td>
                             <td>{{ $item->brandProduct->name }}</td>
                             <td>{{ $item->amount }}</td>

@@ -64,11 +64,11 @@
                     <div class="shopping-cart-footer">
                         @if(Cart::instance('product')->content()->count() > 0)
                             <a href="{{ route('cart') }}" class="button button-md text-center">View Cart</a>
-                            @if(auth()->user())
+                            {{-- @if(auth()->user()) --}}
                                 <a href="{{ route('checkout') }}" class="button button-md text-center checkout-cart">Checkout</a>
-                            @else
+                            {{-- @else
                                 <a href="{{ route('login') }}" class="button button-md text-center checkout-cart">Checkout</a>
-                            @endif
+                            @endif --}}
                         @endif
 
                     </div>

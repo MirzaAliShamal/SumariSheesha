@@ -14,7 +14,7 @@ class BookingController extends Controller
         // Cart::instance('booking')->destroy();
         // return false;
         $list = BrandProduct::find($req->id);
-        $cart = Cart::instance('booking')->add($list->id, $list->name,1, $list->price,[],0);
+        $cart = Cart::instance('booking')->add($list->id, $list->name,1, $list->price,['date'=>$req->date, 'time'=>$req->time],0);
 
         $total = Cart::instance('booking')->total();
         $content = Cart::instance('booking')->content();
