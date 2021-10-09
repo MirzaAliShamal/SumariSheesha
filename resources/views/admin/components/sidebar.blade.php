@@ -7,10 +7,14 @@
         </div>
         <div class="sidebar-user">
             <div class="sidebar-user-picture">
+                @if(auth()->user()->image)
+                    <img alt="image" style="margin-left:4%; object-fit: cover; min-height:60px; min-width:32px" src="{{asset(auth()->user()->image)}}">
+                @else
                 <img alt="image" src="{{asset('admin/img/user.png')}}">
+                @endif
             </div>
             <div class="sidebar-user-details">
-                <div class="user-name">Sarah Smith</div>
+                <div class="user-name">{{ auth()->user()->name }}</div>
                 <div class="user-role">Administrator</div>
             </div>
         </div>
@@ -42,6 +46,12 @@
                     <li class=" @routeis('admin.category.*') active @endrouteis">
                         <a class="nav-link" href="{{ route('admin.category.list') }}">
                             <i data-feather="layers"></i><span>Categories</span> </a>
+                        </li>
+                {{-- @endcan --}}
+                {{-- @can('dashboard') --}}
+                    <li class=" @routeis('admin.sub.category.*') active @endrouteis">
+                        <a class="nav-link" href="{{ route('admin.sub.category.list') }}">
+                            <i data-feather="layers"></i><span>Sub Categories</span> </a>
                         </li>
                 {{-- @endcan --}}
                 {{-- @can('dashboard') --}}
@@ -80,15 +90,19 @@
                     </li>
                 {{-- @endcan --}}
                 {{-- @can('dashboard') --}}
-                    <li style="margin-bottom: 150px " class=" @routeis('admin.earning.*') active @endrouteis">
+                    <li class=" @routeis('admin.earning.*') active @endrouteis">
                         <a class="nav-link" href="{{ route('admin.earning.list') }}">
                             <i data-feather="box"></i> <span> Transactions </span>
                         </a>
                     </li>
                 {{-- @endcan --}}
             </li>
-            <div ></div>
-
+            <li class="menu-header">CMS</li>
+            <li class=" @routeis('admin.cms.general*') active @endrouteis">
+                <a class="nav-link" href="{{ route('admin.cms.general') }}">
+                    <i data-feather="box"></i> <span> General </span>
+                </a>
+            </li>
         </ul>
     </aside>
 </div>

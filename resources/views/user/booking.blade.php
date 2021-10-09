@@ -29,7 +29,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="navigation" style="text-align: center; margin-bottom:20px; padding:20px">
                     <ul class="nav">
-                        <li><a href="{{ route('user.dashboard.order') }}" class="font bg-dark py-2 px-4 d-inline-block" style="border-radius: 6px">Orders</a></li>
+                        <li><a href="{{ route('user.dashboard.order') }}" class="font bg-dark py-2 px-4 d-inline-block"  style="border-radius: 6px">Orders</a></li>
                         <li><a href="{{ route('user.dashboard.booking') }}" class="font bg-dark py-2 px-4 d-inline-block" style="border-radius: 6px">Bookings</a></li>
                         <li><a href="{{ route('user.dashboard.profile') }}"class="font bg-dark py-2 px-4 d-inline-block" style="border-radius: 6px">Profile</a></li>
                     </ul>
@@ -40,21 +40,23 @@
             <div class="col-lg-9 col-md-9 col-sm-9 col-9 mb-4">
                 <div class="card border-0 rounded shadow bg-dark">
                     <div class="card-body">
-                        <h5>Orders List</h5>
+                        <h5>Booking List</h5>
                         <table class="table datatables table-bordered text-white">
                             <thead>
                                 <th>#</th>
                                 <th>Date</th>
+                                <th>Product name</th>
                                 <th>Amount</th>
                                 <th>status</th>
                             </thead>
                             <tbody>
-                                @foreach ($orders as $order)
+                                @foreach ($bookings as $booking)
                                     <tr class="bg-dark text-white">
-                                        <td><b>PO{{ $order->uuid }}</b></td>
-                                        <td>{{ $order->created_at->format('d-m-y') }}</td>
-                                        <td>{{ $order->total }}</td>
-                                        @if($order->status)
+                                        <td><b>BO{{ $booking->uuid }}</b></td>
+                                        <td>{{ $booking->created_at->format('d-m-y') }}</td>
+                                        <td>{{ $booking->brandProduct->name }}</td>
+                                        <td>{{ $booking->amount }}</td>
+                                        @if($booking->status)
                                         <td>
                                             <b class="text-danger">Pending</b>
                                         </td>
@@ -82,4 +84,3 @@
     });
 </script>
 @endsection
-

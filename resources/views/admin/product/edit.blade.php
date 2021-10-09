@@ -50,19 +50,29 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-4 col-12">
+                    <div class="col-sm-6 col-12">
                         <div class="form-group">
                             <label> Name</label>
                             <input type="text" class="form-control" value="{{ $list->name }}" name="name" id="name" placeholder="Product name" >
                         </div>
                     </div>
-                    <div class="col-sm-4 col-12">
+                    <div class="col-sm-6 col-12">
                         <div class="form-group">
                             <label> Category</label>
-                            <select name="category" id="category" class="form-control">
+                            <select name="category" id="category" class="form-control select2">
                                 <option selected disabled> Nothing Selected</option>
                                 @foreach ($category as $cat )
                                     <option value="{{ $cat->id }}" {{ $cat->id == $list->category_id ? 'selected': '' }}>{{ $cat->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Sub Category</label>
+                            <select name="sub_category" id="sub_category" class="form-control">
+                                @foreach ($subs as $sub)
+                                    <option value="{{ $sub->id }}"{{ $sub->id == $list->sub_category_id ? 'selected':'' }}>{{ $sub->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -156,7 +166,26 @@
         //     $('#flavourDiv').show();
         //     $('#colorDiv').hide();
         // });
+        $(document).on('change','#category', function () {
+            var id = $(this).val();
+            console.log(id);
+            $.post('{{ route('admin.product.sub') }}',
+                {
+                    _token: "{{csrf_token()}}",
+                    id:id,
+                },
+                function(response){
+                    console.log(response);
+                    if (response.status) {
+                        $('#sub_category').html('');
+                        $('#sub_category').html(response.html);
+                        $('.subs').removeClass('d-none');
+                        $('.col-flav').removeClass('col-sm-6').addClass('col-sm-12');
+                    }
 
+                }
+            )
+        });
         $(document).on('keyup', '#name', function(e) {
             let val = $(this).val();
             $("#meta_title").val(val);
@@ -176,6 +205,14 @@
                 iziToast.error({
                     title: 'Alert!',
                     message: 'Please select a Category!',
+                    position: 'topRight'
+                });
+                return false;
+            }
+            if( $('#sub_category').val() == null ){
+                iziToast.error({
+                    title: 'Alert!',
+                    message: 'Please select a Sub Category!',
                     position: 'topRight'
                 });
                 return false;

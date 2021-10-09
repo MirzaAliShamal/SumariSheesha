@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\BrandProduct;
 use App\Models\Earning;
 use App\Models\Order;
+use App\Models\Setting;
 use Carbon\Carbon;
 
 function uploadFile($file, $path){
@@ -114,4 +115,9 @@ function earnings(){
         }
     }
     return $result;
+}
+function setting($key){
+    $setting = Setting::pluck('value', 'name');
+    //dd($setting);
+    return $setting[$key] ?? '';
 }

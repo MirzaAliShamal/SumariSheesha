@@ -38,16 +38,16 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-4 col-12">
+                    <div class="col-sm-6 col-12">
                         <div class="form-group">
                             <label> Name</label>
                             <input type="text" class="form-control" name="name" id="name" placeholder="Product name" >
                         </div>
                     </div>
-                    <div class="col-sm-4 col-12">
+                    <div class="col-sm-6 col-12">
                         <div class="form-group">
                             <label> Category</label>
-                            <select name="category" id="category" class="form-control">
+                            <select name="category" id="category" class="form-control select2">
                                 <option selected disabled> Nothing Selected</option>
                                 @foreach ($category as $cat )
                                     <option value="{{ $cat->id }}">{{ $cat->name }}</option>
@@ -55,7 +55,27 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-4 col-12">
+                    <div class="col-sm-6 col-12 subs d-none">
+                        <div class="form-group">
+                            <label>Sub Category</label>
+                            <select name="sub_category" id="sub_category" class="form-control">
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-12">
+                        <div class="form-group">
+                            <label> Price (GBP)</label>
+                            <input type="number" class="form-control" placeholder="Product price" name="price" id="price" >
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-12">
+                        <div class="form-group">
+                            <label> Quantity</label>
+                            <input type="number" class="form-control" name="quantity" placeholder="Product quantity" id="quantity">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-12">
                         <div class="form-group">
                             <div class="custom-control custom-radio mt-4">
                                 <input type="radio" id="customRadio3" name="proSelect" checked value="1" class="custom-control-input radflav">
@@ -67,9 +87,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4 col-12" id="flavourDiv" >
+                    <div class="col-sm-6 col-12 col-flav" id="flavourDiv" >
                         <div class="form-group">
-                            <label> Flavour</label>
+                            <label for="flavour"> Flavour</label>
                             <select name="flavour" id="flavour" class="form-control">
                                 <option selected disabled> Nothing Selected</option>
                                 @foreach ($flavour as $flav )
@@ -78,10 +98,10 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-4 col-12" id="colorDiv" style="display: none">
+                    <div class="col-sm-6 col-12 col-flav" id="colorDiv" style="display: none">
                         <div class="form-group">
-                            <label> Color</label>
-                            <select name="color" id="color" class="form-control" >
+                            <label for="color"> Color</label>
+                            <select name="color" id="color" class="form-control " >
                                 <option selected disabled> Nothing Selected</option>
                                 @foreach ($color as $colr )
                                     <option value="{{ $colr->id }}">{{ $colr->name }}</option>
@@ -89,18 +109,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-4 col-12">
-                        <div class="form-group">
-                            <label> Price (GBP)</label>
-                            <input type="number" class="form-control" placeholder="Product price" name="price" id="price" >
-                        </div>
-                    </div>
-                    <div class="col-sm-4 col-12">
-                        <div class="form-group">
-                            <label> Quantity</label>
-                            <input type="number" class="form-control" name="quantity" placeholder="Product quantity" id="quantity">
-                        </div>
-                    </div>
+
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label for="description"> Description</label><br>
@@ -151,7 +160,25 @@
             let val = $(this).val();
             $("#meta_title").val(val);
         });
+        $(document).on('change','#category', function () {
+            var id = $(this).val();
+            console.log(id);
+            $.post('{{ route('admin.product.sub') }}',
+                {
+                    _token: "{{csrf_token()}}",
+                    id:id,
+                },
+                function(response){
+                    console.log(response);
+                    if (response.status) {
+                        $('#sub_category').html(response.html);
+                        $('.subs').removeClass('d-none');
+                        $('.col-flav').removeClass('col-sm-6').addClass('col-sm-12');
+                    }
 
+                }
+            )
+        });
         $(document).on('submit', '.productform', function () {
 
             if( $('#name').val() == '' ){
@@ -166,6 +193,14 @@
                 iziToast.error({
                     title: 'Alert!',
                     message: 'Please select a Category!',
+                    position: 'topRight'
+                });
+                return false;
+            }
+            if( $('#sub_category').val() == null ){
+                iziToast.error({
+                    title: 'Alert!',
+                    message: 'Please select a Sub Category!',
                     position: 'topRight'
                 });
                 return false;

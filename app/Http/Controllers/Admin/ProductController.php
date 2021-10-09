@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Flavour;
 use App\Models\Color;
 use App\Models\Product;
+use App\Models\SubCategory;
 use Str;
 
 class ProductController extends Controller
@@ -22,12 +23,23 @@ class ProductController extends Controller
     {
         $flavour = Flavour::where('status',1)->get();
         $color = Color::where('status',1)->get();
-        $category = Category::where('status',1)->get();
+        $category = Category::where('status',1)->whereHas('subCategory')->get();
         return view('admin.product.add', get_defined_vars());
     }
+    public function sub(Request $req)
+    {
+        $subs = SubCategory::where('category_id', $req->id)->get();
+        if($subs){
+            return response()->json([
+                'status'=> true,
+                'html'=>view('ajax.sub_category',get_defined_vars())->render(),
 
+            ]);
+        }
+    }
     public function save(Request $req, $id = null)
     {
+        // dd($req->all());
         $product = Product::orderBy('id', 'DESC')->first();
         if(is_null($id)){
             $list = new Product();
@@ -51,6 +63,7 @@ class ProductController extends Controller
         $list->name = $req->name;
         $list->slug = Str::slug($req->name);
         $list->category_id = $req->category;
+        $list->sub_category_id = $req->sub_category;
         $list->color_id = $req->color ;
         $list->flavour_id = $req->flavour ;
         $list->category_id = $req->category;
@@ -90,7 +103,8 @@ class ProductController extends Controller
         $list = Product::find($id);
         $flavour = Flavour::where('status',1)->get();
         $color = Color::where('status',1)->get();
-        $category = Category::where('status',1)->get();
+        $category = Category::where('status',1)->whereHas('subCategory')->get();
+        $subs = $list->category->subCategory;
         return view('admin.product.edit',get_defined_vars());
     }
 }

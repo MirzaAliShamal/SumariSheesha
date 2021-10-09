@@ -23,7 +23,7 @@ Route::get('/checkout', 'HomeController@checkout')->name('checkout')->middleware
 Route::get('/booking-for-delivery', 'HomeController@bookingForDelivery')->name('booking.for.delivery');
 
 Route::prefix('user')->name('user.')->namespace('User')->group(function() {
-    route::get('dashboard' ,'DashboardController@dashboard')->name('dashboard');
+
     route::get('add-cart/{qty?}', 'CartController@addCart')->name('add.cart');
     route::get('remove-cart', 'CartController@removeCart')->name('remove.cart');
     route::get('update-cart', 'CartController@updateCart')->name('update.cart');
@@ -34,6 +34,16 @@ Route::prefix('user')->name('user.')->namespace('User')->group(function() {
         route::get('checkout', 'BookingController@checkout')->name('checkout')->middleware('auth');
 
     });
+    Route::prefix('dashboard')->name('dashboard.')->group(function() {
+        route::get('order' ,'DashboardController@order')->name('order');
+        route::get('booking' ,'DashboardController@booking')->name('booking');
+        route::get('profile' ,'DashboardController@profile')->name('profile');
+        route::post('profile/image' ,'DashboardController@image')->name('profile.image');
+        route::post('profile/bio' ,'DashboardController@bio')->name('profile.bio');
+        route::post('profile/contact' ,'DashboardController@contact')->name('profile.contact');
+        route::post('profile/password' ,'DashboardController@password')->name('profile.password');
+    });
+
 });
 
 Route::prefix('paypal')->name('paypal.')->group(function(){
@@ -48,6 +58,12 @@ Route::middleware('auth')->group(function() {
     Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function() {
         Route::get('dashboard', 'DashboardController@dashboard')->name('dashboard');
 
+        Route::prefix('profile')->name('profile.')->group(function() {
+            Route::get('view', 'ProfileController@view')->name('view');
+            Route::post('save', 'ProfileController@save')->name('save');
+            Route::post('image', 'ProfileController@image')->name('image');
+            Route::post('password', 'ProfileController@password')->name('password');
+        });
         Route::prefix('flavour')->name('flavour.')->group(function() {
             Route::get('/list', 'FlavourController@list')->name('list');
             Route::get('/add', 'FlavourController@add')->name('add');
@@ -72,9 +88,17 @@ Route::middleware('auth')->group(function() {
             Route::get('/delete/{id?}', 'CategoryController@delete')->name('delete');
             Route::get('/edit/{id?}', 'CategoryController@edit')->name('edit');
         });
+        Route::prefix('sub-category')->name('sub.category.')->group(function() {
+            Route::get('/list', 'SubCategoryController@list')->name('list');
+            Route::get('/add', 'SubCategoryController@add')->name('add');
+            Route::post('/save/{id?}', 'SubCategoryController@save')->name('save');
+            Route::get('/delete/{id?}', 'SubCategoryController@delete')->name('delete');
+            Route::get('/edit/{id?}', 'SubCategoryController@edit')->name('edit');
+        });
         Route::prefix('product')->name('product.')->group(function() {
             Route::get('/list', 'ProductController@list')->name('list');
             Route::get('/add', 'ProductController@add')->name('add');
+            Route::post('/sub', 'ProductController@sub')->name('sub');
             Route::get('/status/{id?}', 'ProductController@status')->name('status');
             Route::post('/save/{id?}', 'ProductController@save')->name('save');
             Route::get('/delete/{id?}', 'ProductController@delete')->name('delete');
@@ -109,6 +133,11 @@ Route::middleware('auth')->group(function() {
             Route::post('/save/{id?}', 'BrandProductController@save')->name('save');
             Route::get('/delete/{id?}', 'BrandProductController@delete')->name('delete');
             Route::get('/edit/{id?}', 'BrandProductController@edit')->name('edit');
+        });
+        Route::prefix('cms')->name('cms.')->group(function() {
+            Route::post('/save', 'SettingController@save')->name('save');
+            Route::get('/general', 'SettingController@general')->name('general');
+
         });
     });
 });

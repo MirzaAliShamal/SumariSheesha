@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>@yield('title') - Samurai Shisha</title>
+    <title>@yield('title') - {{ setting('site_title') }}</title>
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{asset('admin/css/app.min.css')}}">
     <!-- Template CSS -->
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{asset('admin/css/components.css')}}">
     <!-- Custom style CSS -->
     <link rel="stylesheet" href="{{asset('admin/css/custom.css')}}">
-    <link rel='shortcut icon' type='image/x-icon' href="{{asset('admin/img/favicon.ico') }}" />
+    <link rel='shortcut icon' type='image/x-icon' href="{{asset(setting('fav_icon')) }}" />
     <link rel="stylesheet" href="{{ asset('admin/bundles/datatables/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('admin/bundles/prism/prism.css') }}">
@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css">
     <link rel="stylesheet" href="{{ asset('admin/bundles/summernote/summernote-bs4.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/bundles/select2/dist/css/select2.min.css') }}">
     <style>
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
@@ -78,6 +79,7 @@
     <script src="{{ asset('admin/bundles/jquery-ui/jquery-ui.min.js')}}"></script>
     <script src="{{ asset('admin/bundles/prism/prism.js') }}"></script>
     <script src="{{ asset('admin/bundles/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('admin/bundles/select2/dist/js/select2.full.min.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSGmioE5YdinM_BR5MDEyB3E7qamhiDNw&callback=initMap&libraries=places&v=weekly" async defer></script>
     <!--  CKEditor Plugin    -->
