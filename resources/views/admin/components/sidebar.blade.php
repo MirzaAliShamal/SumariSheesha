@@ -103,6 +103,12 @@
                     <i data-feather="box"></i> <span> General </span>
                 </a>
             </li>
+            <li class=" @routeis('admin.cms.home*') active @endrouteis">
+                <a class="nav-link" href="{{ route('admin.cms.home') }}">
+                    <i data-feather="box"></i> <span> Home </span>
+                </a>
+            </li>
+            <li style="margin-top: 100px"></li>
         </ul>
     </aside>
 </div>

@@ -137,6 +137,7 @@ Route::middleware('auth')->group(function() {
         Route::prefix('cms')->name('cms.')->group(function() {
             Route::post('/save', 'SettingController@save')->name('save');
             Route::get('/general', 'SettingController@general')->name('general');
+            Route::get('/home', 'SettingController@home')->name('home');
 
         });
     });

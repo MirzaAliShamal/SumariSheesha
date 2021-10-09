@@ -32,4 +32,8 @@ class SettingController extends Controller
     {
         return view('admin.cms.general',get_defined_vars());
     }
+    public function home()
+    {
+        return view('admin.cms.home',get_defined_vars());
+    }
 }
