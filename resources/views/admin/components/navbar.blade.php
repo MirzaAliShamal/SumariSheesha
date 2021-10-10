@@ -77,19 +77,26 @@
                 </div>
             </div>
         </li>
-        <li class="dropdown"><a href="#" data-toggle="dropdown"
-                class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image"
-                    src="{{asset('admin/img/user.png')}}" class="user-img-radious-style"> <span
-                    class="d-sm-none d-lg-inline-block"></span></a>
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown"
+                class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                @if(auth()->user()->image)
+                    <img alt="image" src="{{asset(auth()->user()->image)}}" style="object-fit: cover; min-height:32px; min-width:32px" class="user-img-radious-style">
+                @else
+                    <img alt="image" src="{{asset('admin/img/user.png')}}" class="user-img-radious-style">
+                @endif
+                <span class="d-sm-none d-lg-inline-block"></span>
+            </a>
             <div class="dropdown-menu dropdown-menu-right pullDown">
-                <div class="dropdown-title">Hello Sarah Smith</div>
-                <a href="profile.html" class="dropdown-item has-icon"> <i class="far
-                            fa-user"></i> Profile
-                </a> <a href="timeline.html" class="dropdown-item has-icon"> <i class="fas fa-bolt"></i>
-                    Activities
-                </a> <a href="" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
-                    Settings
+                <div class="dropdown-title">{{ auth()->user()->name }}</div>
+                <a href="{{ route('admin.profile.view') }}" class="dropdown-item has-icon">
+                    <i class="far fa-user"></i>
+                    Profile
                 </a>
+                 {{-- <a href="" class="dropdown-item has-icon">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </a> --}}
                 <div class="dropdown-divider"></div>
                 <a href="{{ route('logout') }}"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit()"

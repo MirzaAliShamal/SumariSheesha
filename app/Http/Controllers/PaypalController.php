@@ -154,6 +154,8 @@ class PaypalController extends Controller
                         else{
                             $booking->uuid = $book->uuid + 1;
                         }
+                        $booking->delivery_date = $list->options->date;
+                        $booking->delivery_time = $list->options->time;
                         $booking->user_id = auth()->user()->id;
                         $booking->brand_product_id = $list->id;
                         $booking->amount = $list->price;
@@ -216,12 +218,12 @@ class PaypalController extends Controller
                 }
 
                 $user = User::find(auth()->user()->id);
-                if(!$user->phone){
+                if($user->name != $data['name'] || $user->phone != $data['phone']){
                     $user->phone = $data['phone'];
+                    $user->name = $data['name'];
+                    $user->save();
                 }
-                $user->name = $data['name'];
-                $user->save();
-                if($user){
+                if(!$user->address){
                     $address = new Address();
                 }else{
                     $address = $user->address;

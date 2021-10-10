@@ -29,7 +29,8 @@
                                 <input type="text" class="form-control" value="{{ $user->name }}" required name="name" id="name"  autocomplete="off">
                             </div>
                         </div>
-
+                        <input type="hidden" name="book_date" id="book_date">
+                        <input type="hidden" name="book_time" id="book_time">
                         <div class="col-lg-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="address">Address</label>
@@ -131,3 +132,4 @@
     </div>
 </section>
 @endsection
+

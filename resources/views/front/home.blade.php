@@ -7,10 +7,10 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 text-center">
-                <h1>Samurai Shisha</h1>
+                <h1>{{ setting('home_heading') }}</h1>
             </div>
             <div class="col-lg-6 col-md-8 col-sm-12 text-center">
-                <p>is simply dummy text of the printing and typesetting industry</p>
+                <p>{{ setting('home_text') }}</p>
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
                 <h2>Gallery</h2>
             </div>
             <div class="col-md-10 text-center mt-4">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At commodi ex, quos natus facilis dicta impedit, accusantium iusto a et ea debitis incidunt? Fugit consectetur veniam quae quo dolore incidunt?</p>
+                <p>{!! setting('home_gallery_text') !!}</p>
             </div>
         </div>
 
@@ -38,17 +38,17 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active" data-bs-interval="2000">
                             <video class="img-fluid" autoplay loop muted>
-                                <source src="{{ asset('theme/videos/gallery-1.mp4') }}" type="video/mp4" />
+                                <source src="{{ asset(setting('home_gallery_video')) }}" type="video/mp4" />
                             </video>
                         </div>
                         <div class="carousel-item" data-bs-interval="2000">
                             <video class="img-fluid" autoplay loop muted>
-                                <source src="{{ asset('theme/videos/gallery-1.mp4') }}" type="video/mp4" />
+                                <source src="{{ asset(setting('home_gallery_video')) }}" type="video/mp4" />
                             </video>
                         </div>
                         <div class="carousel-item" data-bs-interval="2000">
                             <video class="img-fluid" autoplay loop muted>
-                                <source src="{{ asset('theme/videos/gallery-1.mp4') }}" type="video/mp4" />
+                                <source src="{{ asset(setting('home_gallery_video')) }}" type="video/mp4" />
                             </video>
                         </div>
                     </div>

@@ -110,11 +110,11 @@
 
                     <div class="text-center">
                         @if(Cart::content()->count() > 0)
-                            @if(auth()->user())
+                            {{-- @if(auth()->user()) --}}
                                 <a href="{{ route('checkout') }}" class="button button-block">Checkout</a>
-                            @else
+                            {{-- @else
                                 <a href="{{ route('login') }}" class="button button-block">Checkout</a>
-                            @endif
+                            @endif --}}
                         @endif
                     </div>
                 </div>

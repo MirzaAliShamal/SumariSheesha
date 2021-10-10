@@ -2,7 +2,7 @@
     <div class="container">
         <div class="d-flex align-items-center">
             <div class="logo">
-                <a href="{{ route('home') }}"><img src="{{ asset('theme/images/logo.png') }}" class="img-fluid"
+                <a href="{{ route('home') }}"><img src="{{ asset(setting('logo')) }}" class="img-fluid"
                         alt="Logo"></a>
             </div>
             <div class="navigation ms-auto">
@@ -16,11 +16,16 @@
                     @if(auth()->user()->role == '2')
                         <a href="{{ route('admin.dashboard') }}" class="button button-sm">My Account</a>
                     @elseif (auth()->user()->role =='1')
-                        <a href="" class="button button-sm">My Account</a>
+                        <a href="{{ route('user.dashboard.order') }}" class="button button-sm">My Account</a>
                     @endif
                 @else
                     <a href="{{ route('login') }}" class="button button-sm">Login</a>
                 @endif
+                @if(auth()->user())
+                    <a href="{{ route('logout') }}" class="button button-sm" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Logout</a>
+                @endif
+
+
                 <span class="cart"><i class="fal fa-shopping-cart"></i></span>
                 <div class="shopping-cart">
                     <div class="shopping-cart-header d-flex">
@@ -64,11 +69,11 @@
                     <div class="shopping-cart-footer">
                         @if(Cart::instance('product')->content()->count() > 0)
                             <a href="{{ route('cart') }}" class="button button-md text-center">View Cart</a>
-                            @if(auth()->user())
+                            {{-- @if(auth()->user()) --}}
                                 <a href="{{ route('checkout') }}" class="button button-md text-center checkout-cart">Checkout</a>
-                            @else
+                            {{-- @else
                                 <a href="{{ route('login') }}" class="button button-md text-center checkout-cart">Checkout</a>
-                            @endif
+                            @endif --}}
                         @endif
 
                     </div>

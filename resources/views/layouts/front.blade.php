@@ -29,12 +29,28 @@
     {{-- Stylesheet --}}
     <link rel="stylesheet" href="{{ asset('theme/css/main.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('theme/css/responsive.css') }}" type="text/css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 
-
+    <style>
+        #DataTables_Table_0_filter input{
+            color: white;
+        }
+        #DataTables_Table_0_length{
+            color: white;
+        }
+        #DataTables_Table_0_info{
+            color: white;
+        }
+        .dataTables_empty{
+            color: #000000;
+        }
+    </style>
     @yield('css')
 </head>
 
 <body class="position-relative">
+    <form method="POST" class="d-none" id="logout-form"  action="{{ route('logout') }}">@csrf</form>
+
     @include('front.components.header')
 
     @yield('content')
@@ -67,10 +83,38 @@
     <script src="{{ asset('theme/js/slick.min.js') }}"></script>
     <script src="{{ asset('theme/js/main.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
+    @if(session('success'))
+        <script>
+             iziToast.success({
+                title: 'Alert!',
+                message: '{{ session("success") }}',
+                position: 'topRight'
+            });
+        </script>
+    @elseif(session('error'))
+        <script>
+            iziToast.error({
+                title: 'Alert!',
+                message: '{{ session("error") }}',
+                position: 'topRight'
+            });
+        </script>
+    @endif
     @yield('js')
 
     <script>
+        var table = $('.datatables').dataTable({
+            "sort": true,
+            "ordering": true,
+            "pagingType": "full_numbers",
+            responsive: true,
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search records",
+            }
+        });
         $(document).on('click','.addToCart',function () {
             var id = $(this).data('id');
             if($(this).data('url') == '1'){
