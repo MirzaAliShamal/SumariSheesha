@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\User;
+use App\Notifications\EmailNotification;
 
 class OrderController extends Controller
 {
@@ -21,6 +23,14 @@ class OrderController extends Controller
         //dd($flavour);
         if($order->status){
             $order->status = 0;
+            $notif = User::find($order->user_id);
+            $email_data = [
+                "subject" => "Your Order has been delivered",
+                "view" => "user.order_deliver",
+                "details" => $order,
+                "user" => $notif,
+            ];
+            $notif->notify(new EmailNotification($email_data));
         }
         else{
             $order->status = 1;

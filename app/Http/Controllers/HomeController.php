@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Brand;
+use App\Notifications\EmailNotification;
+use App\Notifications\UserNotification;
 use DB;
 
 class HomeController extends Controller
@@ -23,6 +25,15 @@ class HomeController extends Controller
         } else {
             $product = Product::where('slug', $slug)->first();
             return view('front.product_detail', get_defined_vars());
+        }
+    }
+
+    public function notification($id = null)
+    {
+        $notification = auth()->user()->notifications->where('id', $id)->first();
+        if ($notification) {
+            $notification->markAsRead();
+            return redirect($notification->data['data']['action']);
         }
     }
 

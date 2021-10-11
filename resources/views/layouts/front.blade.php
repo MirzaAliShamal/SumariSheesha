@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="current" content="{{ auth()->user()->id }}">
+    <meta name="role" content="{{ auth()->user()->role }}">
     <link rel="shortcut icon" href="{{ asset('theme/images/favicon.png') }}" type="image/x-icon">
 
     <title>@yield('title') - Sumari Sheesha</title>
