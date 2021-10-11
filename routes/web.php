@@ -59,6 +59,9 @@ Route::prefix('paypal')->name('paypal.')->group(function(){
 // AJAX ROUTES
 Route::get('/get-brands', 'HomeController@getBrands')->name('get.brands');
 
+//
+Route::get('/notification/{id?}', 'HomeController@notification')->name('notification')->middleware('auth');
+
 Route::middleware('auth')->group(function() {
     Route::prefix('admin')->name('admin.')->namespace('Admin')->group(function() {
         Route::get('dashboard', 'DashboardController@dashboard')->name('dashboard');

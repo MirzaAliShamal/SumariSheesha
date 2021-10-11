@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <link rel='shortcut icon' type='image/x-icon' href="{{asset(setting('fav_icon')) }}" />
+    <meta name="current" content="{{ auth()->user()->id }}">
+    <meta name="role" content="{{ auth()->user()->role }}">
     <title>@yield('title') - {{ setting('site_title') }}</title>
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{asset('admin/css/app.min.css')}}">
@@ -73,6 +75,9 @@
             </footer>
         </div>
     </div>
+    <script>
+        let notification_url = "{{ route('notification') }}";
+    </script>
     <!-- General JS Scripts -->
     <script src="{{asset('admin/js/app.min.js')}}"></script>
     <!-- JS Libraies -->
@@ -103,6 +108,7 @@
     <script src="{{asset('admin/js/scripts.js')}}"></script>
     <!-- Custom JS File -->
     <script src="{{asset('admin/js/custom.js')}}"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
 
     @if(session('success'))
         <script>

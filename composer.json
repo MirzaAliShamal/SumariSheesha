@@ -13,7 +13,8 @@
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "paypal/rest-api-sdk-php": "^1.14"
+        "paypal/rest-api-sdk-php": "^1.14",
+        "pusher/pusher-php-server": "^7.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

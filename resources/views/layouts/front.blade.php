@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="{{ asset(setting('fav_icon')) }}" type="image/x-icon">
+    <meta name="current" content="{{ auth()->user()->id }}">
+    <meta name="role" content="{{ auth()->user()->role }}">
 
     <title>@yield('title') - {{ setting('site_title') }}</title>
 

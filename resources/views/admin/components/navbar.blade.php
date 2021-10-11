@@ -1,3 +1,6 @@
+@php
+$user = auth()->user()
+@endphp
 <nav class="navbar navbar-expand-lg main-navbar sticky">
     <div class="form-inline mr-auto">
         <ul class="navbar-nav mr-3">
@@ -20,61 +23,51 @@
         </ul>
     </div>
     <ul class="navbar-nav navbar-right">
-        <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
-                class="nav-link nav-link-lg message-toggle"><i data-feather="mail"></i>
-                <span class="badge headerBadge1">
-                    6 </span> </a>
-            <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
-                <div class="dropdown-header">
-                    Messages
-                    <div class="float-right">
-                        <a href="#">Mark All As Read</a>
-                    </div>
-                </div>
-                <div class="dropdown-list-content dropdown-list-message">
-                    <a href="#" class="dropdown-item"> <span class="dropdown-item-avatar
-                                text-white"> <img alt="image" src="{{asset('admin/img/users/user-1.png')}}"
-                                class="rounded-circle')}}">
-                        </span> <span class="dropdown-item-desc"> <span class="message-user">John
-                                Deo</span>
-                            <span class="time messege-text">Please check your mail !!</span>
-                            <span class="time">2 Min Ago</span>
-                        </span>
-                    </a> <a href="#" class="dropdown-item"> <span class="dropdown-item-avatar text-white">
-                            <img alt="image" src="{{asset('admin/img/users/user-2.png')}}" class="rounded-circle">
-                        </span> <span class="dropdown-item-desc"> <span class="message-user">Sarah
-                                Smith</span> <span class="time messege-text">Request for leave
-                                application</span>
-                            <span class="time">5 Min Ago</span>
-                        </span>
-                </div>
-                <div class="dropdown-footer text-center">
-                    <a href="#">View All <i class="fas fa-chevron-right"></i></a>
-                </div>
-            </div>
-        </li>
-        <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
-                class="nav-link notification-toggle nav-link-lg"><i data-feather="bell" class="bell"></i>
+
+        <li class="dropdown dropdown-list-toggle">
+            <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg">
+                <i data-feather="bell" class="{{  $user->unreadNotifications()->groupBy('notifiable_type')->count() > 0 ? 'bell' : '' }}"></i>
+                {{-- @if($user->unreadNotifications()->groupBy('notifiable_type')->count() > 0) --}}
+                    <span class="badge notif-count" style="position: absolute;
+                    top: 4px;
+                    right: 5px;
+                    font-weight: 150px;
+                    padding: 3px 6px;
+                    background: #fb5623;
+                    border-radius: 10px;">
+                        {{  $user->unreadNotifications()->groupBy('notifiable_type')->count() }}
+                    </span>
+                {{-- @endif --}}
+
             </a>
             <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
                 <div class="dropdown-header">
                     Notifications
-                    <div class="float-right">
+                    {{-- <div class="float-right">
                         <a href="#">Mark All As Read</a>
-                    </div>
+                    </div> --}}
                 </div>
-                <div class="dropdown-list-content dropdown-list-icons">
-                    <a href="#" class="dropdown-item dropdown-item-unread"> <span
-                            class="dropdown-item-icon bg-primary text-white"> <i class="fas
-                                    fa-code"></i>
-                        </span> <span class="dropdown-item-desc"> Template update is
-                            available now! <span class="time">2 Min
-                                Ago</span>
-                        </span>
+                <div class="dropdown-list-content dropdown-list-icons notifications-prepend">
+
+                    @if (count($user->notifications) > 0)
+                    @foreach ($user->notifications as $notif)
+
+                        <a href="{{ route('notification', $notif->id) }}" class="dropdown-item  {{ is_null($notif->read_at) ? 'dropdown-item-unread' : '' }}">
+                            <span class="dropdown-item-icon">
+                                <img src="{{ asset($notif->data['data']['icon']) }}" style="width: 50px; height:50px; object-fit:cover; border-radius:20px" alt="">
+                            </span>
+                            <span class="dropdown-item-desc"> {{ $notif->data['data']['body'] }}
+                                <span class="time">{{ $notif->created_at->diffForHumans() }}</span>
+                            </span>
+                        </a>
+                    @endforeach
+                @else
+                    <h4 class="text-center mt-3">No notification yet!</h4>
+                @endif
                 </div>
-                <div class="dropdown-footer text-center">
+                {{-- <div class="dropdown-footer text-center">
                     <a href="#">View All <i class="fas fa-chevron-right"></i></a>
-                </div>
+                </div> --}}
             </div>
         </li>
         <li class="dropdown">

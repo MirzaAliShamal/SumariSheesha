@@ -10,6 +10,8 @@ use App\Models\OrderItem;
 use App\Models\User;
 use App\Models\Booking;
 use App\Models\Earning;
+use App\Notifications\EmailNotification;
+use App\Notifications\UserNotification;
 // Paypal includes
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Api\PaymentExecution;
@@ -125,6 +127,7 @@ class PaypalController extends Controller
         /* Get the payment and group IDs before session clear */
         $payment_id = Session::get('paypal_payment_id');
         $data = Session::get('data');
+        // dd($data);
         /* clear the session payment and group IDs */
         Session::forget('paypal_payment_id');
         Session::forget('data');
@@ -171,6 +174,32 @@ class PaypalController extends Controller
                             $earning->save();
                         }
 
+                        $notif = auth()->user();
+                        $email_data = [
+                            "subject" => "You have successfully booked this item",
+                            "view" => "user.booking_placed",
+                            "details" => $booking,
+                            "user" => $notif,
+                        ];
+                        $notif->notify(new EmailNotification($email_data));
+
+                        $notif = User::where('role', '2')->first();
+                        $email_data = [
+                            "subject" => "You have received a booking request",
+                            "view" => "user.booking_received",
+                            "details" => $booking,
+                            "user" => $notif,
+                        ];
+                        $notif->notify(new EmailNotification($email_data));
+                        $notif_data = collect([
+                            'icon' => asset('bell-icon.jpg'),
+                            'title' => 'Booking Update!',
+                            'body' => 'You have received a booking request. click to see',
+                            'action' => route('admin.booking.view',$booking->id),
+                        ]);
+                        $notif->notify(new UserNotification($notif_data));
+
+
                     }
                     if($booking){
                         Cart::instance('booking')->destroy();
@@ -193,6 +222,7 @@ class PaypalController extends Controller
                     $order->total = $total;
                     $order->note = $data['additional_note'];
                     $order->save();
+
                     if($order){
                         foreach($content as $list){
                             $item = new OrderItem();
@@ -210,6 +240,33 @@ class PaypalController extends Controller
                         $earning->amount = $order->total;
                         $earning->payment_method = 'Paypal';
                         $earning->save();
+
+
+
+                        $notif = auth()->user();
+                        $email_data = [
+                            "subject" => "You have successfully placed an order",
+                            "view" => "user.order_placed",
+                            "details" => $order,
+                            "user" => $notif,
+                        ];
+                        $notif->notify(new EmailNotification($email_data));
+
+                        $notif = User::where('role', '2')->first();
+                        $email_data = [
+                            "subject" => "You have received an order request",
+                            "view" => "user.order_received",
+                            "details" => $order,
+                            "user" => $notif,
+                        ];
+                        $notif->notify(new EmailNotification($email_data));
+                        $notif_data = collect([
+                            'icon' => asset('bell-icon.jpg'),
+                            'title' => 'Order Update!',
+                            'body' => 'You have received an order. click to see',
+                            'action' => route('admin.order.view', $order->id),
+                        ]);
+                        $notif->notify(new UserNotification($notif_data));
                     }
 
                     if($item){

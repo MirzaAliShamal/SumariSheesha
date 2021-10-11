@@ -8,6 +8,8 @@ use App\Models\BlogCategory;
 use App\Models\BlogPost;
 use App\Models\Product;
 use App\Models\Brand;
+use App\Notifications\EmailNotification;
+use App\Notifications\UserNotification;
 use DB;
 
 class HomeController extends Controller
@@ -86,6 +88,15 @@ class HomeController extends Controller
         $contact = ContactQuery::create($req->except('_token'));
 
         return redirect()->back()->with('success', 'Your query has been successfully sent');
+    }
+
+    public function notification($id = null)
+    {
+        $notification = auth()->user()->notifications->where('id', $id)->first();
+        if ($notification) {
+            $notification->markAsRead();
+            return redirect($notification->data['data']['action']);
+        }
     }
 
     public function cart()
