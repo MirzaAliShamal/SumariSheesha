@@ -23,9 +23,10 @@ class ProductController extends Controller
     {
         $flavour = Flavour::where('status',1)->get();
         $color = Color::where('status',1)->get();
-        $category = Category::where('status',1)->whereHas('subCategory')->get();
+        $category = Category::where('status',1)->whereHas('subCategories')->get();
         return view('admin.product.add', get_defined_vars());
     }
+
     public function sub(Request $req)
     {
         $subs = SubCategory::where('category_id', $req->id)->get();
@@ -70,7 +71,7 @@ class ProductController extends Controller
         $list->price = $req->price;
         $list->quantity = $req->quantity;
         $list->description = $req->description ?? 'none';
-        $list->meta_title = $req->meta_title;
+        $list->meta_keywords = $req->meta_keywords;
         $list->meta_description = $req->meta_description;
         $list->status = 1;
         $list->save();
@@ -91,6 +92,20 @@ class ProductController extends Controller
         return redirect()->back()->with('success','Status changed succesfully');
     }
 
+    public function featuredStatus($id = null)
+    {
+        $list = Product::find($id);
+        //dd($flavour);
+        if($list->featured_on_home){
+            $list->featured_on_home = 0;
+        }
+        else{
+            $list->featured_on_home = 1;
+        }
+        $list->save();
+        return redirect()->back()->with('success','Status changed succesfully');
+    }
+
     public function delete($id = null)
     {
         $list = Product::find($id);
@@ -103,7 +118,7 @@ class ProductController extends Controller
         $list = Product::find($id);
         $flavour = Flavour::where('status',1)->get();
         $color = Color::where('status',1)->get();
-        $category = Category::where('status',1)->whereHas('subCategory')->get();
+        $category = Category::where('status',1)->whereHas('subCategories')->get();
         $subs = $list->category->subCategory;
         return view('admin.product.edit',get_defined_vars());
     }

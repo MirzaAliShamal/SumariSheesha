@@ -18,7 +18,6 @@ class Booking extends Model
     public function brandProduct()
     {
         return  $this->belongsTo('App\Models\BrandProduct');
-
     }
     public function logable()
     {

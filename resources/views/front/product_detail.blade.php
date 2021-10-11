@@ -2,6 +2,11 @@
 
 @section('title', $product->name)
 
+@section('meta')
+    <meta name="keywords" content="{{ $product->meta_keywords }}">
+    <meta name="description" content="{{ $product->meta_description }}">
+@endsection
+
 @section('content')
 <section class="bg-half d-table w-100 bg-page" style="background-image: url('{{ asset('theme/images/hero-bg.png') }}');">
     <div class="container">

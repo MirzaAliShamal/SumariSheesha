@@ -2,6 +2,11 @@
 
 @section('title', 'Booking for Delivery')
 
+@section('meta')
+    <meta name="keywords" content="{{ setting('meta_keywords') }}">
+    <meta name="description" content="{{ setting('meta_description') }}">
+@endsection
+
 @section('css')
 <style>
     #map {

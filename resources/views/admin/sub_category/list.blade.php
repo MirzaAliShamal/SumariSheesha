@@ -1,8 +1,8 @@
 @extends("layouts.admin")
 
-@section("title", "Sub category")
+@section("title", "Sub Category")
 
-@section("nav-title", "Sub category")
+@section("nav-title", "Sub Category")
 
 @section("content")
 

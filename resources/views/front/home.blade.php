@@ -2,15 +2,20 @@
 
 @section('title', 'Home')
 
+@section('meta')
+    <meta name="keywords" content="{{ setting('meta_keywords') }}">
+    <meta name="description" content="{{ setting('meta_description') }}">
+@endsection
+
 @section('content')
-<section class="bg-half-260 d-table w-100 bg-home" style="background-image: url('{{ asset('theme/images/hero-bg.png') }}');">
+<section class="bg-half-260 d-table w-100 bg-home" style="background-image: url('{{ asset(setting('main_bg_image')) }}');">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 text-center">
-                <h1>{{ setting('home_heading') }}</h1>
+                <h1>{{ setting('main_heading') }}</h1>
             </div>
             <div class="col-lg-6 col-md-8 col-sm-12 text-center">
-                <p>{{ setting('home_text') }}</p>
+                <p>{!! setting('main_text') !!}</p>
             </div>
         </div>
     </div>
@@ -23,7 +28,7 @@
                 <h2>Gallery</h2>
             </div>
             <div class="col-md-10 text-center mt-4">
-                <p>{!! setting('home_gallery_text') !!}</p>
+                <p>{!! setting('gallery_text') !!}</p>
             </div>
         </div>
 
@@ -38,17 +43,17 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active" data-bs-interval="2000">
                             <video class="img-fluid" autoplay loop muted>
-                                <source src="{{ asset(setting('home_gallery_video')) }}" type="video/mp4" />
+                                <source src="{{ asset(setting('gallery_video')) }}" type="video/mp4" />
                             </video>
                         </div>
                         <div class="carousel-item" data-bs-interval="2000">
                             <video class="img-fluid" autoplay loop muted>
-                                <source src="{{ asset(setting('home_gallery_video')) }}" type="video/mp4" />
+                                <source src="{{ asset(setting('gallery_video')) }}" type="video/mp4" />
                             </video>
                         </div>
                         <div class="carousel-item" data-bs-interval="2000">
                             <video class="img-fluid" autoplay loop muted>
-                                <source src="{{ asset(setting('home_gallery_video')) }}" type="video/mp4" />
+                                <source src="{{ asset(setting('gallery_video')) }}" type="video/mp4" />
                             </video>
                         </div>
                     </div>
@@ -70,7 +75,7 @@
                 <h2>Deals</h2>
             </div>
             <div class="col-md-10 text-center mt-4">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At commodi ex, quos natus facilis dicta impedit, accusantium iusto a et ea debitis incidunt? Fugit consectetur veniam quae quo dolore incidunt?</p>
+                {!! setting('deals_text') !!}
             </div>
         </div>
     </div>
@@ -148,43 +153,49 @@
             </div>
         </div>
 
-        <div class="row justify-content-center pb-5">
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-sm-auto mb-4">
-                <div class="product-card">
-                    <div class="card-image">
-                        <img src="{{ asset('theme/images/product-1.png') }}" class="img-fluid" alt="Product">
+        @foreach ($products as $item)
+            @if($loop->iteration % 2 == 0)
+                <div class="row justify-content-center pb-5">
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-sm-auto mt-auto mb-auto order-sm-1 order-2">
+                        <h3>{{ $item->category->name }}</h3>
+                        <p>{{ Str::limit($item->description, 70, '...') }}</p>
+                        <a href="{{ route('products') }}" class="button button-md mt-4">See more</a>
                     </div>
-                    <div class="card-body text-end">
-                        <h4>Shisha</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-sm-auto mb-4 order-sm-2 order-1">
+                        <div class="product-card">
+                            <div class="card-image">
+                                <img src="{{ asset($item->image) }}" class="img-fluid" alt="Product">
+                            </div>
+                            <div class="card-body text-sm-start text-end">
+                                <h4>{{ $item->name }}</h4>
+                                <p>{{ Str::limit($item->description, 50, '...') }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12  mt-auto mb-auto">
-                <h3>Shisha</h3>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias quaerat numquam, dolorum eaque</p>
-                <a href="" class="button button-md mt-4">Read More</a>
-            </div>
-        </div>
+            @else
+                <div class="row justify-content-center pb-5">
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-sm-auto mb-4">
+                        <div class="product-card">
+                            <div class="card-image">
+                                <img src="{{ asset($item->image) }}" class="img-fluid" alt="Product">
+                            </div>
+                            <div class="card-body text-end">
+                                <h4>{{ $item->name }}</h4>
+                                <p>{{ Str::limit($item->description, 50, '...') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12  mt-auto mb-auto">
+                        <h3>{{ $item->category->name }}</h3>
+                        <p>{{ Str::limit($item->description, 70, '...') }}</p>
+                        <a href="{{ route('products') }}" class="button button-md mt-4">See more</a>
+                    </div>
+                </div>
+            @endif
 
-        <div class="row justify-content-center pb-5">
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-sm-auto mt-auto mb-auto order-sm-1 order-2">
-                <h3>Hookah</h3>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias quaerat numquam, dolorum eaque</p>
-                <a href="" class="button button-md mt-4">Read More</a>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-sm-auto mb-4 order-sm-2 order-1">
-                <div class="product-card">
-                    <div class="card-image">
-                        <img src="{{ asset('theme/images/product-2.png') }}" class="img-fluid" alt="Product">
-                    </div>
-                    <div class="card-body text-sm-start text-end">
-                        <h4>Hookah</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endforeach
+
     </div>
 </section>
 
@@ -197,16 +208,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-md-10 text-center mt-5">
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. At commodi ex, quos natus facilis dicta impedit, accusantium iusto a et ea debitis incidunt? Fugit consectetur veniam quae quo dolore incidunt?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. At commodi ex, quos natus facilis dicta impedit, accusantium iusto a et ea debitis incidunt? Fugit consectetur veniam quae quo dolore incidunt?
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. At commodi ex, quos natus facilis dicta impedit, accusantium iusto a et ea debitis incidunt? Fugit consectetur veniam quae quo dolore incidunt?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. At commodi ex, quos natus facilis dicta impedit, accusantium iusto a et ea debitis incidunt? Fugit consectetur veniam quae quo dolore incidunt?
-                </p>
-
-                <a href="" class="button button-md mt-4">More</a>
+                {!! setting('about') !!}
             </div>
         </div>
     </div>

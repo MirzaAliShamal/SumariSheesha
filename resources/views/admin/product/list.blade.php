@@ -30,22 +30,21 @@
                 <table class="datatables table table-bordered">
                     <thead>
                         <tr>
-                            <th>Product code</th>
+                            <th style="width: 10%">Code</th>
                             <th>Image</th>
                             <th>Name</th>
                             <th>Category</th>
-                            <th>Flavour</th>
-                            <th>Color</th>
                             <th>Quantity</th>
                             <th>Price(GBP)</th>
-                            <th >Status</th>
+                            <th>Status</th>
+                            <th>Featured Home <small>(click to change)</small></th>
                             <th class="text-right" width="20%">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($list as $item )
                         <tr>
-                            <td><b>#SSP{{ $item->uuid }}</b></td>
+                            <td style="width: 10%"><b>#SSP{{ $item->uuid }}</b></td>
                             <td>
                                 <div style="height: 50px; width:50px">
                                     @if($item->image)
@@ -57,22 +56,34 @@
                             </td>
                             <td title="{{ $item->name }}">{{ Str::limit($item->name, 15, '...') }}</td>
                             <td>{{ $item->category->name }}</td>
-                            <td>{{ $item->flavour ? $item->flavour->name : 'N/A'}} </td>
-                            <td>{{ $item->color ? $item->color->name : 'N/A'}}</td>
                             <td>{{ $item->quantity }}</td>
                             <td>{{ $item->price }}</td>
                             @if($item->status)
                                 <td>
-                                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                                        <div class="badge-outline col-cyan">Available</div>
-                                    </div>
+                                    <div class="badge badge-success badge-shadow">Active</div>
                                 </td>
                             @else
-                            <td>
-                                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                                    <div class="badge-outline col-red">Unvailable</div>
-                                </div>
-                            </td>
+                                <td>
+                                    <div class="badge badge-danger badge-shadow">Disabled</div>
+                                </td>
+                            @endif
+
+                            @if($item->featured_on_home)
+                                <td>
+                                    <a href="{{ route('admin.product.featured.status', $item->id) }}">
+                                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                            <div class="badge-outline col-cyan">Yes</div>
+                                        </div>
+                                    </a>
+                                </td>
+                            @else
+                                <td>
+                                    <a href="{{ route('admin.product.featured.status', $item->id) }}">
+                                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                            <div class="badge-outline col-red">No</div>
+                                        </div>
+                                    </a>
+                                </td>
                             @endif
                             <td class="text-right">
                                 <button onclick="deleteAlert('{{ route('admin.product.delete',$item->id) }}')" class="btn btn-danger btn-sm" title="delete">

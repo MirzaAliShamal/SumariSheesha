@@ -3,14 +3,22 @@
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
+use App\Models\BlogCategory;
+use App\Models\BrandProduct;
+use App\Models\SubCategory;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Product;
-use App\Models\BrandProduct;
 use App\Models\Earning;
 use App\Models\Order;
 use App\Models\Setting;
 use Carbon\Carbon;
+
+function setting($key){
+    $setting = Setting::pluck('value', 'name');
+    //dd($setting);
+    return $setting[$key] ?? '';
+}
 
 function uploadFile($file, $path){
     $name = time().'-'.str_replace(' ', '-', $file->getClientOriginalName());
@@ -20,6 +28,14 @@ function uploadFile($file, $path){
 
 function countries() {
     return Country::orderBy('name', 'ASC')->get();
+}
+
+function getCategories() {
+    return Category::where('status', true)->with('subCategories')->get();
+}
+
+function getBlogCategories() {
+    return BlogCategory::where('status', true)->withCount('blogPosts')->get();
 }
 
 function getProductDetails($id){
@@ -115,9 +131,4 @@ function earnings(){
         }
     }
     return $result;
-}
-function setting($key){
-    $setting = Setting::pluck('value', 'name');
-    //dd($setting);
-    return $setting[$key] ?? '';
 }

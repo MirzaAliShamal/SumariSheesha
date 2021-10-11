@@ -14,7 +14,7 @@ class AlterTableProductsForSubCategory extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->foreignId('sub_category_id')->references('id')->on('sub_categories')->constrained()->onDelete('cascade')->after('category_id');
+            $table->foreignId('sub_category_id')->nullable()->after('category_id')->references('id')->on('sub_categories')->constrained()->onDelete('cascade');
         });
     }
 

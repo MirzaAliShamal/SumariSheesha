@@ -3,10 +3,9 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 pb-4">
                 <div class="footer-logo">
-                    <img src="{{ asset('theme/images/logo.png') }}" class="img-fluid" alt="Footer Logo">
+                    <img src="{{ asset(setting('logo')) }}" class="img-fluid" alt="Footer Logo">
                 </div>
                 <p class="about">{!! setting('footer_text') !!}</p>
-                <a href=""><strong>Read More <i class="far fa-angle-right"></i></strong></a>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 pb-4">
                 <div class="row">
@@ -35,8 +34,8 @@
                             <li><a href="">About</a></li>
                             <li><a href="">Careers</a></li>
                             <li><a href="">Testimonials</a></li>
-                            <li><a href="">Blog</a></li>
-                            <li><a href="">Contact</a></li>
+                            <li><a href="{{ route('blog') }}">Blog</a></li>
+                            <li><a href="{{ route('contact') }}">Contact</a></li>
                         </ul>
                     </div>
                 </div>
@@ -46,9 +45,30 @@
         <div class="row">
             <div class="col-lg-6 col-md-4 col-sm-12 pb-4">
                 <div class="social-icons">
-                    <a href="{{ setting('facebook') }}"><i class="fab fa-facebook-f"></i></a>
-                    <a href="{{ setting('twitter') }}"><i class="fab fa-twitter"></i></a>
-                    <a href="{{ setting('instagram') }}"><i class="fab fa-instagram"></i></a>
+                    @if (!is_null(setting('facebook')) && setting('facebook') !== "")
+                        <a href="https://facebook.com/{{ setting('facebook') }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    @endif
+                    @if (!is_null(setting('twitter')) && setting('twitter') !== "")
+                        <a href="https://twitter.com/{{ setting('twitter') }}" target="_blank"><i class="fab fa-twitter"></i></a>
+                    @endif
+                    @if (!is_null(setting('instagram')) && setting('instagram') !== "")
+                        <a href="https://instagram.com/{{ setting('instagram') }}" target="_blank"><i class="fab fa-instagram"></i></a>
+                    @endif
+                    @if (!is_null(setting('linkedin')) && setting('linkedin') !== "")
+                        <a href="https://linkedin.com/in/{{ setting('linkedin') }}" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    @endif
+                    @if (!is_null(setting('whatsapp')) && setting('whatsapp') !== "")
+                        <a href="https://api.whatsapp.com/send?phone={{ setting('whatsapp') }}" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    @endif
+                    @if (!is_null(setting('tiktok')) && setting('tiktok') !== "")
+                        <a href="https://tiktok.com/@{{ setting('tiktok') }}" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    @endif
+                    @if (!is_null(setting('snapchat')) && setting('snapchat') !== "")
+                        <a href="https://snapchat.com/{{ setting('snapchat') }}" target="_blank"><i class="fab fa-snapchat"></i></a>
+                    @endif
+                    @if (!is_null(setting('youtube')) && setting('youtube') !== "")
+                        <a href="https://youtube.com/{{ setting('youtube') }}" target="_blank"><i class="fab fa-youtube"></i></a>
+                    @endif
                 </div>
             </div>
             <div class="col-lg-6 col-md-8 col-sm-12 pb-4 text-xl-end text-lg-end text-md-end text-center">
@@ -56,8 +76,8 @@
                     <li><a href="">About</a></li>
                     <li><a href="">Careers</a></li>
                     <li><a href="">Testimonials</a></li>
-                    <li><a href="">Blog</a></li>
-                    <li><a href="">Contact</a></li>
+                    <li><a href="{{ route('blog') }}">Blog</a></li>
+                    <li><a href="{{ route('contact') }}">Contact</a></li>
                 </ul>
             </div>
         </div>

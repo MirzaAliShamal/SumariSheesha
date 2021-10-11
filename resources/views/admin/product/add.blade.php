@@ -123,8 +123,8 @@
 
                     <div class="col-sm-12 col-12">
                         <div class="form-group">
-                            <label> Meta Title</label>
-                            <input type="text" class="form-control" name="meta_title" id="meta_title" placeholder="Meta Title" >
+                            <label> Meta Keywords</label>
+                            <input type="text" class="form-control" name="meta_keywords" id="meta_keywords" placeholder="Meta Keywords" >
                         </div>
                     </div>
                     <div class="col-sm-12 col-12">

@@ -21,6 +21,7 @@ class Product extends Model
     public function color() {
         return $this->belongsTo('App\Models\Color');
     }
+
     public function subCategory() {
         return $this->belongsTo('App\Models\SubCategory');
     }

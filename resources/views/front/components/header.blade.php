@@ -69,15 +69,9 @@
                     <div class="shopping-cart-footer">
                         @if(Cart::instance('product')->content()->count() > 0)
                             <a href="{{ route('cart') }}" class="button button-md text-center">View Cart</a>
-                            {{-- @if(auth()->user()) --}}
-                                <a href="{{ route('checkout') }}" class="button button-md text-center checkout-cart">Checkout</a>
-                            {{-- @else
-                                <a href="{{ route('login') }}" class="button button-md text-center checkout-cart">Checkout</a>
-                            @endif --}}
+                            <a href="{{ route('checkout') }}" class="button button-md text-center checkout-cart">Checkout</a>
                         @endif
-
                     </div>
-
                 </div>
                 <button class="toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasmenu"
                     aria-controls="offcanvasmenu"><i class="fal fa-bars"></i></button>
@@ -93,7 +87,7 @@
     </div>
     <div class="offcanvas-body">
         <div class="logo text-center justify-content-center m-auto">
-            <a href="{{ route('home') }}"><img src="{{ asset('theme/images/logo.png') }}" width="80px" class="img-fluid"
+            <a href="{{ route('home') }}"><img src="{{ asset(setting('logo')) }}" width="80px" class="img-fluid"
                     alt="Logo"></a>
         </div>
         <div class="offcanvas-navigation">

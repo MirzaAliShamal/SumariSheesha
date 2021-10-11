@@ -14,8 +14,4 @@ class SubCategory extends Model
     {
         return $this->belongsTo('App\Models\Category');
     }
-    public function subCategory()
-    {
-        return $this->belongsTo('App\Models\SubCategory');
-    }
 }

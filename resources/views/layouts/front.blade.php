@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" href="{{ asset('theme/images/favicon.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset(setting('fav_icon')) }}" type="image/x-icon">
 
-    <title>@yield('title') - Sumari Sheesha</title>
+    <title>@yield('title') - {{ setting('site_title') }}</title>
+
+    @yield('meta')
 
     {{-- External Libraries --}}
     <link rel="stylesheet" href="{{ asset('theme/css/bootstrap.min.css') }}" type="text/css">
@@ -16,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('theme/css/slick.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('theme/css/slick-theme.css') }}" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 
     {{-- Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,7 +32,6 @@
     {{-- Stylesheet --}}
     <link rel="stylesheet" href="{{ asset('theme/css/main.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('theme/css/responsive.css') }}" type="text/css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 
     <style>
         #DataTables_Table_0_filter input{
