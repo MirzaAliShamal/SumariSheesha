@@ -22,7 +22,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-9 col-md-9 col-sm-9 col-12 mb-4">
-                <div class="table-scrollable cart-table">
+                <div class="table-scrollable cart-table cart-empty-show">
                     @if(Cart::instance('product')->content()->count() > 0)
                         <table class="m-auto table table-responsive">
                             <thead>
@@ -60,7 +60,7 @@
                                             <div class="input-group quantity mb-3">
                                                 <span class="input-group-text change update-cart" data-id="{{ $list->rowId }}" onclick="quantityField(this,'minus')">-</span>
                                                 <input type="text" class="form-control" value="{{ $list->qty }}" name="qty" id="qty" readonly>
-                                                <span class="input-group-text change addToCart" data-id="{{ $list->id }}" data-url="1" data-check="1" onclick="quantityField(this,'plus')">+</span>
+                                                <span class="input-group-text change addToCart" data-qty="{{ getProductDetails($list->id)->quantity }}" data-id="{{ $list->id }}" data-url="1" data-check="1" onclick="quantityField(this,'plus')">+</span>
                                             </div>
                                         </td>
                                         <td width="15%">
@@ -141,7 +141,8 @@
                 }
             }
             if (handler == "plus") {
-                if (qty >= 1) {
+                qty_limit = elem.data('qty');
+                if (qty >= 1 && qty <= qty_limit) {
                     qty = qty+1;
                     elem.closest('td').find('input').val(qty);
                 }

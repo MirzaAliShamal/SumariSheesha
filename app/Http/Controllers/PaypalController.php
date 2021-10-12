@@ -10,6 +10,7 @@ use App\Models\OrderItem;
 use App\Models\User;
 use App\Models\Booking;
 use App\Models\Earning;
+use App\Models\Product;
 use App\Notifications\EmailNotification;
 use App\Notifications\UserNotification;
 // Paypal includes
@@ -51,6 +52,20 @@ class PaypalController extends Controller
 
     public function price(Request $req)
     {
+        if(!$req->has('booking'))
+        {
+            foreach(Cart::instance('product')->content() as $cart){
+                $prod = Product::find($cart->id);
+                if($cart->qty > $prod->quantity){
+                    Cart::instance('product')->remove($cart->rowId);
+                    return redirect()->route('cart')->with('error','Sorry some items are no more available!');
+                }else{
+                    $prod->quantity = $prod->quantity - $cart->qty;
+                    $prod->save();
+                }
+            }
+        }
+
         if($req->booking == 'booking'){
             $total = strval(Cart::instance('booking')->total());
         }else{

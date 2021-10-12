@@ -20,7 +20,7 @@ Echo.private('App.Models.User.'+userId).notification((notification) => {
                 '<span class="time">now</sapn>'+
             '</span>'+
         '</a>';
-        $(".notifications-prepend").prepend(html).addClass({
+        $(".notifications-prepend").prepend(html).addCss({
             "max-height": "200px",
            " overflow-y":" auto !important",
         });

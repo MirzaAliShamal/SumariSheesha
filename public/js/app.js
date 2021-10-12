@@ -4031,7 +4031,7 @@ Echo["private"]('App.Models.User.' + userId).notification(function (notification
   if (role == "2") {
     $(".notif-count").html(notification.count);
     var html = '' + '<a href="' + notification_url + '/' + notification.id + '" class="dropdown-item adminRead">' + '<span class="dropdown-item-icon">' + '<img src="' + notification.data.icon + '" style="width: 50px; height:50px; object-fit:cover; border-radius:20px" alt="">' + '</span>' + '<span class="dropdown-item-desc">' + notification.data.body + '<span class="time">now</sapn>' + '</span>' + '</a>';
-    $(".notifications-prepend").prepend(html).addClass({
+    $(".notifications-prepend").prepend(html).addCss({
       "max-height": "200px",
       " overflow-y": " auto !important"
     });
