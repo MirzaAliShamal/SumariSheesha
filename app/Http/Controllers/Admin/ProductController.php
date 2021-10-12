@@ -16,7 +16,7 @@ class ProductController extends Controller
     public function list()
     {
         $list = Product::all();
-        return view('admin.Product.list', get_defined_vars());
+        return view('admin.product.list', get_defined_vars());
     }
 
     public function add()

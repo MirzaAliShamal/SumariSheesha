@@ -67,7 +67,7 @@
                 <div class="form-check d-inline-block">
                     <input class="form-check-input" type="checkbox" value="1" id="age-restrict">
                     <label class="form-check-label" for="age-restrict">
-                        I confirm that I'm 18 years old or younger
+                        I confirm that I am 18 years old or above
                     </label>
                 </div>
                 <br>

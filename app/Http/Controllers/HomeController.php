@@ -48,7 +48,7 @@ class HomeController extends Controller
     {
         if (is_null($slug)) {
             $blogs = BlogPost::where('status', '3')
-                ->with('blogCategory', 'user',)
+                ->with('blogCategory', 'user')
                 ->orderBy('created_at', 'DESC')->paginate(16);
 
             return view('front.blog_post', get_defined_vars());
@@ -121,7 +121,7 @@ class HomeController extends Controller
         $lng = $req->lng;
         $rad = 5;
 
-        $brands = Brand::selectRaw("id, name, CAST(location_lat AS double) as lat, CAST(location_long AS double) as lng, ( 3956 * acos( cos( radians(?) ) * cos( radians( location_lat ) ) * cos( radians( location_long ) - radians(?) ) + sin( radians(?) ) * sin( radians( location_lat ) ) ) ) AS distance", [$lat, $lng, $lat])
+        $brands = Brand::selectRaw("id, name, CAST(location_lat AS float) as lat, CAST(location_long AS float) as lng, ( 3956 * acos( cos( radians(?) ) * cos( radians( location_lat ) ) * cos( radians( location_long ) - radians(?) ) + sin( radians(?) ) * sin( radians( location_lat ) ) ) ) AS distance", [$lat, $lng, $lat])
             ->having("distance", "<=", $rad)->with('brand_products')->get()->toArray();
 
         return response()->json($brands, 200);

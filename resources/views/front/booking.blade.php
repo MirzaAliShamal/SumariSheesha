@@ -373,7 +373,7 @@
 
         function initMap(lat, lng, markers) {
             const map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: lat, lng: lng },
+                center: { lat: Number(lat), lng: Number(lng) },
                 zoom: 10,
             });
 
@@ -381,7 +381,7 @@
 
             $.each(markers, function (indexInArray, valueOfElement) {
                 const marker = new google.maps.Marker({map, anchorPoint: new google.maps.Point(0, -29),});
-                marker.setPosition(valueOfElement);
+                marker.setPosition({ lat: Number(valueOfElement.lat), lng: Number(valueOfElement.lng) });
                 marker.setVisible(true);
 
                 if (valueOfElement.brand_products.length > 0) {
@@ -427,13 +427,50 @@
                     lng:lng,
                 },
                 success: function (response) {
-                    $("#map").show();
-                    initMap(lat, lng, response);
+                    console.log(response);
+                    if (response.length > 0) {
+                        $("#map").show();
+                        initMap(lat, lng, response);
+                    } else {
+                        iziToast.error({
+                            title: 'Alert!',
+                            message: 'Please fill out address to continue',
+                            position: 'topRight'
+                        });
+                        $("#map").hide();
+                    }
                 }
             });
         }
 
         $(document).on("click", ".search-shisha", function() {
+            if ($("#address").val() == "") {
+                iziToast.error({
+                    title: 'Alert!',
+                    message: 'Please fill out address to continue',
+                    position: 'topRight'
+                });
+                
+                return false;
+            }
+            if ($("#postcode").val() == "") {
+                iziToast.error({
+                    title: 'Alert!',
+                    message: 'Please fill out postcode to continue',
+                    position: 'topRight'
+                });
+                
+                return false;
+            }
+            if ($("#country").val() == "") {
+                iziToast.error({
+                    title: 'Alert!',
+                    message: 'Please select country to continue',
+                    position: 'topRight'
+                });
+                
+                return false;
+            }
             var lat = 0;
             var lng = 0;
             var postcode = $("#postcode").val();
@@ -452,6 +489,11 @@
                     // $("[name='current_lng']").val(results[0].geometry.location.lng());
                     getBrands(lat, lng);
                 } else {
+                    iziToast.error({
+                        title: 'Alert!',
+                        message: 'Please enter a valid UK postcode.',
+                        position: 'topRight'
+                    });
                     $(".postal-code-full").html("<small class='text-danger'>Please enter a valid US ZIP code.</small>");
                 }
             });
