@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="{{ asset(setting('fav_icon')) }}" type="image/x-icon">
+    @auth
     <meta name="current" content="{{ auth()->user()->id }}">
     <meta name="role" content="{{ auth()->user()->role }}">
+    @endauth
 
     <title>@yield('title') - {{ setting('site_title') }}</title>
 
@@ -70,7 +72,7 @@
                 <div class="form-check d-inline-block">
                     <input class="form-check-input" type="checkbox" value="1" id="age-restrict">
                     <label class="form-check-label" for="age-restrict">
-                        I confirm that I'm 18 years old or younger
+                        I confirm that I am 18 years old or above
                     </label>
                 </div>
                 <br>
