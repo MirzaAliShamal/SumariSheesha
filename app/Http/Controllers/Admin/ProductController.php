@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Flavour;
 use App\Models\Color;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\SubCategory;
 use Str;
 
@@ -16,6 +17,7 @@ class ProductController extends Controller
     public function list()
     {
         $list = Product::all();
+
         return view('admin.product.list', get_defined_vars());
     }
 
@@ -40,6 +42,7 @@ class ProductController extends Controller
     }
     public function save(Request $req, $id = null)
     {
+
         // dd($req->all());
         $product = Product::orderBy('id', 'DESC')->first();
         if(is_null($id)){
@@ -57,10 +60,7 @@ class ProductController extends Controller
             $list =Product::find($id);
             $msg = 'Product updated successfully !';
         }
-        if($req->file){
 
-            $list->image = uploadFile($req->file, 'uploads/products');
-        }
         $list->name = $req->name;
         $list->slug = Str::slug($req->name);
         $list->category_id = $req->category;
@@ -75,6 +75,27 @@ class ProductController extends Controller
         $list->meta_description = $req->meta_description;
         $list->status = 1;
         $list->save();
+        if(is_null($id)){
+            if($req->image){
+                foreach(array_filter($req->image) as $image){
+                    $pi= new ProductImage();
+                    $pi->image = uploadFile($image, 'uploads/products');
+                    $pi->product_id = $list->id;
+                    $pi->save();
+                }
+            }
+        }else{
+            // $list->images()->delete();
+            if($req->image){
+                foreach(array_filter($req->image) as $image){
+                    $pi= new ProductImage();
+                    $pi->image = uploadFile($image, 'uploads/products');
+                    $pi->product_id = $list->id;
+                    $pi->save();
+                }
+            }
+        }
+
         return redirect()->route('admin.product.list')->with('success', $msg);
     }
 
@@ -119,8 +140,20 @@ class ProductController extends Controller
         $flavour = Flavour::where('status',1)->get();
         $color = Color::where('status',1)->get();
         $category = Category::where('status',1)->whereHas('subCategories')->get();
-        $subs = $list->category->subCategory;
+        $subs = $list->category->subCategories;
+        // dd($subs);
         return view('admin.product.edit',get_defined_vars());
+    }
+
+    public function deleteImage(Request $req)
+    {
+        $image = ProductImage::find($req->id);
+        $image->delete();
+        return response()->json(
+            [
+                'status'=> true,
+            ]
+        );
     }
 }
 

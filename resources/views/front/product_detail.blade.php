@@ -23,8 +23,31 @@
         <div class="row justify-content-center">
             <div class="col-lg-4 col-md-4 col-12 mb-2">
                 <div class="product-image">
-                    @if($product->image)
-                        <img src="{{ asset($product->image) }}" class="img-fluid" alt="">
+                    @if(count($product->images) > 0)
+                    <div class="row justify-content-center">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-2 text-end m-auto">
+                            <span class="video-carousel-control" data-bs-target="#video-carousel" data-bs-slide="prev">
+                                <i class="fas fa-chevron-left"></i>
+                            </span>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-8 m-auto">
+                            <div id="video-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    @foreach ($product->images as $image)
+                                        <div class="carousel-item {{ $loop->iteration ==1 ? 'active': '' }}" data-bs-interval="2000">
+                                            <img src="{{ asset($image->image) }}" class="img-fluid" alt="">
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-2 m-auto">
+                            <span class="video-carousel-control" data-bs-target="#video-carousel" data-bs-slide="next">
+                                <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </div>
+                    </div>
+                        {{-- <img src="{{ asset($product->image) }}" class="img-fluid" alt=""> --}}
                     @else
                         <img src="{{ asset('empty.jpg') }}" class="img-fluid" alt="">
                     @endif

@@ -76,7 +76,12 @@
         </div>
     </div>
 
-
+   @php
+       if(Cart::instance('product')->count() <= 0){
+            Session::forget('discount');
+            Session::forget('total');
+       }
+   @endphp
     <script src="{{ asset('theme/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('theme/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('theme/js/bootstrap-datepicker.min.js') }}"></script>
@@ -140,7 +145,16 @@
                     if (response.status) {
                         $('.shopping-cart-footer').html('');
                         $('.shopping-cart').addClass('active');
-                        $('.total').text(response.total);
+                        $('.total').text('£ ' +response.total);
+                        if(response.discount){
+                            $('#price-total').text(response.price);
+                            $('.discount').text('£ ' +response.discount);
+                        }else{
+                            // console.log(response.total)
+                            $('#price-total').text(response.total);
+                            $('.discount').text('£ ' +'0.00');
+                        }
+
                         $('.shopping-cart-items').html(response.html);
 
                         iziToast.success({
@@ -176,7 +190,14 @@
                     console.log(response);
                     if (response.status) {
                         $('.shopping-cart-footer').html('');
-                        $('.total').text(response.total);
+                        $('.total').text('£ ' +response.total);
+                        if(response.discount){
+                            $('#price-total').text(response.price);
+                            $('.discount').text('£ ' +response.discount);
+                        }else{
+                            $('price-total').text(response.total);
+                            $('.discount').text('£ ' +'0.00');
+                        }
                         $('.shopping-cart-items').html(response.html);
                         $('.cart-empty-show').html(response.view_cart);
                         iziToast.success({
@@ -184,6 +205,7 @@
                             message:'Item successfully removed from cart!',
                             position:'topRight'
                         });
+
                     }
                 }
             )
@@ -197,10 +219,17 @@
                     id:id,
                 },
                 function(response){
-                    console.log(response);
+                    console.log(response.total);
                     if (response.status) {
                         $('.shopping-cart-footer').html('');
                         $('.total').text(response.total);
+                        if(response.discount){
+                            $('#price-total').text(response.price);
+                            $('.discount').text('£ ' +response.discount);
+                        }else{
+                            $('price-total').text(response.total);
+                            $('.discount').text('£ ' +'0.00');
+                        }
                         $('.shopping-cart-items').html(response.html);
                         $('.shopping-cart').addClass('active');
                         iziToast.success({
@@ -212,6 +241,7 @@
                 }
             )
         });
+
         // $(document).on('click','.checkout-cart',function () {
         //     @if (auth()->user())
         //         var id = $(this).data('id');

@@ -8,6 +8,7 @@ use App\Models\BlogCategory;
 use App\Models\BlogPost;
 use App\Models\Product;
 use App\Models\Brand;
+use App\Models\BrandProduct;
 use App\Notifications\EmailNotification;
 use App\Notifications\UserNotification;
 use DB;
@@ -22,7 +23,7 @@ class HomeController extends Controller
 
     public function products($category = null, $subcategory = null)
     {
-        $products = Product::where('status', true);
+        $products = Product::where('status', true)->where('quantity','>',3);
         if (!is_null($category)) {
             $products = $products->whereHas('category', function($q) use($category) {
                 $q->where('slug', $category);
@@ -122,8 +123,24 @@ class HomeController extends Controller
         $rad = 5;
 
         $brands = Brand::selectRaw("id, name, CAST(location_lat AS float) as lat, CAST(location_long AS float) as lng, ( 3956 * acos( cos( radians(?) ) * cos( radians( location_lat ) ) * cos( radians( location_long ) - radians(?) ) + sin( radians(?) ) * sin( radians( location_lat ) ) ) ) AS distance", [$lat, $lng, $lat])
-            ->having("distance", "<=", $rad)->with('brand_products')->get()->toArray();
+            ->having("distance", "<=", $rad)->with('brand_products')->get();
+        if($brands){
+            return response()->json([
+                'brands' => $brands,
+                'html' => view('ajax.get_brands',get_defined_vars())->render(),
+                'status' => true,
+            ]);
+        }
+        else{
+            return response()->json([
+                'status' =>false,
+            ]);
+        }
+    }
 
-        return response()->json($brands, 200);
+    public function getProds($id = null)
+    {
+        $list = BrandProduct::where('brand_id',$id)->get();
+        return view('front.brand_products',get_defined_vars());
     }
 }

@@ -38,7 +38,7 @@
                             <th>Price(GBP)</th>
                             <th>Status</th>
                             <th>Featured Home <small>(click to change)</small></th>
-                            <th class="text-right" width="20%">Actions</th>
+                            <th >Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,8 +47,8 @@
                             <td style="width: 10%"><b>#SSP{{ $item->uuid }}</b></td>
                             <td>
                                 <div style="height: 50px; width:50px">
-                                    @if($item->image)
-                                        <img src="{{ asset($item->image) }}" style="width: 100%; height:100%; object-fit:cover" alt="">
+                                    @if(count($item->images) > 0)
+                                        <img src="{{ asset($item->images->first()->image) }}" style="width: 100%; height:100%; object-fit:cover" alt="">
                                     @else
                                         <img src="{{ asset('uploads/products/empty.png') }}" class="rounded mr-75" alt="product image"  style="height:100%; width:100%; object-fit: cover">
                                     @endif
@@ -56,7 +56,11 @@
                             </td>
                             <td title="{{ $item->name }}">{{ Str::limit($item->name, 15, '...') }}</td>
                             <td>{{ $item->category->name }}</td>
-                            <td>{{ $item->quantity }}</td>
+                            @if($item->quantity > 3)
+                                <td>{{ $item->quantity }}</td>
+                            @else
+                                <td><b class="text-danger">{{ $item->quantity }}</b></td>
+                            @endif
                             <td>{{ $item->price }}</td>
                             @if($item->status)
                                 <td>
@@ -85,7 +89,7 @@
                                     </a>
                                 </td>
                             @endif
-                            <td class="text-right">
+                            <td>
                                 <button onclick="deleteAlert('{{ route('admin.product.delete',$item->id) }}')" class="btn btn-danger btn-sm" title="delete">
                                     <i class="fas fa-trash"></i>
                                 </button>

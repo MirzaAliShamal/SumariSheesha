@@ -118,7 +118,11 @@
                             </tr>
                             <tr>
                                 <td>Discount:</td>
-                                <td class="text-end">£ 0.00</td>
+                                @if(session('discount'))
+                                    <td class="text-end">{{ session('discount') }}</td>
+                                @else
+                                    <td class="text-end">£ 0.00</td>
+                                @endif
                             </tr>
                             <tr>
                                 <td>Shipping:</td>
@@ -129,7 +133,11 @@
                     <hr>
                     <div class="d-flex">
                         <h5><strong>Total</strong></h5>
-                        <h5 class="ms-auto"><strong>£ {{ Cart::instance('product')->total() }}</strong></h5>
+                        @if(session('total'))
+                            <h5 class="ms-auto"><strong>£ {{ session('total') }}</strong></h5>
+                        @else
+                            <h5 class="ms-auto"><strong>£ {{ Cart::instance('product')->total() }}</strong></h5>
+                        @endif
                     </div>
                 </div>
             </div>

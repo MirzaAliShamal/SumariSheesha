@@ -29,15 +29,24 @@
         <form action="{{ route('admin.product.save') }}" method="POST" class="productform" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-12 mb-3" style="margin-left: -12px">
-                        <div class="media-body mt-75">
-                            <div class="col-12 mt-2">
-                                <input type="file" id="account-upload" name="file" class="dropify">
-                            </div>
-                        </div>
+                <div class="row image-wrapper">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3 image-field d-none">
+                        <button type="button" class="close image-remove" >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <input type="file"  name="image[]" class="dropified">
                     </div>
-
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3">
+                        <button type="button" class="close image-remove">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <input type="file"  name="image[]" class="dropify">
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-12 col-md-12 mb-3">
+                    <button type="button" onclick="copy('.image-field')" class="btn btn-primary">+ Add Image</button>
+                </div>
+                <div class="row">
                     <div class="col-sm-6 col-12">
                         <div class="form-group">
                             <label> Name</label>
@@ -273,6 +282,21 @@
             }
 
         });
+        function copy(target) {
+            let html = $(target).html();
+            let dropify = $(".image-wrapper").append('<div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3 ">'+html+'</div>');
+            var d = $('.dropified').dropify();
+            d = d.data('dropify');
+            if(d.isDropified()){
+                // alert('abc')
+                d.destroy();
+            }
+        }
 
+        $(document).on('click','.image-remove',function () {
+            // alert('papi cholu')
+            $(this).closest('div').remove();
+        });
     </script>
 @endsection
+

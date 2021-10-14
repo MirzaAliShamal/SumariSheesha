@@ -36,4 +36,8 @@ class SettingController extends Controller
     {
         return view('admin.cms.home',get_defined_vars());
     }
+    public function coupon()
+    {
+        return view('admin.cms.coupon',get_defined_vars());
+    }
 }

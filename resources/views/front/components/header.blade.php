@@ -32,7 +32,7 @@
                         <i class="far fa-cart-plus"></i>
                         <div class="shopping-cart-total ms-auto">
                             <small>Total:</small>
-                            £ <span class="main-color-text total font-weight-bold cart-price">{{ Cart::instance('product')->total() }}</span>
+                             <span class="main-color-text total font-weight-bold cart-price">£ @if(session('total')){{ session('total') }} @else{{ Cart::instance('product')->total() }} @endif</span>
                         </div>
                     </div>
 

@@ -29,27 +29,29 @@
         <form action="{{ route('admin.product.save',$list->id) }}" method="POST" class="productform" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
-                <div class="row">
-                    <div class="col-12 mb-3">
-                        <div class="media mb--3">
-
-                            {{-- <div style="height: 100px; width:100px">
-                                <a href="javascript: void(0);">
-                                    @if($list->image)
-                                        <img src="{{ asset($list->image) }}" class="rounded mr-75" alt="product image"  style="height:100%; width:100%; object-fit: cover">
-                                    @else
-                                        <img src="{{ asset('uploads/products/empty.png') }}" class="rounded mr-75" alt="product image"  style="height:100%; width:100%; object-fit: cover">
-                                    @endif
-                                </a>
-                            </div> --}}
-                            <div class="media-body mt-75">
-                                <div class="col-12 mt-2">
-                                    <input type="file" id="account-upload" name="file" data-default-file="{{ $list->image ? asset($list->image): asset('uploads/products/empty.png') }}" class="dropify">
-                                </div>
-                            </div>
-                        </div>
+                <div class="row image-wrapper">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3 image-field d-none">
+                        <button type="button" class="close image-remove" >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{-- <button type="button" class="btn btn-sm btn-block btn-transparent">Make this Primary</button> --}}
+                        <input type="file"  name="image[]" class="dropified">
                     </div>
+                    @foreach ($list->images as $image)
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3">
+                            <button type="button" data-id="{{ $image->id }}" class="close image-remove">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            {{-- <button type="button" data-id="{{ $image->id }}" class="btn btn-sm btn-block btn-primary">Make this Primary</button> --}}
+                            <input type="file"  name="image[]" data-default-file="{{ asset($image->image) }}" class="dropify">
+                        </div>
+                    @endforeach
 
+                </div>
+                <div class="col-sm-12 col-lg-12 col-md-12 mb-3">
+                    <button type="button" onclick="copy('.image-field')" class="btn btn-primary">+ Add Image</button>
+                </div>
+                <div class="row">
                     <div class="col-sm-6 col-12">
                         <div class="form-group">
                             <label> Name</label>
@@ -282,6 +284,42 @@
                     position: 'topRight'
                 });
                 return false;
+            }
+        });
+        function copy(target) {
+            let html = $(target).html();
+            let dropify = $(".image-wrapper").append('<div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-3 ">'+html+'</div>');
+            var d = $('.dropified').dropify();
+            d = d.data('dropify');
+            if(d.isDropified()){
+                // alert('abc')
+                d.destroy();
+            }
+            //  d.init();
+            // d.destroy();
+        }
+
+        $(document).on('click','.image-remove',function () {
+            // alert('papi cholu')
+            $(this).closest('div').remove();
+            var id = $(this).data('id');
+            if(id != ''){
+                $.post('{{ route('admin.product.delete.image') }}',
+                    {
+                        _token: "{{csrf_token()}}",
+                        id:id,
+                    },
+                    function success(response){
+                        if(response.status){
+                            iziToast.success({
+                            title: 'Alert!',
+                            message: 'Image deleted successfully!',
+                            position: 'topRight'
+                        });
+                        }
+                    }
+
+                )
             }
         });
     </script>

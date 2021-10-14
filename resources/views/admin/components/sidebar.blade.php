@@ -121,6 +121,11 @@
                     <i data-feather="home"></i> <span> Home </span>
                 </a>
             </li>
+            <li class=" @routeis('admin.cms.coupon*') active @endrouteis">
+                <a class="nav-link" href="{{ route('admin.cms.coupon') }}">
+                    <i data-feather="home"></i> <span> Coupon Settings </span>
+                </a>
+            </li>
             <li style="margin-top: 100px"></li>
         </ul>
     </aside>

@@ -132,3 +132,5 @@ function earnings(){
     }
     return $result;
 }
+
+

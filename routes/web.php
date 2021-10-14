@@ -32,6 +32,8 @@ Route::prefix('user')->name('user.')->namespace('User')->group(function() {
     route::get('add-cart/{qty?}', 'CartController@addCart')->name('add.cart');
     route::get('remove-cart', 'CartController@removeCart')->name('remove.cart');
     route::get('update-cart', 'CartController@updateCart')->name('update.cart');
+    route::post('coupon', 'CartController@coupon')->name('coupon');
+    route::post('discount', 'CartController@discount')->name('discount');
     // route::get('checkout-cart', 'CartController@checkoutCart')->name('checkout.cart')->middleware('auth');
     Route::prefix('booking')->name('booking.')->group(function() {
         route::get('add', 'BookingController@addBooking')->name('add');
@@ -58,6 +60,7 @@ Route::prefix('paypal')->name('paypal.')->group(function(){
 
 // AJAX ROUTES
 Route::get('/get-brands', 'HomeController@getBrands')->name('get.brands');
+Route::get('/get-brands-products/{id?}', 'HomeController@getProds')->name('get.brands.products');
 
 //
 Route::get('/notification/{id?}', 'HomeController@notification')->name('notification')->middleware('auth');
@@ -117,6 +120,7 @@ Route::middleware('auth')->group(function() {
             Route::post('/save/{id?}', 'ProductController@save')->name('save');
             Route::get('/delete/{id?}', 'ProductController@delete')->name('delete');
             Route::get('/edit/{id?}', 'ProductController@edit')->name('edit');
+            Route::post('/delete-image', 'ProductController@deleteImage')->name('delete.image');
         });
 
         Route::prefix('brand')->name('brand.')->group(function() {
@@ -176,6 +180,7 @@ Route::middleware('auth')->group(function() {
             Route::post('/save', 'SettingController@save')->name('save');
             Route::get('/general', 'SettingController@general')->name('general');
             Route::get('/home', 'SettingController@home')->name('home');
+            Route::get('/coupon', 'SettingController@coupon')->name('coupon');
         });
     });
 });

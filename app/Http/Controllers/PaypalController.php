@@ -58,10 +58,7 @@ class PaypalController extends Controller
                 $prod = Product::find($cart->id);
                 if($cart->qty > $prod->quantity){
                     Cart::instance('product')->remove($cart->rowId);
-                    return redirect()->route('cart')->with('error','Sorry some items are no more available!');
-                }else{
-                    $prod->quantity = $prod->quantity - $cart->qty;
-                    $prod->save();
+                    return redirect()->route('cart')->with('error','Sorry requested quantity exceeds available quantity!');
                 }
             }
         }
@@ -69,7 +66,13 @@ class PaypalController extends Controller
         if($req->booking == 'booking'){
             $total = strval(Cart::instance('booking')->total());
         }else{
-            $total = strval(Cart::instance('product')->total());
+            if(session('total')){
+                $total = session('total');
+            }
+            else{
+                $total = strval(Cart::instance('product')->total());
+            }
+            // dd($total);
         }
         $total = str_replace(',','',$total);
         $total = intval($total);
@@ -221,9 +224,20 @@ class PaypalController extends Controller
                     }
 
                 }else{
+
                     $content = Cart::instance('product')->content();
-                    $total = strval(Cart::instance('product')->total());
-                    $total = str_replace(',','',$total);
+                    if(session('total')){
+                        $sub_total = strval(Cart::instance('product')->total());
+                        $sub_total = str_replace(',','',$sub_total);
+                        $discount = session('discount');
+                        $total = session('total');
+                    }
+                    else{
+
+                        $total = strval(Cart::instance('product')->total());
+                        $total = str_replace(',','',$total);
+                        $sub_total = $total;
+                    }
                         // dd($total);
                     $ordList =Order::orderBy('id','DESC')->first();
                     $order = new Order;
@@ -235,11 +249,30 @@ class PaypalController extends Controller
                     }
                     $order->user_id = auth()->user()->id;
                     $order->total = $total;
+                    $order->sub_total = $sub_total;
+                    $order->discount = $discount ?? 0;
                     $order->note = $data['additional_note'];
                     $order->save();
 
+                    Session::forget('total');
+                    Session::forget('discount');
+
                     if($order){
                         foreach($content as $list){
+                            $prod = Product::find($list->id);
+                            $prod->quantity = $prod->quantity - $list->qty;
+                            $prod->save();
+
+                            if($prod->quantity <= 3){
+                                $notif = User::where('role', '2')->first();
+                                $notif_data = collect([
+                                    'icon' => asset('bell-icon.jpg'),
+                                    'title' => 'Product Update!',
+                                    'body' => 'Product quantity is less than 3. click to see',
+                                    'action' => route('admin.product.list'),
+                                ]);
+                                $notif->notify(new UserNotification($notif_data));
+                            }
                             $item = new OrderItem();
                             $item->order_id = $order->id;
                             $item->product_id = $list->id;

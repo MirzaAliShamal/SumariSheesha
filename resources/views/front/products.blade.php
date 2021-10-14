@@ -55,8 +55,8 @@
                             <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-sm-auto mb-4">
                                 <div class="products">
                                     <div class="card-image">
-                                        @if($item->image)
-                                            <img src="{{ asset($item->image) }}" class="img-fluid" alt="Product">
+                                        @if(count($item->images)>0)
+                                            <img src="{{ asset($item->images->first()->image) }}" class="img-fluid" alt="Product">
                                         @else
                                             <img src="{{ asset('empty.jpg') }}" class="img-fluid" alt="Product">
                                         @endif

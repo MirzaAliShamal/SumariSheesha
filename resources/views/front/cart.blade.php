@@ -18,6 +18,7 @@
     </div>
 </section>
 
+
 <section class="section bg-dark">
     <div class="container">
         <div class="row justify-content-center">
@@ -83,31 +84,37 @@
                             </div>
                         </div>
                     @endif
-
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-12 mb-4">
                 <div class="cart-card cart-coupon-card">
-                    <p class="mb-0">Have coupon?</p>
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="coupon_code" placeholder="Coupon code">
-                        <button class="btn btn-outline-secondary" type="button">Apply</button>
-                    </div>
+                    <form action="" class="coupon-form">
+                        <p class="mb-0">Have coupon?</p>
+                        <div class="input-group">
+                            <input type="text" class="form-control coupon-field" @if(session('discount'))  disabled @endif id="coupon_code" name="coupon_code" placeholder="Coupon code">
+                            <button class="btn btn-outline-secondary coupon-btn @if(session('discount'))  disabled @endif" id="coupon-btn" type="button">Apply</button>
+                        </div>
+                    </form>
+
                 </div>
                 <div class="cart-card cart-calculation-card">
                     <table class="w-100">
                         <tbody>
                             <tr>
                                 <td>Price:</td>
-                                <td class="text-end price total">£ {{ Cart::instance('product')->total() }}</td>
+                                <td class="text-end price">£ <b id="price-total">{{ Cart::instance('product')->total() }}</b></td>
                             </tr>
                             <tr>
                                 <td>Discount:</td>
-                                <td class="text-end discount">£ 0.00</td>
+                                @if(session('discount'))
+                                    <td class="text-end discount">£ {{ session('discount') }}</td>
+                                @else
+                                    <td class="text-end discount">£ 0.00</td>
+                                @endif
                             </tr>
                             <tr>
                                 <td>Total:</td>
-                                <th class="text-end total">£ {{ Cart::instance('product')->total() }}</th>
+                                <th class="text-end total">£ <b id="grand-total">@if(session('total')){{ session('total') }} @else{{ Cart::instance('product')->total() }} @endif</b></th>
                             </tr>
                         </tbody>
                     </table>
@@ -141,8 +148,8 @@
                 }
             }
             if (handler == "plus") {
-                qty_limit = elem.data('qty');
-                if (qty >= 1 && qty <= qty_limit) {
+                // qty_limit = elem.data('qty');
+                if (qty >= 1 ) {
                     qty = qty+1;
                     elem.closest('td').find('input').val(qty);
                 }
@@ -157,8 +164,64 @@
             var result = qty*each_price;
             $(this).closest('tr').find('span[class="product-price"]').text(result);
             // alert(result)
+        });
+        $('.coupon-btn').click(function (e) {
+            e.preventDefault();
+            var code = $('#coupon_code').val();
+            if(code != ''){
+                $.post('{{route('user.coupon')}}',
+                {
+                    _token: "{{csrf_token()}}",
+                    code:code,
+                },
+                function(response){
+                    console.log(response);
+                    if (response.status) {
+                        var value = response.value;
+                        var price = $('#price-total').text();
+                        price = price.replace(',','');
+                        price = parseInt(price);
+                        var percent = value*price/100;
+                        // alert(percent)
+                        $('.discount').text(percent)
+                        var total = $('#grand-total').text();
+                        total = total = total.replace(',','');
+                        total = parseInt(total);
+                        // alert(total);
+                        $('#coupon-btn').addClass('disabled')
+                        $('#coupon-btn').removeClass('coupon-btn')
 
+                         var result = total - percent
+                         $('#grand-total').text(result);
+                        iziToast.success({
+                            title:'Alert!',
+                            message:'Coupon applied successfully!',
+                            position:'topRight'
+                        });
+                        $.post('{{route('user.discount')}}',
+                        {
+                            _token: "{{csrf_token()}}",
+                            discount:percent,
+                            total:result,
+                        },
+                        function(response){
+
+                        })
+                    }else{
+                        iziToast.error({
+                            title:'Alert!',
+                            message:'applied Coupon doesnot exists!',
+                            position:'topRight'
+                        });
+                    }
+                }
+            )
+            }
 
         });
+        @if (Cart::instance('product')->content()->count() <= 0)
+            $('.discount').text('£ 0.00');
+            $('#grand-total').text('0.00');
+        @endif
     </script>
 @endsection
