@@ -12,7 +12,7 @@ use App\Models\BrandProduct;
 use App\Notifications\EmailNotification;
 use App\Notifications\UserNotification;
 use DB;
-
+use Session;
 class HomeController extends Controller
 {
     public function home()
@@ -122,20 +122,29 @@ class HomeController extends Controller
         $lng = $req->lng;
         $rad = 5;
 
-        $brands = Brand::selectRaw("id, name, CAST(location_lat AS float) as lat, CAST(location_long AS float) as lng, ( 3956 * acos( cos( radians(?) ) * cos( radians( location_lat ) ) * cos( radians( location_long ) - radians(?) ) + sin( radians(?) ) * sin( radians( location_lat ) ) ) ) AS distance", [$lat, $lng, $lat])
-            ->having("distance", "<=", $rad)->with('brand_products')->get();
-        if($brands){
-            return response()->json([
-                'brands' => $brands,
-                'html' => view('ajax.get_brands',get_defined_vars())->render(),
-                'status' => true,
-            ]);
-        }
-        else{
-            return response()->json([
-                'status' =>false,
-            ]);
-        }
+        $list = BrandProduct::whereHas('brand',function($q) use($lat,$lng,$rad) {
+            $q->selectRaw("id, name, CAST(location_lat AS float) as lat, CAST(location_long AS float) as lng, ( 3956 * acos( cos( radians(?) ) * cos( radians( location_lat ) ) * cos( radians( location_long ) - radians(?) ) + sin( radians(?) ) * sin( radians( location_lat ) ) ) ) AS distance", [$lat, $lng, $lat])
+            ->having("distance", "<=", $rad);
+        })->get();
+        // dd($list);
+        Session::put('brand_products_list',$list);
+        return response()->json([
+                    'status' => true,
+                ]);
+        // $brands = Brand::selectRaw("id, name, CAST(location_lat AS float) as lat, CAST(location_long AS float) as lng, ( 3956 * acos( cos( radians(?) ) * cos( radians( location_lat ) ) * cos( radians( location_long ) - radians(?) ) + sin( radians(?) ) * sin( radians( location_lat ) ) ) ) AS distance", [$lat, $lng, $lat])
+        //     ->having("distance", "<=", $rad)->with('brand_products')->get();
+        // if($brands){
+        //     return response()->json([
+        //         'brands' => $brands,
+        //         'html' => view('ajax.get_brands',get_defined_vars())->render(),
+        //         'status' => true,
+        //     ]);
+        // }
+        // else{
+        //     return response()->json([
+        //         'status' =>false,
+        //     ]);
+        // }
     }
 
     public function getProds($id = null)

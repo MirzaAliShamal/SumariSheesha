@@ -1,3 +1,5 @@
+
+@if(session('brand_products_list'))
 @extends('layouts.front')
 
 @section('title', 'Brand Products')
@@ -298,18 +300,29 @@ $user = auth()->user();
                     <div class="row">
                         <div class="col-lg-12 col-md-9 col-sm-12 col-12">
                             <div class="row">
-                                    @foreach ($list as $item)
-                                        <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-sm-auto mb-4">
+                                    @foreach (session('brand_products_list') as $item)
+                                        <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-5" >
                                             <div class="products">
-                                                <div class="card-image">
-                                                    <img src="{{ asset($item->image) }}"
-                                                        class="img-fluid" alt="Product">
+                                                <div class="card-image-custom">
+                                                    @if($item->image)
+                                                        <img src="{{ asset($item->image) }}" class="img-fluid" alt="Product">
+                                                    @else
+                                                        <img src="{{ asset('empty.jpg') }}" class="img-fluid" alt="Product">
+                                                    @endif
                                                 </div>
                                                 <div class="card-body">
                                                     {{-- <a href="http://127.0.0.1:8000/product/mayo-pro-bowl"> --}}
-                                                        <h4>{{ Str::limit($item->name, 11, '...') }}</h4>
+                                                        <p>{{ Str::limit($item->brand->name, 15, '...') }}</p>
+                                                        <h4>{{ Str::limit($item->name, 15, '...') }}</h4>
                                                     {{-- </a> --}}
                                                     <p>{{ Str::limit($item->description, 45, '...') }}</p>
+                                                    <p>CAEGORY: &nbsp;<b>{{ $item->category->name }}</b></p>
+                                                    <p>PRICE: &nbsp;£<b>{{ $item->price }}</b></p>
+                                                    @if($item->color_id)
+                                                        <p>COLOR: &nbsp;£<b>{{ $item->color->name }}</b></p>
+                                                    @else
+                                                        <p>FLAVOUR: &nbsp;<b>{{ $item->flavour->name }}</b></p>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="text-center">
@@ -413,3 +426,10 @@ $user = auth()->user();
         });
     </script>
 @endsection
+@else
+
+    <script>
+        window.location = "{{ route("home") }}";
+    </script>
+
+@endif

@@ -340,6 +340,9 @@ class PaypalController extends Controller
                 $address->zip_code = $data['zipcode'];
                 $address->save();
 
+                if(session('brand_products_list')){
+                    Session::forget('brand_products_list');
+                }
             return redirect()->route('home')->with('success','purchase successfull');
         } else {
             return redirect()->route('home')->with('error','Payment didn\'t go through, Try Again! ');

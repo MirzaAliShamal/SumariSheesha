@@ -606,6 +606,12 @@ label {
     object-fit: cover;
 }
 
+.products .card-image-custom img {
+    height: 450px;
+    width: 100%;
+    object-fit: cover;
+}
+
 .products .card-body {
     background-color: #161716;
 }

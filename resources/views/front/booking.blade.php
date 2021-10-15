@@ -33,12 +33,6 @@
     </div>
 </section>
 
-
-
-
-
-
-
 <section class="section bg-dark">
     <div class="container">
         <div class="row justify-content-center">
@@ -98,21 +92,7 @@
             {{-- <div class="col-12">
                 <div id="map" style="display: none;"></div>
             </div> --}}
-            <div class="col-sm-12 col-lg-12 col-md-12 col-12 brand-table d-none">
-                <div class="card-body">
-                    <h5>Brand List</h5>
-                    <table class="table datatables table-bordered text-white">
-                        <thead>
-                            <th class="text-center">#</th>
-                            <th>Name</th>
-                            <th>Actions</th>
-                        </thead>
-                        <tbody id="tbody">
 
-                        </tbody>
-                    </table>
-                </div>
-            </div>
 
         </div>
     </div>
@@ -181,8 +161,7 @@
                 success: function (response) {
                     console.log(response);
                     if (response.status) {
-                        $('#tbody').html(response.html);
-                        $('.brand-table').removeClass('d-none');
+                        window.location = '{{ route('get.brands.products') }}'
                         // $("#map").show();
                         // initMap(lat, lng, response);
                     } else {
