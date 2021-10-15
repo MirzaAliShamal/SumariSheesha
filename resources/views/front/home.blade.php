@@ -33,12 +33,12 @@
         </div>
 
         <div class="row justify-content-center">
-            <div class="col-lg-2 col-md-2 col-sm-2 col-2 text-end m-auto">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-1 text-end m-auto">
                 <span class="video-carousel-control" data-bs-target="#video-carousel" data-bs-slide="prev">
                     <i class="fas fa-chevron-left"></i>
                 </span>
             </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-8 m-auto">
+            <div class="col-lg-10 col-md-10 col-sm-10 col-10 m-auto">
                 <div id="video-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active" data-bs-interval="2000">
@@ -46,11 +46,7 @@
                                 <source src="{{ asset(setting('gallery_video')) }}" type="video/mp4" />
                             </video>
                         </div>
-                        <div class="carousel-item" data-bs-interval="2000">
-                            <video class="img-fluid" autoplay loop muted>
-                                <source src="{{ asset(setting('gallery_video')) }}" type="video/mp4" />
-                            </video>
-                        </div>
+
                         <div class="carousel-item" data-bs-interval="2000">
                             <video class="img-fluid" autoplay loop muted>
                                 <source src="{{ asset(setting('gallery_video')) }}" type="video/mp4" />
@@ -59,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-2 m-auto">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-1 m-auto">
                 <span class="video-carousel-control" data-bs-target="#video-carousel" data-bs-slide="next">
                     <i class="fas fa-chevron-right"></i>
                 </span>
