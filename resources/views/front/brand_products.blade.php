@@ -30,12 +30,12 @@
         .shop__header {
             box-sizing: border-box;
             position: fixed;
-            top: 275px;
+            bottom: 0px;
             background: rgba(255, 255, 255, 0.9);
             width: 100%;
             padding: 15px;
             overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
         }
 
         .shop__text {
@@ -333,7 +333,7 @@ $user = auth()->user();
                                     @endforeach
                                 </div>
                             </div>
-
+                        </div>
                     </div>
                 </div>
             </section>
