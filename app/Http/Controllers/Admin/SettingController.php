@@ -30,14 +30,21 @@ class SettingController extends Controller
 
     public function general()
     {
-        return view('admin.cms.general',get_defined_vars());
+        return view('admin.cms.general', get_defined_vars());
     }
+
     public function home()
     {
-        return view('admin.cms.home',get_defined_vars());
+        return view('admin.cms.home', get_defined_vars());
     }
+
     public function coupon()
     {
-        return view('admin.cms.coupon',get_defined_vars());
+        return view('admin.cms.coupon', get_defined_vars());
+    }
+
+    public function payment()
+    {
+        return view('admin.cms.payment', get_defined_vars());
     }
 }

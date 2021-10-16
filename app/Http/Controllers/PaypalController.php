@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Address;
-use Illuminate\Http\Request;
+use Gloudemans\Shoppingcart\Facades\Cart;
 // use App\Models\PaypalTransaction;
-use App\Models\Order;
+use App\Notifications\EmailNotification;
+use App\Notifications\UserNotification;
+use Illuminate\Http\Request;
 use App\Models\OrderItem;
-use App\Models\User;
+use App\Models\Address;
 use App\Models\Booking;
 use App\Models\Earning;
 use App\Models\Product;
-use App\Notifications\EmailNotification;
-use App\Notifications\UserNotification;
+use App\Models\Order;
+use App\Models\User;
 // Paypal includes
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Api\PaymentExecution;
@@ -30,7 +31,6 @@ use Redirect;
 use Session;
 use Auth;
 use URL;
-use Gloudemans\Shoppingcart\Facades\Cart;
 
 
 class PaypalController extends Controller
@@ -39,9 +39,13 @@ class PaypalController extends Controller
 
     public function buildpaypal()
     {
+        \Config::set('paypal.client_id', setting('paypal_client_id'));
+        \Config::set('paypal.secret', setting('paypal_secret_id'));
+        \Config::set('paypal.settings.mode', setting('paypal_mode'));
+
         $paypal_conf = [];
-        $paypal_conf['client_id'] = env('PAYPAL_CLIENT_ID');
-        $paypal_conf['secret'] = env('PAYPAL_SECRET_ID');
+        $paypal_conf['client_id'] = setting('paypal_client_id');
+        $paypal_conf['secret'] = setting('paypal_secret_id');
         $this->_api_context = new ApiContext(new OAuthTokenCredential(
             $paypal_conf['client_id'],
             $paypal_conf['secret']

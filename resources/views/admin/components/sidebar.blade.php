@@ -121,9 +121,16 @@
                     <i data-feather="home"></i> <span> Home </span>
                 </a>
             </li>
+
+            <li class="menu-header">Settings</li>
             <li class=" @routeis('admin.cms.coupon*') active @endrouteis">
                 <a class="nav-link" href="{{ route('admin.cms.coupon') }}">
-                    <i data-feather="home"></i> <span> Coupon Settings </span>
+                    <i data-feather="gift"></i> <span> Coupon</span>
+                </a>
+            </li>
+            <li class=" @routeis('admin.cms.payment*') active @endrouteis">
+                <a class="nav-link" href="{{ route('admin.cms.payment') }}">
+                    <i data-feather="dollar-sign"></i> <span> Payment</span>
                 </a>
             </li>
             <li style="margin-top: 100px"></li>

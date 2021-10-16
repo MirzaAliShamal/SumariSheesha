@@ -181,6 +181,7 @@ Route::middleware('auth')->group(function() {
             Route::get('/general', 'SettingController@general')->name('general');
             Route::get('/home', 'SettingController@home')->name('home');
             Route::get('/coupon', 'SettingController@coupon')->name('coupon');
+            Route::get('/payment', 'SettingController@payment')->name('payment');
         });
     });
 });
