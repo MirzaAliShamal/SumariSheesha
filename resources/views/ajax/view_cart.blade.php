@@ -40,15 +40,13 @@
                 </td>
                 <td width="15%">
                     <p class="product-price">£ <span class="product-price">{{ $list->qty * $list->price }}</span></p>
-                    <p class="product-price-each">£ <span class="product-price-each">{{ $list->price }}</span>each</p>
+                    <p class="product-price-each">£ <span class="product-price-each">{{ $list->price }}</span> each</p>
                 </td>
                 <td width="15%">
                     <button data-id="{{ $list->rowId }}" class="button button-sm remove-cart">Remove</button>
                 </td>
             </tr>
         @endforeach
-
-
     </tbody>
 </table>
 @else

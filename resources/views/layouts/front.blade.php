@@ -146,13 +146,14 @@
                         $('.shopping-cart-footer').html('');
                         $('.shopping-cart').addClass('active');
                         $('.total').text('£ ' +response.total);
+                        $('#grand-total').text(response.total);
                         if(response.discount){
                             $('#price-total').text(response.price);
-                            $('.discount').text('£ ' +response.discount);
+                            $('.discount').text(response.discount);
                         }else{
                             // console.log(response.total)
                             $('#price-total').text(response.total);
-                            $('.discount').text('£ ' +'0.00');
+                            $('.discount').text('0.00');
                         }
 
                         $('.shopping-cart-items').html(response.html);
@@ -191,12 +192,13 @@
                     if (response.status) {
                         $('.shopping-cart-footer').html('');
                         $('.total').text('£ ' +response.total);
+                        $('#grand-total').text(response.total);
                         if(response.discount){
                             $('#price-total').text(response.price);
-                            $('.discount').text('£ ' +response.discount);
+                            $('.discount').text(response.discount);
                         }else{
                             $('price-total').text(response.total);
-                            $('.discount').text('£ ' +'0.00');
+                            $('.discount').text('0.00');
                         }
                         $('.shopping-cart-items').html(response.html);
                         $('.cart-empty-show').html(response.view_cart);
@@ -223,12 +225,13 @@
                     if (response.status) {
                         $('.shopping-cart-footer').html('');
                         $('.total').text(response.total);
+                        $('#grand-total').text(response.total);
                         if(response.discount){
                             $('#price-total').text(response.price);
-                            $('.discount').text('£ ' +response.discount);
+                            $('.discount').text(response.discount);
                         }else{
                             $('price-total').text(response.total);
-                            $('.discount').text('£ ' +'0.00');
+                            $('.discount').text('0.00');
                         }
                         $('.shopping-cart-items').html(response.html);
                         $('.shopping-cart').addClass('active');

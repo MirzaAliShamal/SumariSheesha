@@ -66,7 +66,7 @@
                                         </td>
                                         <td width="15%">
                                             <p class="product-price">£ <span class="product-price">{{ $list->qty * $list->price }}</span></p>
-                                            <p class="product-price-each">£ <span class="product-price-each">{{ $list->price }}</span>each</p>
+                                            <p class="product-price-each">£ <span class="product-price-each">{{ $list->price }}</span> each</p>
                                         </td>
                                         <td width="15%">
                                             <button data-id="{{ $list->rowId }}" class="button button-sm remove-cart">Remove</button>
@@ -107,14 +107,14 @@
                             <tr>
                                 <td>Discount:</td>
                                 @if(session('discount'))
-                                    <td class="text-end discount">£ {{ session('discount') }}</td>
+                                    <td class="text-end ">£ <span class="discount">{{ session('discount') }}</span></td>
                                 @else
-                                    <td class="text-end discount">£ 0.00</td>
+                                    <td class="text-end ">£ <span class="discount">0.00</span> </td>
                                 @endif
                             </tr>
                             <tr>
                                 <td>Total:</td>
-                                <th class="text-end total">£ <b id="grand-total">@if(session('total')){{ session('total') }} @else{{ Cart::instance('product')->total() }} @endif</b></th>
+                                <th class="text-end">£ <b id="grand-total">@if(session('total')){{ session('total') }} @else{{ Cart::instance('product')->total() }} @endif</b></th>
                             </tr>
                         </tbody>
                     </table>
@@ -179,15 +179,15 @@
                     if (response.status) {
                         var value = response.value;
                         var price = $('#price-total').text();
-                        price = price.replace(',','');
-                        price = parseInt(price);
+                        // price = price.replace(',','');
+                        price = Number(price);
                         var percent = value*price/100;
-                        // alert(percent)
+                        //  alert(price)
                         $('.discount').text(percent)
                         var total = $('#grand-total').text();
-                        total = total = total.replace(',','');
-                        total = parseInt(total);
-                        // alert(total);
+                        // total = total = total.replace(',','');
+                        //  alert(total);
+                        total = Number(total);
                         $('#coupon-btn').addClass('disabled')
                         $('#coupon-btn').removeClass('coupon-btn')
 
@@ -219,9 +219,13 @@
             }
 
         });
-        @if (Cart::instance('product')->content()->count() <= 0)
-            $('.discount').text('£ 0.00');
-            $('#grand-total').text('0.00');
-        @endif
+        // $(document).ready(function () {
+
+        // @if (Cart::instance('product')->content()->count() <= 0)
+        //     $('.discount').text('£ 0.00');
+        //     $('#grand-total').text('0.00');
+        //     $('#price-total').text('0.00');
+        // @endif
+        // });
     </script>
 @endsection
