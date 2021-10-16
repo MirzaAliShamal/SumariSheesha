@@ -61,7 +61,7 @@ class PaypalController extends Controller
             foreach(Cart::instance('product')->content() as $cart){
                 $prod = Product::find($cart->id);
                 if($cart->qty > $prod->quantity){
-                    Cart::instance('product')->remove($cart->rowId);
+                    // Cart::instance('product')->remove($cart->rowId);
                     return redirect()->route('cart')->with('error','Sorry requested quantity exceeds available quantity!');
                 }
             }

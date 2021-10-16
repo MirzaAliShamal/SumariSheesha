@@ -35,10 +35,12 @@
                             <th>Date</th>
                             <th>Delivery Date</th>
                             <th>Customer Name</th>
+                            <th> Address</th>
+                            <th>Contact</th>
                             <th>Product Name</th>
                             <th width="5%">Total Amount(GBP)</th>
                             <th>Status</th>
-                            <th>Payment Status</th>
+                            {{-- <th>Payment Status</th> --}}
                             <th class="text-right"width="10%">Actions</th>
                         </tr>
                     </thead>
@@ -49,6 +51,8 @@
                             <td>{{ $item->created_at->format('d/m/y') }}</td>
                             <td>{{ $item->delivery_date.'|'.$item->delivery_time }}</td>
                             <td>{{ $item->user->name }}</td>
+                            <td>{{ $item->user->address->address }}</td>
+                            <td>{{ $item->user->phone }}</td>
                             <td>{{ $item->brandProduct->name }}</td>
                             <td>{{ $item->amount }}</td>
                             @if($item->status)
@@ -64,7 +68,7 @@
                                 </div>
                             </td>
                             @endif
-                            @if($item->payment_status)
+                            {{-- @if($item->payment_status)
                             <td>
                                 <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
                                     <div class="badge-outline col-cyan">PAID</div>
@@ -76,7 +80,7 @@
                                     <div class="badge-outline col-red">Unpaid</div>
                                 </div>
                             </td>
-                            @endif
+                            @endif --}}
                             <td class="text-right">
 
 

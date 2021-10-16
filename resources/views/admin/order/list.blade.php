@@ -34,6 +34,8 @@
                             </th>
                             <th>Date</th>
                             <th>Customer Name</th>
+                            <th>Address</th>
+                            <th>Contact no</th>
                             <th>Total Amount(GBP)</th>
                             <th>Status</th>
                             <th class="text-right">Actions</th>
@@ -45,6 +47,8 @@
                             <td><b>PO{{ $item->uuid }}</b></td>
                             <td>{{ $item->created_at->format('d/m/y') }}</td>
                             <td>{{ $item->user->name }}</td>
+                            <td>{{ $item->user->address->address }}</td>
+                            <td>{{ $item->user->phone }}</td>
                             <td>{{ $item->total }}</td>
                             @if($item->status)
                             <td>

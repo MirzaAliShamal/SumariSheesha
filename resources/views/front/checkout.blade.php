@@ -31,7 +31,7 @@
                         <div class="col-lg-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label for="name"> Name</label>
-                                <input type="text" class="form-control" value="{{ $user->name }}" required name="name" id="name"  autocomplete="off">
+                                <input type="text" class="form-control" value="{{ $user->name }}" required name="name" id="name" readonly  autocomplete="off">
                             </div>
                         </div>
                         <input type="hidden" name="book_date" id="book_date">
@@ -119,7 +119,7 @@
                             <tr>
                                 <td>Discount:</td>
                                 @if(session('discount'))
-                                    <td class="text-end">{{ session('discount') }}</td>
+                                    <td class="text-end">£ {{ session('discount') }}</td>
                                 @else
                                     <td class="text-end">£ 0.00</td>
                                 @endif

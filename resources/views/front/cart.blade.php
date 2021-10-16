@@ -180,13 +180,13 @@
                     if (response.status) {
                         var value = response.value;
                         var price = $('#price-total').text();
-                        // price = price.replace(',','');
+                        price = price.replace(',','');
                         price = Number(price);
                         var percent = value*price/100;
                         //  alert(price)
                         $('.discount').text(percent)
                         var total = $('#grand-total').text();
-                        // total = total = total.replace(',','');
+                        total = total = total.replace(',','');
                         //  alert(total);
                         total = Number(total);
                         $('#coupon-btn').addClass('disabled')
