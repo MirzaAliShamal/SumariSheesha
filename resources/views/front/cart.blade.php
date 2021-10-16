@@ -1,3 +1,4 @@
+@if(Cart::instance('product')->content()->count() > 0)
 @extends('layouts.front')
 
 @section('title', 'Shopping Cart')
@@ -229,3 +230,8 @@
         // });
     </script>
 @endsection
+@else
+    <script>
+        window.location = '{{ route('home') }}'
+    </script>
+@endif

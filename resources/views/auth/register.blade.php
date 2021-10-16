@@ -29,6 +29,11 @@
     {{-- Stylesheet --}}
     <link rel="stylesheet" href="{{ asset('theme/css/main.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('theme/css/responsive.css') }}" type="text/css">
+    <style>
+        div .text-danger .font-medium{
+            margin-left: 25px;
+        }
+    </style>
 </head>
 
 <body>
@@ -43,6 +48,7 @@
                         <div class="card-header text-center">
                             <h3>Register Here</h3>
                         </div>
+                        <x-auth-validation-errors class="mb-4 text-danger"  :errors="$errors" />
                         <form action="{{ route('register') }}" method="POST">
                             @csrf
                             <div class="card-body">

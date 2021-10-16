@@ -111,6 +111,7 @@ class CartController extends Controller
         // $product->quantity = $product->quantity + $get_cart->qty;
         // $product->save();
         $cart = Cart::instance('product')->remove($req->id);
+
         if(session('discount')){
             $cart_total = Cart::instance('product')->total();
             $cart_total = Str_replace(',','',$cart_total);

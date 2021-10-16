@@ -66,6 +66,11 @@
     {{-- Stylesheet --}}
     <link rel="stylesheet" href="{{ asset('theme/css/main.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('theme/css/responsive.css') }}" type="text/css">
+    <style>
+        div .text-danger .font-medium{
+            margin-left: 25px;
+        }
+    </style>
 </head>
 
 <body>
@@ -82,6 +87,7 @@
                             {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
 
                         </div>
+                        <x-auth-validation-errors class="mb-4 text-danger" :errors="$errors" />
                         <form method="POST" action="{{ route('password.email') }}">
                             @csrf
 

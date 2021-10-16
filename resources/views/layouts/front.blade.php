@@ -194,14 +194,17 @@
                         $('.total').text('£ ' +response.total);
                         $('#grand-total').text(response.total);
                         if(response.discount){
+                            // alert('if:'+ response.price);
                             $('#price-total').text(response.price);
                             $('.discount').text(response.discount);
                         }else{
-                            $('price-total').text(response.total);
+                            // alert('else: '+ response.total)
+                            $('#price-total').text(response.total);
                             $('.discount').text('0.00');
                         }
                         $('.shopping-cart-items').html(response.html);
                         $('.cart-empty-show').html(response.view_cart);
+
                         iziToast.success({
                             title:'Alert!',
                             message:'Item successfully removed from cart!',
@@ -230,7 +233,7 @@
                             $('#price-total').text(response.price);
                             $('.discount').text(response.discount);
                         }else{
-                            $('price-total').text(response.total);
+                            $('#price-total').text(response.total);
                             $('.discount').text('0.00');
                         }
                         $('.shopping-cart-items').html(response.html);
