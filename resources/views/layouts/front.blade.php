@@ -60,9 +60,9 @@
 
     <div class="age-modal-wrapper">
         <div class="age-modal" style="background-image: url('{{ asset('theme/images/modal-bg.png') }}');">
-            <div class="age-modal-inner">
+            <div class="age-modal-inner px-2">
                 <h2>Confirm your age</h2>
-                <p>We requires user to be 18 years old, <br> please confirm your age</p>
+                {{-- <p>We requires user to be 18 years old, <br> please confirm your age</p> --}}
 
                 <div class="form-check d-inline-block">
                     <input class="form-check-input" type="checkbox" value="1" id="age-restrict">

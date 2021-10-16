@@ -41,13 +41,13 @@
             <div class="col-lg-10 col-md-10 col-sm-10 col-10 m-auto">
                 <div id="video-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
                     <div class="carousel-inner">
-                        <div class="carousel-item active" data-bs-interval="2000">
+                        <div class="carousel-item active" data-bs-interval="7000">
                             <video class="img-fluid" autoplay loop muted>
                                 <source src="{{ asset(setting('gallery_video')) }}" type="video/mp4" />
                             </video>
                         </div>
 
-                        <div class="carousel-item" data-bs-interval="2000">
+                        <div class="carousel-item" data-bs-interval="7000">
                             <video class="img-fluid" autoplay loop muted>
                                 <source src="{{ asset(setting('gallery_video')) }}" type="video/mp4" />
                             </video>
@@ -160,7 +160,11 @@
                     <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-sm-auto mb-4 order-sm-2 order-1">
                         <div class="product-card">
                             <div class="card-image">
-                                <img src="{{ asset($item->image) }}" class="img-fluid" alt="Product">
+                                @if(count($item->images)>0)
+                                    <img src="{{ asset($item->images->first()->image) }}" class="img-fluid" alt="Product">
+                                @else
+                                    <img src="{{ asset('empty.jpg') }}" class="img-fluid" alt="Product">
+                                @endif
                             </div>
                             <div class="card-body text-sm-start text-end">
                                 <h4>{{ $item->name }}</h4>
@@ -174,7 +178,11 @@
                     <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-sm-auto mb-4">
                         <div class="product-card">
                             <div class="card-image">
-                                <img src="{{ asset($item->image) }}" class="img-fluid" alt="Product">
+                                @if(count($item->images)>0)
+                                    <img src="{{ asset($item->images->first()->image) }}" class="img-fluid" alt="Product">
+                                @else
+                                    <img src="{{ asset('empty.jpg') }}" class="img-fluid" alt="Product">
+                                @endif
                             </div>
                             <div class="card-body text-end">
                                 <h4>{{ $item->name }}</h4>
