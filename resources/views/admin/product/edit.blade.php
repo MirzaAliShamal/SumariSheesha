@@ -79,7 +79,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-4 col-12">
+                    {{-- <div class="col-sm-4 col-12">
                         <div class="form-group">
                             <div class="custom-control custom-radio mt-4">
                                 <input type="radio" id="customRadio3" name="proSelect" {{ !is_null($list->flavour_id) ? 'checked' : '' }} value="1" class="custom-control-input radflav">
@@ -90,25 +90,25 @@
                                 <label class="custom-control-label" for="customRadio2">Color</label>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-4 col-12" id="flavourDiv" style="{{ !is_null($list->flavour_id) ? '' : 'display:none;' }}">
+                    </div> --}}
+                    <div class="col-sm-6 col-lg-6 col-md-6" id="flavourDiv" >
                         <div class="form-group">
                             <label> Flavour</label>
-                            <select name="flavour" id="flavour" class="form-control">
-                                <option selected disabled> Nothing Selected</option>
+                            <select name="flavour[]" id="flavour" class="form-control select2" multiple>
+                                {{-- <option selected disabled> Nothing Selected</option> --}}
                                 @foreach ($flavour as $flav )
-                                    <option value="{{ $flav->id }}" {{ $flav->id == $list->flavour_id ? 'selected': '' }}>{{ $flav->name }}</option>
+                                    <option value="{{ $flav->id }}" {{ $list->flavours()->count() > 0 && in_array($flav->id, $list->flavours()->pluck('id')->toArray()) ? 'selected': '' }}>{{ $flav->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-4 col-12" id="colorDiv" style="{{ !is_null($list->color_id) ? '' : 'display:none;' }}">
+                    <div class="col-sm-6 col-lg-6 col-md-6" id="colorDiv" >
                         <div class="form-group">
                             <label> Color</label>
-                            <select name="color" id="color" class="form-control" >
-                                <option selected disabled> Nothing Selected</option>
-                                @foreach ($color as $colr )
-                                    <option value="{{ $colr->id }}" {{ $colr->id == $list->color_id ? 'selected': '' }}>{{ $colr->name }}</option>
+                            <select name="color[]" id="flavour" class="form-control select2" multiple>
+                                {{-- <option selected disabled> Nothing Selected</option> --}}
+                                @foreach ($color as $col )
+                                    <option value="{{ $col->id }}" {{ $list->colors()->count() > 0 && in_array($col->id, $list->colors()->pluck('id')->toArray()) ? 'selected': '' }}>{{ $col->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -220,30 +220,30 @@
                 return false;
             }
 
-            if( !$('#customRadio3').is(':checked')  && !$('#customRadio2').is(':checked') ){
-                iziToast.error({
-                    title: 'Alert!',
-                    message: 'Please select one Flavour or Color!',
-                    position: 'topRight'
-                });
-                return false;
-            }
-            if( $('#customRadio2').is(':checked') && $('#color').val() == null ){
-                iziToast.error({
-                    title: 'Alert!',
-                    message: 'Please select a Color!',
-                    position: 'topRight'
-                });
-                return false;
-            }
-            if( $('#customRadio3').is(':checked') && $('#flavour').val() == null ){
-                iziToast.error({
-                    title: 'Alert!',
-                    message: 'Please select a Flavour!',
-                    position: 'topRight'
-                });
-                return false;
-            }
+            // if( !$('#customRadio3').is(':checked')  && !$('#customRadio2').is(':checked') ){
+            //     iziToast.error({
+            //         title: 'Alert!',
+            //         message: 'Please select one Flavour or Color!',
+            //         position: 'topRight'
+            //     });
+            //     return false;
+            // }
+            // if( $('#customRadio2').is(':checked') && $('#color').val() == null ){
+            //     iziToast.error({
+            //         title: 'Alert!',
+            //         message: 'Please select a Color!',
+            //         position: 'topRight'
+            //     });
+            //     return false;
+            // }
+            // if( $('#customRadio3').is(':checked') && $('#flavour').val() == null ){
+            //     iziToast.error({
+            //         title: 'Alert!',
+            //         message: 'Please select a Flavour!',
+            //         position: 'topRight'
+            //     });
+            //     return false;
+            // }
             if( $('#price').val() == '' ){
                 iziToast.error({
                     title: 'Alert!',

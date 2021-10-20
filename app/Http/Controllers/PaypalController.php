@@ -283,6 +283,12 @@ class PaypalController extends Controller
                             $item->quantity = $list->qty;
                             $item->price = $list->price;
                             $item->total = $list->price * $list->qty;
+                            if($list->options['flavour']){
+                                $item->flavour_id = $list->options['flavour'];
+                            }
+                            if($list->options['color']){
+                                $item->color_id = $list->options['color'];
+                            }
                             $item->save();
                         }
                         $earning = new Earning();
@@ -342,6 +348,7 @@ class PaypalController extends Controller
                 $address->city = $data['city'];
                 $address->state = $data['state'];
                 $address->zip_code = $data['zipcode'];
+                $address->country = $data['country'];
                 $address->save();
 
                 if(session('brand_products_list')){

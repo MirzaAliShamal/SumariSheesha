@@ -35,6 +35,8 @@
                             <th>Product Name</th>
                             <th> Note</th>
                             <th>Quantity</th>
+                            <th>Flavour</th>
+                            <th>Color</th>
                             <th>Price(GBP)</th>
                             <th>Total(GBP)</th>
                             {{-- <th class="text-right">Actions</th> --}}
@@ -47,6 +49,21 @@
                             <td>{{ $item->product->name }}</td>
                             <td>{{ $item->order->note ? $item->order->note : 'N/A' }}</td>
                             <td>{{ $item->quantity }}</td>
+                            @php
+                                $flavour =  $item->product->flavours->where('id',$item->flavour_id)->first();
+                                $color = $item->product->colors->where('id',$item->color_id)->first();
+                            @endphp
+                            {{-- {{ dd($color) }} --}}
+                            @if(!is_null($flavour))
+                                <td>{{ $flavour->name }}</td>
+                            @else
+                                <td>N/A</td>
+                            @endif
+                            @if(!is_null($color))
+                                <td>{{$color->name }}</td>
+                            @else
+                                <td>N/A</td>
+                            @endif
                             <td>{{ $item->price }}</td>
                             <td><b>{{ $item->total }}</b></td>
                             {{-- <td class="text-right">

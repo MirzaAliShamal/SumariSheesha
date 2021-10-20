@@ -126,30 +126,37 @@ class HomeController extends Controller
             $q->selectRaw("id, name, CAST(location_lat AS float) as lat, CAST(location_long AS float) as lng, ( 3956 * acos( cos( radians(?) ) * cos( radians( location_lat ) ) * cos( radians( location_long ) - radians(?) ) + sin( radians(?) ) * sin( radians( location_lat ) ) ) ) AS distance", [$lat, $lng, $lat])
             ->having("distance", "<=", $rad);
         })->get();
-        // dd($list);
+        // // dd($list);
         Session::put('brand_products_list',$list);
-        return response()->json([
-                    'status' => true,
-                ]);
-        // $brands = Brand::selectRaw("id, name, CAST(location_lat AS float) as lat, CAST(location_long AS float) as lng, ( 3956 * acos( cos( radians(?) ) * cos( radians( location_lat ) ) * cos( radians( location_long ) - radians(?) ) + sin( radians(?) ) * sin( radians( location_lat ) ) ) ) AS distance", [$lat, $lng, $lat])
-        //     ->having("distance", "<=", $rad)->with('brand_products')->get();
-        // if($brands){
-        //     return response()->json([
-        //         'brands' => $brands,
-        //         'html' => view('ajax.get_brands',get_defined_vars())->render(),
-        //         'status' => true,
-        //     ]);
-        // }
-        // else{
-        //     return response()->json([
-        //         'status' =>false,
-        //     ]);
-        // }
+        // return response()->json([
+        //             'status' => true,
+        //         ]);
+        $brands = Brand::selectRaw("id, name, CAST(location_lat AS float) as lat, CAST(location_long AS float) as lng, ( 3956 * acos( cos( radians(?) ) * cos( radians( location_lat ) ) * cos( radians( location_long ) - radians(?) ) + sin( radians(?) ) * sin( radians( location_lat ) ) ) ) AS distance", [$lat, $lng, $lat])
+            ->having("distance", "<=", $rad)->with('brand_products')->get();
+        if($brands){
+        Session::put('brands',$brands);
+            return response()->json([
+                // 'brands' => $brands,
+                'status' => true,
+            ]);
+        }
+        else{
+            return response()->json([
+                'status' =>false,
+            ]);
+        }
     }
 
     public function getProds($id = null)
     {
         $list = BrandProduct::where('brand_id',$id)->get();
+        return view('front.brand_products',get_defined_vars());
+    }
+
+    public function brandProducts($id = null)
+    {
+        Session::forget('brand_products_list');
+        $products = BrandProduct::where('brand_id',$id)->get();
         return view('front.brand_products',get_defined_vars());
     }
 }

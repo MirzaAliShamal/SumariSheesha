@@ -61,6 +61,17 @@
                                 <input type="text" class="form-control" name="zipcode" id="zipcode" required value="{{ $user->address ? $user->address->zip_code : ''}}" autocomplete="off">
                             </div>
                         </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label for="country">Country</label>
+                                <select name="country" id="country" class="form-control">
+                                    <option value="" disabled selected>Nothing Selected</option>
+                                    @foreach (countries() as $item)
+                                    <option value="{{ $item->name }}"{{ $user->address && $user->address->country == $item->name ? 'selected': '' }}>{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                         {{-- <div class="col-lg-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <div class="form-check">
@@ -91,6 +102,7 @@
                                 <input type="text" class="form-control" name="phone" id="phone" required value="{{ $user->phone ? $user->phone : '' }}" autocomplete="off">
                             </div>
                         </div>
+
                         {{-- <div class="col-lg-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <div class="form-check">

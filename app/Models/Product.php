@@ -14,12 +14,13 @@ class Product extends Model
         return $this->belongsTo('App\Models\Category');
     }
 
-    public function flavour() {
-        return $this->belongsTo('App\Models\Flavour');
+
+    public function flavours(){
+        return $this->belongsToMany('App\Models\Flavour');
     }
 
-    public function color() {
-        return $this->belongsTo('App\Models\Color');
+    public function colors(){
+        return $this->belongsToMany('App\Models\Color');
     }
 
     public function subCategory() {

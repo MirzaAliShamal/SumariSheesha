@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterTableProductImagesForPrimary extends Migration
+class AlterTableOrderItemsForColorFlavId extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AlterTableProductImagesForPrimary extends Migration
      */
     public function up()
     {
-        Schema::table('product_images', function (Blueprint $table) {
-            //
+        Schema::table('order_items', function (Blueprint $table) {
+            $table->integer('flavour_id')->nullable()->after('price');
+            $table->integer('color_id')->nullable()->after('flavour_id');
         });
     }
 
@@ -25,7 +26,7 @@ class AlterTableProductImagesForPrimary extends Migration
      */
     public function down()
     {
-        Schema::table('product_images', function (Blueprint $table) {
+        Schema::table('order_items', function (Blueprint $table) {
             //
         });
     }

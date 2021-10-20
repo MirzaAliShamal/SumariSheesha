@@ -14,16 +14,23 @@ class CartController extends Controller
 {
     public function addCart(Request $req, $qty = null)
     {
-        // Cart::destroy();
+        // dd($req->all());
         // return false;
         $list = Product::find($req->id);
         // if($list->quantity >= 1 && $list->quantity >= $req->qty){
             if( is_null($qty) ){
                 if(count($list->images)>0){
-                    $cart = Cart::instance('product')->add($list->id, $list->name, 1, $list->price,['image'=>$list->images->first()->image],0);
+                    if($list->flavours){
+                        $cart = Cart::instance('product')->add($list->id, $list->name, 1, $list->price,['image'=>$list->images->first()->image, 'flavour'=>$list->flavours->first()->id, 'color'=>null,],0);
+                    }else{
+                        $cart = Cart::instance('product')->add($list->id, $list->name, 1, $list->price,['image'=>$list->images->first()->image, 'flavour'=>null, 'color'=>$list->colors->first()->id,],0);
+                    }
                 }else{
-                    $cart = Cart::instance('product')->add($list->id, $list->name, 1, $list->price,['image'=>''],0);
-
+                    if($list->flavours){
+                        $cart = Cart::instance('product')->add($list->id, $list->name, 1, $list->price,['image'=>'', 'flavour'=>$list->flavours->first()->id, 'color'=>null,],0);
+                    }else{
+                        $cart = Cart::instance('product')->add($list->id, $list->name, 1, $list->price,['image'=>'', 'flavour'=>null, 'color'=>$list->colors->first()->id,],0);
+                    }
                 }
                 // $list->quantity = $list->quantity - 1;
                 // $list->save();
@@ -32,9 +39,9 @@ class CartController extends Controller
                 // $list->quantity = $list->quantity - $qty;
                 // $list->save();
                 if(count($list->images)>0){
-                    $cart = Cart::instance('product')->add($list->id, $list->name, $qty, $list->price,['image'=>$list->images->first()->image],0);
+                    $cart = Cart::instance('product')->add($list->id, $list->name, $qty, $list->price,['image'=>$list->images->first()->image,'flavour'=>$req->flavour,'color'=>$req->color,],0);
                 }else{
-                    $cart = Cart::instance('product')->add($list->id, $list->name, $qty, $list->price,['image'=>''],0);
+                    $cart = Cart::instance('product')->add($list->id, $list->name, $qty, $list->price,['image'=>'','flavour'=>$req->flavour,'color'=>$req->color,],0);
                 }
             }
             if(session('discount')){

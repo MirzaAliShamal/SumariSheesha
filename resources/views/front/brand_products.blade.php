@@ -1,5 +1,4 @@
 
-@if(session('brand_products_list'))
 @extends('layouts.front')
 
 @section('title', 'Brand Products')
@@ -293,17 +292,51 @@ $user = auth()->user();
 <div class="lightbox js-lightbox js-toggle-cart"></div>
 
 <section class="section bg-dark">
-    <div class="container">
-        <div class="row justify-content-center">
+    <div class="container-fluid">
+        <div class="row">
             <section class="section bg-dark">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-12 col-md-9 col-sm-12 col-12">
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+                            <div class="category-widget">
+                                <div class="accordion" id="category-accordion">
+                                    @foreach (session('brands') as $item)
+                                        <div class="accordion-item">
+                                            <a href="{{ route('brand.products',$item->id) }}" style="font-family: 'Reggae One', cursive; font-weight: 400; display: inline-block; text-transform: uppercase; margin-top:18px; cursor: pointer" data-id="{{ $item->id }}">
+
+                                                {{ $item->name }}
+                                                {{-- <button class="accordion-button {{ !is_null($category) && $category == $item->slug ? '' : 'collapsed' }}" type="button" data-bs-toggle="collapse" data-bs-target="#subcategory-{{ $item->id }}" aria-expanded="true" aria-controls="subcategory-{{ $item->id }}">
+                                                    {{ $item->name }}
+                                                </button> --}}
+                                            </a>
+                                            {{-- <div id="subcategory-{{ $item->id }}" class="accordion-collapse collapse {{ !is_null($category) && $category == $item->slug ? 'show' : '' }}" aria-labelledby="category-{{ $item->id }}" data-bs-parent="#category-accordion">
+                                                <div class="accordion-body">
+                                                    <ul>
+                                                        @foreach ($item->subCategories as $sub)
+                                                            <li class="{{ !is_null($subcategory) && $subcategory == $sub->slug ? 'active' : '' }}">
+                                                                <a href="{{ route('products', [$item->slug, $sub->slug]) }}">{{ $sub->name }}</a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            </div> --}}
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        @php
+                        if (session('brand_products_list')) {
+
+                            $products = session('brand_products_list');
+                        }
+                        @endphp
+                        <div class="col-lg-9 col-md-9 col-sm-12 col-12">
                             <div class="row">
-                                    @foreach (session('brand_products_list') as $item)
+                                    @foreach ($products as $item)
                                         <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-5" >
                                             <div class="products">
-                                                <div class="card-image-custom">
+                                                <div class="card-image">
                                                     @if($item->image)
                                                         <img src="{{ asset($item->image) }}" class="img-fluid" alt="Product">
                                                     @else
@@ -424,12 +457,28 @@ $user = auth()->user();
                 }
             )
         });
+        // $(document).on('click','.bdp', function () {
+        //     var id = $(this).data('id');
+        //     $.post('{{route('brand.products')}}',
+        //         {
+        //             _token: "{{csrf_token()}}",
+        //             id:id,
+        //         },
+        //         function(response){
+        //             console.log(response);
+        //             if (response.status) {
+        //                 $('.booking-total').text(response.total);
+        //                 $('.booking-list').html(response.html);
+        //                 $('.booking-cart-footer').html(response.footer);
+        //                 iziToast.success({
+        //                     title:'Alert!',
+        //                     message:'Item successfully removed from cart!',
+        //                     position:'topRight'
+        //                 });
+        //             }
+        //         }
+        //     )
+        // });
     </script>
 @endsection
-@else
 
-    <script>
-        window.location = "{{ route("home") }}";
-    </script>
-
-@endif

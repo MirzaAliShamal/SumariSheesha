@@ -84,7 +84,7 @@
                             <input type="number" class="form-control" name="quantity" placeholder="Product quantity" id="quantity">
                         </div>
                     </div>
-                    <div class="col-sm-6 col-12">
+                    {{-- <div class="col-sm-6 col-12">
                         <div class="form-group">
                             <div class="custom-control custom-radio mt-4">
                                 <input type="radio" id="customRadio3" name="proSelect" checked value="1" class="custom-control-input radflav">
@@ -95,23 +95,23 @@
                                 <label class="custom-control-label" for="customRadio2">Color</label>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6 col-12 col-flav" id="flavourDiv" >
+                    </div> --}}
+                    <div class="col-sm-6 col-lg-6 col-md-6" id="flavourDiv" >
                         <div class="form-group">
                             <label for="flavour"> Flavour</label>
-                            <select name="flavour" id="flavour" class="form-control">
-                                <option selected disabled> Nothing Selected</option>
+                            <select name="flavour[]" id="flavour" class="form-control select2" multiple>
+                                {{-- <option selected disabled> Nothing Selected</option> --}}
                                 @foreach ($flavour as $flav )
                                     <option value="{{ $flav->id }}">{{ $flav->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-12 col-flav" id="colorDiv" style="display: none">
+                    <div class="col-sm-6 col-lg-6 col-md-6  " id="colorDiv" >
                         <div class="form-group">
                             <label for="color"> Color</label>
-                            <select name="color" id="color" class="form-control " >
-                                <option selected disabled> Nothing Selected</option>
+                            <select name="color[]" id="color" class="form-control select2" multiple>
+                                {{-- <option selected disabled> Nothing Selected</option> --}}
                                 @foreach ($color as $colr )
                                     <option value="{{ $colr->id }}">{{ $colr->name }}</option>
                                 @endforeach
@@ -154,16 +154,16 @@
 @endsection
 @section('js')
     <script>
-        $(document).on('change','.radcol',function () {
-            $('#colorDiv').show();
-            $('#flavourDiv').hide();
-            $('#flavour').val('Nothing Selected');
-        });
-        $(document).on('change','.radflav',function () {
-            $('#flavourDiv').show();
-            $('#colorDiv').hide();
-            $('#color').val('Nothing Selected');
-        });
+        // $(document).on('change','.radcol',function () {
+        //     $('#colorDiv').show();
+        //     $('#flavourDiv').hide();
+        //     $('#flavour').val('Nothing Selected');
+        // });
+        // $(document).on('change','.radflav',function () {
+        //     $('#flavourDiv').show();
+        //     $('#colorDiv').hide();
+        //     $('#color').val('Nothing Selected');
+        // });
 
         $(document).on('keyup', '#name', function(e) {
             let val = $(this).val();
@@ -182,7 +182,8 @@
                     if (response.status) {
                         $('#sub_category').html(response.html);
                         $('.subs').removeClass('d-none');
-                        $('.col-flav').removeClass('col-sm-6').addClass('col-sm-12');
+                        // $('.col-flav').removeClass('col-sm-6').addClass('col-sm-12');
+                        $('#colorDiv').removeClass('col-sm-6').addClass('col-sm-12');
                     }
 
                 }
@@ -215,30 +216,31 @@
                 return false;
             }
 
-            if( !$('#customRadio3').is(':checked')  && !$('#customRadio2').is(':checked') ){
-                iziToast.error({
-                    title: 'Alert!',
-                    message: 'Please select one Flavour or Color!',
-                    position: 'topRight'
-                });
-                return false;
-            }
-            if( $('#customRadio2').is(':checked') && $('#color').val() == null ){
-                iziToast.error({
-                    title: 'Alert!',
-                    message: 'Please select a Color!',
-                    position: 'topRight'
-                });
-                return false;
-            }
-            if( $('#customRadio3').is(':checked') && $('#flavour').val() == null ){
-                iziToast.error({
-                    title: 'Alert!',
-                    message: 'Please select a Flavour!',
-                    position: 'topRight'
-                });
-                return false;
-            }
+            // if( !$('#customRadio3').is(':checked')  && !$('#customRadio2').is(':checked') ){
+            //     iziToast.error({
+            //         title: 'Alert!',
+            //         message: 'Please select one Flavour or Color!',
+            //         position: 'topRight'
+            //     });
+            //     return false;
+            // }
+            // if( $('#customRadio2').is(':checked') && $('#color').val() == null ){
+            //     iziToast.error({
+            //         title: 'Alert!',
+            //         message: 'Please select a Color!',
+            //         position: 'topRight'
+            //     });
+            //     return false;
+            // }
+
+            // if( $('#customRadio3').is(':checked') && $('#flavour').val() == null ){
+            //     iziToast.error({
+            //         title: 'Alert!',
+            //         message: 'Please select a Flavour!',
+            //         position: 'topRight'
+            //     });
+            //     return false;
+            // }
             if( $('#price').val() == '' ){
                 iziToast.error({
                     title: 'Alert!',
@@ -251,6 +253,22 @@
                 iziToast.error({
                     title: 'Alert!',
                     message: 'Quantity field is required!',
+                    position: 'topRight'
+                });
+                return false;
+            }
+            if( $('#flavour').val() == null && $('#color').val() == null ){
+                iziToast.error({
+                    title: 'Alert!',
+                    message: 'Please select atleast one Flavour or Color!',
+                    position: 'topRight'
+                });
+                return false;
+            }
+            if( $('#flavour').val() != null && $('#color').val() != null ){
+                iziToast.error({
+                    title: 'Alert!',
+                    message: 'Both Flavour and Color fields cannot be selected!',
                     position: 'topRight'
                 });
                 return false;

@@ -129,6 +129,10 @@
             else if($(this).data('url') == '2'){
                 var qty= $('#qty').val()
                 var url = "{{ route('user.add.cart') }}/"+qty ;
+                var flavour = $('.selected-flavour').val();
+                var color = $('.selected-color').val();
+                // console.log(flavour);
+                // return false;
             }
             if( $(this).data('check') != '1' ){
                 $(this).text('Added');
@@ -139,6 +143,8 @@
                 {
                     _token: "{{csrf_token()}}",
                     id:id,
+                    flavour:flavour,
+                    color:color,
                 },
                 function(response){
                     console.log(response);

@@ -60,6 +60,7 @@ Route::prefix('paypal')->name('paypal.')->group(function(){
 
 // AJAX ROUTES
 Route::get('/get-brands', 'HomeController@getBrands')->name('get.brands');
+Route::get('/brand-products/{id?}', 'HomeController@brandProducts')->name('brand.products');
 Route::get('/get-brands-products/{id?}', 'HomeController@getProds')->name('get.brands.products');
 
 //

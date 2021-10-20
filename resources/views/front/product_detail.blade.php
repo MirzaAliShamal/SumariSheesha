@@ -73,6 +73,28 @@
                         <input type="text" class="form-control qty-pro" value="1" name="qty" id="qty" readonly>
                         <span class="input-group-text" onclick="quantityField('plus')">+</span>
                     </div>
+                    @if($product->flavours)
+                        <p class="mb-0"> <b> Select Flavour:</b></p>
+                        <div class="input-group  mb-3">
+                            <select name="flavour" class="form-control selected-flavour">
+                                <option value=""selected disabled>Nothing Selected</option>
+                                @foreach ($product->flavours->where('status',1) as $flavour)
+                                    <option value="{{ $flavour->id }}">{{ $flavour->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endif
+                    @if($product->colors)
+                        <p class="mb-0"> <b> Select Color:</b></p>
+                        <div class="input-group  mb-3">
+                            <select name="flavour" class="form-control selected-color">
+                                <option value=""selected disabled>Nothing Selected</option>
+                                @foreach ($product->colors->where('status',1) as $color)
+                                    <option value="{{ $color->id }}">{{ $color->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endif
 
                     <button type="button" data-id="{{ $product->id }}" data-url="2" class="button button-md mt-4 addToCart">Add To Cart</button>
                 </div>
