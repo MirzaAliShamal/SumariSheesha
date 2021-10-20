@@ -121,6 +121,11 @@ class HomeController extends Controller
         $lat = $req->lat;
         $lng = $req->lng;
         $rad = 5;
+        $time =$req->time;
+        $date =$req->date;
+
+        Session::put('delivery_time',$time);
+        Session::put('delivery_date',$date);
 
         $list = BrandProduct::whereHas('brand',function($q) use($lat,$lng,$rad) {
             $q->selectRaw("id, name, CAST(location_lat AS float) as lat, CAST(location_long AS float) as lng, ( 3956 * acos( cos( radians(?) ) * cos( radians( location_lat ) ) * cos( radians( location_long ) - radians(?) ) + sin( radians(?) ) * sin( radians( location_lat ) ) ) ) AS distance", [$lat, $lng, $lat])

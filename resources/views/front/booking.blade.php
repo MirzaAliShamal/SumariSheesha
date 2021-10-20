@@ -151,12 +151,16 @@
         }
 
         function getBrands(lat, lng) {
+            var date = $('.book-date').val();
+            var time = $('.book-time').val();
             $.ajax({
                 type: "GET",
                 url: "{{ route('get.brands') }}",
                 data: {
                     lat:lat,
                     lng:lng,
+                    date:date,
+                    time:time,
                 },
                 success: function (response) {
                     console.log(response);

@@ -179,14 +179,17 @@ class PaypalController extends Controller
                         else{
                             $booking->uuid = $book->uuid + 1;
                         }
-                        $booking->delivery_date = $list->options->date;
-                        $booking->delivery_time = $list->options->time;
+                        $booking->delivery_date = session('delivery_date');
+                        $booking->delivery_time = session('delivery_time');
                         $booking->user_id = auth()->user()->id;
                         $booking->brand_product_id = $list->id;
                         $booking->amount = $list->price;
                         $booking->note = $data['additional_note'];
                         $booking->save();
+
                         if($booking){
+
+
                             $earning = new Earning();
                             $earning->logable_type = 'App\Models\Booking';
                             $earning->logable_id = $booking->id;
@@ -224,6 +227,8 @@ class PaypalController extends Controller
 
                     }
                     if($booking){
+                        Session::forget('delivery_date');
+                        Session::forget('delivery_time');
                         Cart::instance('booking')->destroy();
                     }
 

@@ -57,7 +57,7 @@
                         </div>
                         <div class="col-lg-4 col-sm-4 col-4">
                             <div class="form-group">
-                                <label for="zipcode">Zip Code</label>
+                                <label for="zipcode">Post Code</label>
                                 <input type="text" class="form-control" name="zipcode" id="zipcode" required value="{{ $user->address ? $user->address->zip_code : ''}}" autocomplete="off">
                             </div>
                         </div>
